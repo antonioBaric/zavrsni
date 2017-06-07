@@ -7,12 +7,14 @@ public class ExampleObject {
 	private Integer broj;
 	private String string;
 	private List<String> polje;
+	private String skriveno;
 	
 	public ExampleObject(Integer broj, String string, List<String> polje) {
 		super();
 		this.broj = broj;
 		this.string = string;
 		this.polje = polje;
+		this.skriveno = "skriveno polje bez getera i setera";
 	}
 
 	public Integer getBroj() {

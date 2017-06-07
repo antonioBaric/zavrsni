@@ -1,4 +1,4 @@
-package hr.tvz.baric.zavrsni;
+/*package hr.tvz.baric.zavrsni;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,3 +14,4 @@ public class ZavrsniApplicationTests {
 	}
 
 }
+*/

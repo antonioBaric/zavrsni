@@ -5,17 +5,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import hr.tvz.baric.zavrsni.model.Example;
 import hr.tvz.baric.zavrsni.model.ExampleObject;
+import hr.tvz.baric.zavrsni.repo.ExampleJpaRepo;
 
 @RestController
 @RequestMapping("/api/example")
 public class ExampleRestController {
+	
+	@Autowired
+	ExampleJpaRepo exampleJpaRepo;
 	
 	@GetMapping("/mapa")
 	public Map<String,Object> mapa() {
@@ -57,6 +68,33 @@ public class ExampleRestController {
 		polje.add("dva");
 		ExampleObject objekt = new ExampleObject(broj, string, polje);
 		return objekt;
+	}
+	
+	@GetMapping("/exampleDb")
+	public List<Example> getAllExample(){
+		return exampleJpaRepo.findAll();
+	}
+	
+	@GetMapping("/exampleDb/{ime}")
+	public Example getExampleByIme(@PathVariable String ime){
+		return exampleJpaRepo.findByIme(ime);
+	}
+	
+	@PutMapping("/exampleDb/{id}")
+	public Example updateExample(@RequestBody Example example, @PathVariable Long id) {
+		example.setId(id);
+		return exampleJpaRepo.saveAndFlush(example);
+	}
+	
+	@PostMapping("exampleDb")
+	public Example insertExample(@RequestBody Example example) {
+		example.setId(null);
+		return exampleJpaRepo.saveAndFlush(example);
+	}
+	
+	@DeleteMapping("exampleDb/{id}")
+	public void deleteExample(@PathVariable Long id) {
+		exampleJpaRepo.delete(id);
 	}
 
 }
