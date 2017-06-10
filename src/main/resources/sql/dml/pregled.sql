@@ -1,0 +1,10 @@
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (1, 1, 'ovo je opis pregleda 1');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (2, 2, 'ovo je opis pregleda 2');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (3, 3, 'ovo je opis pregleda 3');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (4, 4, 'ovo je opis pregleda 4');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (5, 5, 'ovo je opis pregleda 5');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (6, 6, 'ovo je opis pregleda 6');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (7, 1, 'ovo je opis pregleda 7');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (8, 3, 'ovo je opis pregleda 8');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (9, 2, 'ovo je opis pregleda 9');
+INSERT INTO pregled (naziv_pregleda, odjel, opis) VALUES (1, 1, 'ovo je opis pregleda 10');

@@ -1,0 +1,9 @@
+INSERT INTO naziv_pregleda (naziv) VALUES ('neurologija pregled 1');
+INSERT INTO naziv_pregleda (naziv) VALUES ('neurologija pregled 2');
+INSERT INTO naziv_pregleda (naziv) VALUES ('neurokirurgija pregled 1');
+INSERT INTO naziv_pregleda (naziv) VALUES ('neurokirurgija pregled 2');
+INSERT INTO naziv_pregleda (naziv) VALUES ('pedijatrija pregled 1');
+INSERT INTO naziv_pregleda (naziv) VALUES ('pedijatrija pregled 2');
+INSERT INTO naziv_pregleda (naziv) VALUES ('ortopedija pregled 1');
+INSERT INTO naziv_pregleda (naziv) VALUES ('ortopedija pregled 2');
+INSERT INTO naziv_pregleda (naziv) VALUES ('ginekologija pregled 1');

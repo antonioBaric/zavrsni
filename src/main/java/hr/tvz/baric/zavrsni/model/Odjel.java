@@ -1,5 +1,7 @@
 package hr.tvz.baric.zavrsni.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -31,6 +34,10 @@ public class Odjel {
 	@JoinColumn(name="USTANOVA", referencedColumnName = "USTANOVA_ID")
 	@JsonBackReference
 	private Ustanova ustanova;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "odjel", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<Pregled> pregledi;
 	
 	@Column(name="PRIVATNI_OPIS_ODJELA")
 	private String privatniOpisOdjela;
