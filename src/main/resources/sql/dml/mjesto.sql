@@ -1,0 +1,1 @@
+INSERT INTO mjesto (naziv) VALUES ('Zagreb'), ('Karlovac'), ('Split'), ('Zadar'), ('Osijek'), ('Rijeka'), ('Varaždin')

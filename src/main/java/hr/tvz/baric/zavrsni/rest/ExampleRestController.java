@@ -72,7 +72,8 @@ public class ExampleRestController {
 	
 	@GetMapping("/exampleDb")
 	public List<Example> getAllExample(){
-		return exampleJpaRepo.findAll();
+		List<Example> examples = exampleJpaRepo.findAll();
+		return examples;
 	}
 	
 	@GetMapping("/exampleDb/{ime}")
@@ -94,7 +95,10 @@ public class ExampleRestController {
 	
 	@DeleteMapping("exampleDb/{id}")
 	public void deleteExample(@PathVariable Long id) {
-		exampleJpaRepo.delete(id);
+		if (exampleJpaRepo.findById(id) != null) {
+			exampleJpaRepo.delete(id);
+		}
+		
 	}
 
 }

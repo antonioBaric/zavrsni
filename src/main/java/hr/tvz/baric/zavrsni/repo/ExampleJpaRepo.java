@@ -6,7 +6,7 @@ import hr.tvz.baric.zavrsni.model.Example;
 
 public interface ExampleJpaRepo extends JpaRepository<Example, Long> {
 	
-	public Example findById(Integer id);
+	public Example findById(Long id);
 	public Example findByIme(String ime);
 
 }

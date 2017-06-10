@@ -1,7 +1,7 @@
 app.controller('homeController', function($scope, $http) {
 
 	$scope.message = "Hello Angular ;)";
-
+/*
 	$http.get("/api/example/mapa").then(function (data) {
 		data = data.data;
 		console.log(data);
@@ -63,6 +63,49 @@ app.controller('homeController', function($scope, $http) {
         console.log("example delete : ", data);
     }, function (e) {
         console.log("delete nije uspio", e);
+    });
+*/
+    $http.get("/api/ustanova").then(function (data) {
+        data = data.data;
+        console.log("ustanova: ", data);
+    }, function (e) {
+        console.log("/api/ustanova nije uspio: ", e);
+    });
+
+
+    $http.get("/api/ustanova/vrstaUstanove").then(function (data) {
+        data = data.data;
+        console.log("vrstaUstanove : ", data);
+    }, function (e) {
+        console.log("/api/ustanova/vrstaUstanove nije uspio: ", e);
+    });
+
+    $http.get("/api/ustanova/specijalizacijaUstanove").then(function (data) {
+        data = data.data;
+        console.log("specijalizacijaUstanove : ", data);
+    }, function (e) {
+        console.log("/api/ustanova/specijalizacijaUstanove nije uspio: ", e);
+    });
+
+    $http.get("/api/mjesto").then(function (data) {
+        data = data.data;
+        console.log("mjesto: ", data);
+    }, function (e) {
+        console.log("/api/mjesto nije uspio: ", e);
+    });
+
+    $http.get("/api/odjel/nazivOdjela").then(function (data) {
+        data = data.data;
+        console.log("nazivOdjela: ", data);
+    }, function (e) {
+        console.log("/api/odjel/nazivOdjela nije uspio: ", e);
+    });
+
+    $http.get("/api/odjel/").then(function (data) {
+        data = data.data;
+        console.log("odjeli: ", data);
+    }, function (e) {
+        console.log("/api/odjel/ nije uspio: ", e);
     });
 
 });

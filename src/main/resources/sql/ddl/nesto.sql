@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS nesto (
+	id SERIAL PRIMARY KEY,
+ 	name VARCHAR(50),
+ 	title VARCHAR(50)
+);
