@@ -1,4 +1,4 @@
-app.controller('homeController', function($scope, $http) {
+app.controller('testController', function($scope, $http, mjestoFacotry, ustanovaFactory, odjelFacotry, pregledFacotry) {
 
 	$scope.message = "Hello Angular ;)";
 /*
@@ -64,48 +64,64 @@ app.controller('homeController', function($scope, $http) {
     }, function (e) {
         console.log("delete nije uspio", e);
     });
+
+
 */
-    $http.get("/api/ustanova").then(function (data) {
-        data = data.data;
-        console.log("ustanova: ", data);
-    }, function (e) {
-        console.log("/api/ustanova nije uspio: ", e);
+    ustanovaFactory.getAllUstanove().then(function (data) {
+        console.log("ustanove: ", data);
+    })
+    .catch(function (e) {
+        console.log("ustanovaFactory.getAllUstanove ", e);
     });
 
 
-    $http.get("/api/ustanova/vrstaUstanove").then(function (data) {
-        data = data.data;
-        console.log("vrstaUstanove : ", data);
-    }, function (e) {
-        console.log("/api/ustanova/vrstaUstanove nije uspio: ", e);
+    ustanovaFactory.getAllVrsteUstanova().then(function(data) {
+        console.log("vrste ustanova: ", data);
+    })
+    .catch(function (e) {
+        console.log("ustanovaFactory.getAllVrstaUstanova nije uspio: ", e);
     });
 
-    $http.get("/api/ustanova/specijalizacijaUstanove").then(function (data) {
-        data = data.data;
-        console.log("specijalizacijaUstanove : ", data);
-    }, function (e) {
-        console.log("/api/ustanova/specijalizacijaUstanove nije uspio: ", e);
+    ustanovaFactory.getAllSpecijalizacijeUstanova().then(function (data) {
+        console.log("specijalizacije ustanova: ", data)
+    })
+    .catch(function (e) {
+        console.log("ustanovaFactory.getAllSpecijalizacijeUstanova", e);
     });
 
-    $http.get("/api/mjesto").then(function (data) {
-        data = data.data;
-        console.log("mjesto: ", data);
-    }, function (e) {
-        console.log("/api/mjesto nije uspio: ", e);
+    mjestoFacotry.getAllMjesta().then(function(data) {
+        console.log("mjesta: ", data);
+    })
+    .catch(function (e) {
+        console.log("mjestoFacotry.getAllMjesta nije uspio: ", e);
     });
 
-    $http.get("/api/odjel/nazivOdjela").then(function (data) {
-        data = data.data;
-        console.log("nazivOdjela: ", data);
-    }, function (e) {
-        console.log("/api/odjel/nazivOdjela nije uspio: ", e);
+    odjelFacotry.getAllNaziviOdjela().then(function (data) {
+        console.log("nazivi odjela: ", data)
+    })
+    .catch(function (e) {
+        console.log("odjelFacotry.getAllNaziviOdjela", e);
     });
 
-    $http.get("/api/odjel/").then(function (data) {
-        data = data.data;
+    odjelFacotry.getAllOdjeli().then(function (data) {
         console.log("odjeli: ", data);
-    }, function (e) {
-        console.log("/api/odjel/ nije uspio: ", e);
+    })
+    .catch(function (e) {
+        console.log("odjelFacotry.getAllOdjeli", e);
+    });
+
+    pregledFacotry.getAllNaziviPregleda().then(function (data) {
+        console.log("nazivi pregleda: ", data);
+    })
+    .catch(function (e) {
+        console.log("pregledFacotry.getAllNaziviPregleda", e);
+    });
+
+    pregledFacotry.getAllPregledi().then(function (data) {
+        console.log("pregledi: ", data);
+    })
+    .catch(function (e) {
+        console.log("pregledFacotry.getAllPregledi: ", e);
     });
 
 });

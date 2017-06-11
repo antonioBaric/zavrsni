@@ -1,0 +1,24 @@
+nav a:link{
+    border-bottom:3px solid transparent;
+}
+
+nav a:hover{
+    border-bottom:3px solid #00b3ee;
+}
+
+a#prijava:link{
+    border-bottom:3px solid transparent;
+}
+
+a#prijava:hover{
+    border-bottom:3px solid #449d44;
+}
+
+#jumbo{
+    background-image: url("../pictures/healthcare.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center, right;
+    z-index: -1;
+    opacity: 0.8;
+}

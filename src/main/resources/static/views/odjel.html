@@ -1,0 +1,14 @@
+<div ng-controller="odjelController" class="container">
+    <h2>{{odjel.nazivOdjela.naziv}}</h2>
+    <p>Opis: {{odjel.privatniOpisOdjela}}</p>
+    <p> Zgrada: {{odjel.zgradaBolnice}}</p>
+    <p>Kat: {{odjel.kat}}</p>
+    <p>email: {{odjel.email}}</p>
+    <p>telefon: {{odjel.telefon}}</p>
+
+    <h3>Pregledi: </h3>
+    <div class="row well" ng-repeat="pregled in odjel.pregledi">
+        <a><h4>{{pregled.nazivPregleda.naziv}}</h4></a>
+    </div>
+
+</div>

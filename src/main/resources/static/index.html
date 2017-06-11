@@ -10,21 +10,33 @@
 	<script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
 	<script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 	<style type="text/css">
 		[ng\:cloak], [ng-cloak], .ng-cloak {
 			display: none !important;
 		}
 	</style>
 
-	<script src="/js//app.js"></script>
-	<script src="/js/homeController.js"></script>
+	<!-- main script -->
+	<script src="/js/app.js"></script>
+
+	<!-- Controllers -->
+	<script src="/js/controllers/testController.js"></script>
+	<script src="/js/controllers/homeController.js"></script>
+	<script src="/js/controllers/ustanoveController.js"></script>
+	<script src="/js/controllers/odjeliController.js"></script>
+
+	<!-- Factories -->
+	<script src="/js/factories/mjestoFactory.js"></script>
+	<script src="/js/factories/ustanovaFactory.js"></script>
+	<script src="/js/factories/odjelFactory.js"></script>
+	<script src="/js/factories/pregledFactory.js"></script>
+
 
 </head>
 <body>
-	<h1>Hello Spring</h1>
-	<div ng-view>
-		
-	</div>
-
+	<div ng-include="'/views/nav.html'"></div>
+	<div ng-view></div>
 </body>
 </html>

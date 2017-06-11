@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +27,11 @@ public class OdjelRestController {
 	public List<Odjel> getAllOdjeli() {
 		List<Odjel> odjeli = odjelRepo.findAll();
 		return odjeli;
+	}
+	
+	@GetMapping("/{odjelId}")
+	public Odjel getOdjelById(@PathVariable Long odjelId){
+		return odjelRepo.findById(odjelId);
 	}
 	
 	@GetMapping("/nazivOdjela")

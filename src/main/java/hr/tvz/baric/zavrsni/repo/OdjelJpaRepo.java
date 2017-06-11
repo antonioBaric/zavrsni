@@ -6,6 +6,6 @@ import hr.tvz.baric.zavrsni.model.Odjel;
 
 public interface OdjelJpaRepo extends JpaRepository<Odjel, Long>{
 	
-	
+	public Odjel findById(Long id);
 
 }

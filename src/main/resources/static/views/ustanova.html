@@ -1,0 +1,40 @@
+<div ng-controller="ustanovaController" class="container">
+
+    <h1 class="text-primary">{{ustanova.ime}}</h1>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <p>Vrsta ustanove: <span>{{ustanova.vrstaUstanove.naziv}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p>Specijalizacija ustanove: <span>{{ustanova.specijalizacijaUstanove.naziv}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p>Mjesto: <span>{{ustanova.mjesto.naziv}}</span></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p>Telefon: <span>{{ustanova.telefon}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p>Email: <span>{{ustanova.email}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p>Adresa: <span>{{ustanova.adresa}}</span></p>
+        </div>
+    </div>
+    <div class="row" style="margin-top:50px">
+        <h3>Odjeli: </h3>
+    </div>
+    <form class="form-inline">
+        <div class="form-group">
+            <label>Pretraži odjele: </label>
+            <input ng-model="pretraga" type="text" class="form-control" placeholder="Upisite Odjel">
+        </div>
+    </form>
+    <div class="row well" ng-repeat="odjel in ustanova.odjeli |filter:pretraga">
+        <a ng-href="#/odjeli/{{odjel.id}}"><h4>{{odjel.nazivOdjela.naziv}}</h4></a>
+    </div>
+
+</div>

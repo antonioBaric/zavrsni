@@ -1,0 +1,33 @@
+<div ng-controller="ustanoveController" class="container">
+    <h1>Pretraži</h1>
+    <hr>
+    <form class="form-inline">
+        <div class="form-group">
+            <label>Pretraži Bolnice: </label>
+            <input ng-model="pretraga" type="text" class="form-control" placeholder="Upisite Bolnicu">
+        </div>
+    </form>
+
+    <div class="row well" ng-repeat="ustanova in ustanove | filter:pretraga">
+        <div class="row">
+            <div class="col-md-8">
+                <a ng-href="#/ustanove/{{ustanova.id}}"><h3>{{ustanova.ime}}</h3></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p>Grad: <span>{{ustanova.mjesto.naziv}}</span></p>
+            </div>
+            <div class="col-md-3">
+                <p>Adresa: <span>{{ustanova.adresa}}</span></p>
+            </div>
+            <div class="col-md-3">
+                <p>Telefon: <span>{{ustanova.telefon}}</span></p>
+            </div>
+            <div class="col-md-3">
+                <p>E-mail: <span>{{ustanova.email}}</span></p>
+            </div>
+        </div>
+    </div>
+
+</div>

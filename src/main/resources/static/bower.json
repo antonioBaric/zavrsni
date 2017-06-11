@@ -16,12 +16,11 @@
     "tests"
   ],
   "dependencies": {
-    "jQuery": "^3.2.1",
     "angular": "^1.6.4",
     "angular-route": "^1.6.4",
+    "jquery": "^3.2.1",
     "bootstrap": "^3.3.7",
     "underscore": "^1.8.3",
-    "angular-resource": "^1.6.4",
     "q": "^2.0.2"
   }
 }
