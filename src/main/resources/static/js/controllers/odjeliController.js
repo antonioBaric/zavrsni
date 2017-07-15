@@ -12,4 +12,4 @@ app.controller('odjelController', function ($scope, $routeParams, odjelFacotry) 
         console.log("odjelFacotry.getOdjelById nije uspio: ", e);
     })
 
-})
+});

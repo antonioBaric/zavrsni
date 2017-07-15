@@ -1,8 +1,10 @@
 app.factory('odjelFacotry', function ($http, $q) {
 
+    var apiString = '/api/odjel/';
+
     return {
         getAllNaziviOdjela: function () {
-            return $http.get('/api/odjel/nazivOdjela').then(function(response) {
+            return $http.get(apiString + 'nazivOdjela').then(function(response) {
                 return response.data;
             })
             .catch(function (response) {
@@ -11,7 +13,7 @@ app.factory('odjelFacotry', function ($http, $q) {
         },
 
         getAllOdjeli: function () {
-            return $http.get('/api/odjel').then(function(response) {
+            return $http.get(apiString).then(function(response) {
                 return response.data;
             })
             .catch(function (response) {
@@ -20,7 +22,7 @@ app.factory('odjelFacotry', function ($http, $q) {
         },
 
         getOdjelById: function (id) {
-            return $http.get('/api/odjel/' + id).then(function (response) {
+            return $http.get(apiString + id).then(function (response) {
                 return response.data;
             })
             .catch(function (e) {

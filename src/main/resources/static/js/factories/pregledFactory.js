@@ -1,8 +1,10 @@
 app.factory('pregledFacotry', function ($http, $q) {
 
+    var apiString = '/api/pregled/';
+
     return {
         getAllPregledi: function () {
-            return $http.get('/api/pregled').then(function(response) {
+            return $http.get(apiString).then(function(response) {
                 return response.data;
             })
             .catch(function (response) {
@@ -11,12 +13,21 @@ app.factory('pregledFacotry', function ($http, $q) {
         },
 
         getAllNaziviPregleda: function () {
-            return $http.get('/api/pregled/nazivPregleda').then(function(response) {
+            return $http.get(apiString + 'nazivPregleda').then(function(response) {
                 return response.data;
             })
             .catch(function (response) {
                 $q.reject(response);
             });
+        },
+
+        getPregledById: function (pregledId) {
+            return $http.get(apiString + pregledId).then(function (response) {
+                return response.data;
+            })
+            .catch(function (e) {
+                $q.reject(e);
+            })
         }
     };
 });

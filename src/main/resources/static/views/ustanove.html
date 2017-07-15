@@ -1,14 +1,18 @@
 <div ng-controller="ustanoveController" class="container">
-    <h1>Pretraži</h1>
+    <h1>Pretražite bolnice</h1>
     <hr>
     <form class="form-inline">
         <div class="form-group">
-            <label>Pretraži Bolnice: </label>
+            <label>unesite naziv bolnice: </label>
             <input ng-model="pretraga" type="text" class="form-control" placeholder="Upisite Bolnicu">
         </div>
     </form>
 
-    <div class="row well" ng-repeat="ustanova in ustanove | filter:pretraga">
+    <div ng-hide="ustanove">
+        <img src="../pictures/loading.gif">
+    </div>
+
+    <div ng-show="ustanove" class="row well" ng-repeat="ustanova in ustanove | filter:pretraga">
         <div class="row">
             <div class="col-md-8">
                 <a ng-href="#/ustanove/{{ustanova.id}}"><h3>{{ustanova.ime}}</h3></a>

@@ -1,0 +1,1 @@
+INSERT INTO doktor (user_info, titula) VALUES (2, 'dr.opce medicine');

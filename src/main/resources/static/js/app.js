@@ -23,12 +23,20 @@ app.config(function($routeProvider, $locationProvider) {
 		controller: 'ustanovaController'
 	})
 	.when('/odjeli', {
-		templateUrl: './views/uIzradi.html',
+		templateUrl: './views/odjeli.html',
 		controller: 'odjeliController'
 	})
 	.when('/odjeli/:odjelId', {
 		templateUrl: './views/odjel.html',
 		controller: 'odjelController'
+	})
+	.when('/pregledi', {
+		templateUrl: './views/pregledi.html',
+		controller: 'preglediController'
+	})
+	.when('/pregledi/:pregledId', {
+		templateUrl: './views/pregled.html',
+		controller: 'pregledController'
 	})
 	.when('/oNama', {
 		templateUrl: './views/oNama.html'

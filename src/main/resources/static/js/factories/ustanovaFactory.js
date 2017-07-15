@@ -1,8 +1,10 @@
 app.factory('ustanovaFactory', function ($http, $q) {
 
+    var apiString = '/api/ustanova/';
+
     return {
         getAllVrsteUstanova: function () {
-            return $http.get('/api/ustanova/vrstaUstanove').then(function(response) {
+            return $http.get(apiString + 'vrstaUstanove').then(function(response) {
                 return response.data;
             })
                 .catch(function (response) {
@@ -11,7 +13,7 @@ app.factory('ustanovaFactory', function ($http, $q) {
         },
 
         getAllSpecijalizacijeUstanova: function () {
-            return $http.get('/api/ustanova/specijalizacijaUstanove').then(function(response) {
+            return $http.get(apiString + 'specijalizacijaUstanove').then(function(response) {
                 return response.data;
             })
             .catch(function (response) {
@@ -20,7 +22,7 @@ app.factory('ustanovaFactory', function ($http, $q) {
         },
 
         getAllUstanove: function () {
-            return $http.get('/api/ustanova').then(function(response) {
+            return $http.get(apiString).then(function(response) {
                 return response.data;
             })
             .catch(function (response) {
@@ -29,7 +31,7 @@ app.factory('ustanovaFactory', function ($http, $q) {
         },
 
         getUstanovaById: function (id) {
-            return $http.get('/api/ustanova/' + id).then(function(response){
+            return $http.get(apiString + id).then(function(response){
                 return response.data;
             })
             .catch(function (response) {

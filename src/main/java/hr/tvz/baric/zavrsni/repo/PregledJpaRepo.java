@@ -6,6 +6,6 @@ import hr.tvz.baric.zavrsni.model.Pregled;
 
 public interface PregledJpaRepo extends JpaRepository<Pregled, Long>{
 	
-	
+	public Pregled findById(Long id);
 
 }

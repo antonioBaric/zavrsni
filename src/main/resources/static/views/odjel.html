@@ -8,7 +8,7 @@
 
     <h3>Pregledi: </h3>
     <div class="row well" ng-repeat="pregled in odjel.pregledi">
-        <a><h4>{{pregled.nazivPregleda.naziv}}</h4></a>
+        <a ng-href="#/pregledi/{{pregled.id}}"><h4>{{pregled.nazivPregleda.naziv}}</h4></a>
     </div>
 
 </div>
