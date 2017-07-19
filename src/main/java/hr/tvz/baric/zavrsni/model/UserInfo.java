@@ -45,6 +45,9 @@ public class UserInfo {
 	@Column(name = "OIB")
 	private String oib;
 	
+	@Column(name = "EMAIL")
+	private String email;
+	
 	@Column(name = "USERNAME")
 	private String username;
 	
@@ -107,6 +110,14 @@ public class UserInfo {
 
 	public void setOib(String oib) {
 		this.oib = oib;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getUsername() {

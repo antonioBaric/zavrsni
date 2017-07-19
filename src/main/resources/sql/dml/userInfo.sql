@@ -1,8 +1,8 @@
-INSERT INTO user_info (user_role, ime, prezime, oib, username, password)
-VALUES (1, 'Antonio', 'Baric', '1234567890', 'abaric', 'abaric');
+INSERT INTO user_info (user_role, ime, prezime, oib, username, password, email)
+VALUES (1, 'Antonio', 'Baric', '1234567890', 'abaric', 'abaric', 'abaric@email.com');
 
-INSERT INTO user_info (user_role, ime, prezime, oib, username, password)
-VALUES (2, 'Mirna', 'Baric', '1334567793', 'mbaric', 'mbaric');
+INSERT INTO user_info (user_role, ime, prezime, oib, username, password, email)
+VALUES (2, 'Mirna', 'Baric', '1334567793', 'mbaric', 'mbaric', 'mbaric@email.com');
 
-INSERT INTO user_info (user_role, ime, prezime, oib, username, password)
-VALUES (3, 'Pero', 'Peric', '09876543231', 'pperic', 'pperic');
+INSERT INTO user_info (user_role, ime, prezime, oib, username, password, email)
+VALUES (3, 'Pero', 'Peric', '09876543231', 'pperic', 'pperic', 'pperic@email.com');
