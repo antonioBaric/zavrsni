@@ -5,13 +5,13 @@
             <form class="alert" style="border: 10px solid white">
                 <div class="form-group form-group-lg">
                     <label for="username">Korisničko ime: </label>
-                    <input type="text" class="form-control" id="username" placeholder="Korisničko ime">
+                    <input type="text" class="form-control" id="username" placeholder="Korisničko ime" ng-model="username">
                 </div>
                 <div class="form-group form-group-lg">
                     <label for="password">Lozinka: </label>
-                    <input type="text" class="form-control" id="password" placeholder="Lozinka">
+                    <input type="password" class="form-control" id="password" placeholder="Lozinka" ng-model="password">
                 </div>
-                <button type="submit" class="btn btn-success btn-lg">Prijavi se</button>
+                <button class="btn btn-success btn-lg" ng-click="login()">Prijavi se</button>
             </form>
         </div>
         <div class="col-md-6">

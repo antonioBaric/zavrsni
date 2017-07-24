@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import hr.tvz.baric.zavrsni.SecurityUtils;
 import hr.tvz.baric.zavrsni.model.UserInfo;
 import hr.tvz.baric.zavrsni.model.UserRole;
 import hr.tvz.baric.zavrsni.repo.UserInfoJpaRepo;
@@ -33,6 +34,12 @@ public class UserRestController {
 	public List<UserRole> userRoles() {
 		List<UserRole> userrRoles = userRoleRepo.findAll();
 		return userrRoles;
+	}
+	
+	@GetMapping("/getUser")
+	public UserInfo getUserAccount() {
+		UserInfo userInfo = userInfoRepo.findByUsername(SecurityUtils.getCurrentUsername());
+		return userInfo;
 	}
 
 }
