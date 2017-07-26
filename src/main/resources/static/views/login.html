@@ -3,6 +3,9 @@
         <div class="col-md-6">
             <h1 class="text-success">Prijava</h1>
             <form class="alert" style="border: 10px solid white">
+                <span ng-show="authenticationError" class="help-block, text-danger">
+                    Netočni podaci! Molimo provjerite vaše podatke i pokušajte ponovo.
+                </span>
                 <div class="form-group form-group-lg">
                     <label for="username">Korisničko ime: </label>
                     <input type="text" class="form-control" id="username" placeholder="Korisničko ime" ng-model="username">

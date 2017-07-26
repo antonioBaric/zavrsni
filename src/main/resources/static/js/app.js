@@ -138,6 +138,7 @@ app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USE
         sessionFactory.create(data);
 		$rootScope.account = sessionFactory;
 		$rootScope.authenticated = true;
+		$rootScope.role = sessionFactory.userInfo.userRole.naziv;
 		$location.path(nextLocation).replace();
 
 	});
@@ -149,6 +150,7 @@ app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USE
         } else {
             sessionFactory.invalidate();
             $rootScope.authenticated = false;
+            $rootScope.role = null;
             $rootScope.loadingAccount = false;
             $location.path('/login');
         }

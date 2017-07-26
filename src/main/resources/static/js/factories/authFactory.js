@@ -32,6 +32,7 @@ app.factory('authFactory', function ($http, $q, $rootScope ,authService, session
         logout: function () {
             $rootScope.authenticationError = false;
             $rootScope.authenticated = false;
+            $rootScope.role = null;
             $rootScope.account = null;
             $http.get('/logout');
             sessionFactory.invalidate();
