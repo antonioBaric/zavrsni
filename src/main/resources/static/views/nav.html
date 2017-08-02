@@ -19,8 +19,12 @@
                 <li><a ng-href="#/kontakt">Kontakt</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="authenticated"><a ng-href="#/login" id="prijava">Prijava/Registracija</a></li>
-                <li ng-show="authenticated">{{account.userInfo.ime}}<a ng-href="#/logout" id="odjava">Odjava</a></li>
+                <li ng-hide="authenticated"><a ng-href="#/login" id="prijava" style="display: inline-block">Prijava/Registracija</a></li>
+                <li ng-show="authenticated">{{account.userInfo.ime}}
+                    <a ng-href="#/logout" id="odjava" style="display: inline-block">Odjava
+                        <span class="glyphicon-log-out"></span>
+                    </a>
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

@@ -3,6 +3,7 @@ package hr.tvz.baric.zavrsni.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class UstanovaRestController {
 	SpecijalizacijaUstanoveJpaRepo specijalizacijaUstanoveRepo;
 	
 	@GetMapping
+	//@PreAuthorize("hasAuthority('admin') or hasAuthority('doktor')")
 	public List<Ustanova> getAllUstanove(){
 		List<Ustanova> ustanove = ustanovaRepo.findAll();
 		return ustanove;

@@ -20,12 +20,13 @@ app.config(function($routeProvider, $locationProvider, USER_ROLES) {
 		templateUrl: './views/testOnly.html',
         controller: 'testController',
         access: {
-            loginRequired: false
+            loginRequired: true,
+			authorizedRoles: [USER_ROLES.admin]
         }
     })
 	.when('/login', {
 		templateUrl: './views/login.html',
-		controller: 'loginController',
+		controller: 'credentialController',
         access: {
             loginRequired: false
         }
@@ -97,12 +98,17 @@ app.config(function($routeProvider, $locationProvider, USER_ROLES) {
 			loginRequired: false
 		}
 	})
+	.when('/error/403', {
+		templateUrl: './views/error403.html'
+	})
 	.otherwise(
 	{redirectTo: '/'}
 	);
 });
 
 app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USER_ROLES, $q, $timeout) {
+
+	sessionFactory.create(null);
 
 	$rootScope.$on('$routeChangeStart', function (event, next) {
 		if (next.originalPath === '/login' && $rootScope.authenticated) {
@@ -112,7 +118,7 @@ app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USE
 			console.log('else if (next.access && next.access.loginRequired && !$rootScope.authenticated)');
             event.preventDefault();
             $rootScope.$broadcast("event:auth-loginRequired", {});
-        } else if (next.access && next.access.loginRequired && !authFactory.isAuthorized(next.access.authorizedRole)) {
+        } else if (next.access && next.access.loginRequired && !authFactory.isAuthorized(next.access.authorizedRoles)) {
 			console.log('else if (next.access && !authFactory.isAuthorized(next.access.authorizedRole)');
 			event.preventDefault();
 			$rootScope.$broadcast("event:auth-forbidden", {});
@@ -133,9 +139,9 @@ app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USE
 		}
 		console.log('login cnfirmed start ', data);
 		$rootScope.loadingAccount = false;
-        var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "/");
-
-        sessionFactory.create(data);
+        //var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "/");
+        var nextLocation = '/';
+		sessionFactory.create(data);
 		$rootScope.account = sessionFactory;
 		$rootScope.authenticated = true;
 		$rootScope.role = sessionFactory.userInfo.userRole.naziv;
@@ -145,8 +151,8 @@ app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USE
 
 	$rootScope.$on('event:auth-loginRequired', function (event, data) {
         if ($rootScope.loadingAccount && data.status !== 401) {
-            $rootScope.requestedUrl = $location.path()
-            $location.path('/loading');
+            //$rootScope.requestedUrl = $location.path();
+            $location.path('/login');
         } else {
             sessionFactory.invalidate();
             $rootScope.authenticated = false;
@@ -158,13 +164,13 @@ app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USE
 
     $rootScope.$on('event:auth-forbidden', function (rejection) {
         $rootScope.$evalAsync(function () {
-            //$location.path('/error/403').replace();
+            $location.path('/error/403').replace();
         	console.log('ERROR: ', rejection);
         });
     });
 
     $rootScope.$on('event:auth-loginCancelled', function () {
-        $location.path('/').replace();
+    	$location.path('/').replace();
     });
 
     authFactory.getAccount();

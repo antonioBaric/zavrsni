@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import hr.tvz.baric.zavrsni.model.UserRole;
 
 public interface UserRoleJpaRepo extends JpaRepository<UserRole, Long> {
+	
+	UserRole findByNaziv(String naziv);
 
 }

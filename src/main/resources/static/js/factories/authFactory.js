@@ -9,13 +9,14 @@ app.factory('authFactory', function ($http, $q, $rootScope ,authService, session
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             };
 
-            $http.post('/authenticate', $.param({username: username, password: password}), config).then(function (response) {
+            return $http.post('/authenticate', $.param({username: username, password: password}), config).then(function (response) {
                authService.loginConfirmed(response.data);
             })
             .catch(function (response) {
                 $rootScope.authenticationError = true;
                 sessionFactory.invalidate();
                 console.log(response);
+                $q.reject(response);
             });
         },
 
@@ -41,7 +42,7 @@ app.factory('authFactory', function ($http, $q, $rootScope ,authService, session
 
         isAuthorized: function (authorizedRole) {
             var isAuthorized = false;
-            isAuthorized = (!!sessionFactory.login && sessionFactory.userRoles.indexOf(authorizedRole) !== -1);
+            isAuthorized = (!!sessionFactory.userInfo && authorizedRole.indexOf(sessionFactory.userInfo.userRole.naziv) != -1);
             return isAuthorized;
         }
 
