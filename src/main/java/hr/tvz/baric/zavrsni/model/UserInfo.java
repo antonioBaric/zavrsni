@@ -54,6 +54,12 @@ public class UserInfo {
 	@Column(name = "PASSWORD")
 	private String password;
 	
+	@Column(name = "ACTIVE")
+	private Boolean active;
+	
+	@Column(name = "MOBITEL")
+	private String mobitel;
+	
 	//datum rodjenja
 
 	public Long getId() {
@@ -134,6 +140,22 @@ public class UserInfo {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getMobitel() {
+		return mobitel;
+	}
+
+	public void setMobitel(String mobitel) {
+		this.mobitel = mobitel;
 	}
 	
 	

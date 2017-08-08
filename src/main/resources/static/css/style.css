@@ -22,3 +22,8 @@ a#prijava:hover{
     z-index: -1;
     opacity: 0.8;
 }
+/*
+table.borderless td,table.borderless th{
+    border: none ! important;
+}
+*/

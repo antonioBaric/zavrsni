@@ -3,9 +3,9 @@
         <div class="col-md-6">
             <h1 class="text-success">Prijava</h1>
             <form class="alert">
-                <span ng-show="authenticationError" class="help-block, text-danger">
+                <p ng-show="authenticationError" class="alert alert-danger">
                     Netočni podaci! Molimo provjerite vaše podatke i pokušajte ponovo.
-                </span>
+                </p>
                 <div class="form-group form-group-lg">
                     <label for="username">Korisničko ime: </label>
                     <input type="text" class="form-control" id="username" placeholder="Korisničko ime" ng-model="username">
@@ -21,9 +21,9 @@
         <div class="col-md-6">
             <h1 class="text-primary">Registracija</h1>
             <form novalidate name="registrationForm" ng-submit="registrate()" class="alert">
-                <span ng-show="userAlreadyExist" class="help-block, text-danger">
+                <p ng-show="userAlreadyExist" class="alert alert-danger">
                     Korisnik sa istim korisničkim imenom već postoji!
-                </span>
+                </p>
                 <div class="form-group form-group-lg" ng-class="{'has-error': registrationForm.ime.$invalid && !registrationForm.ime.$pristine}">
                     <label for="ime">Ime</label>
                     <input type="text" name="ime" id="ime" ng-model="newUserInfo.ime" class="form-control" placeholder="ime" required ng-pattern="/^[a-zA-Z\s]*$/">

@@ -5,6 +5,7 @@ app.factory('userInfoFactory', function ($http, $q) {
     return {
         
         insertNewUserInfo: function (newUserInfo) {
+            newUserInfo.active = false;
             return $http.post(api, newUserInfo)
                 .then(function (response) {
                     //console.log("success: ", response);
@@ -14,6 +15,16 @@ app.factory('userInfoFactory', function ($http, $q) {
                     console.log("error", e);
                     //return $q.reject(e);
                 });
+        },
+
+        updateUserInfo: function (newUserInfo) {
+            return $http.put(api, newUserInfo)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error in updating user (userInfoFactory)", e);
+            });
         }
         
     };

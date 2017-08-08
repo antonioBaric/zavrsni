@@ -12,16 +12,18 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="navBar">
             <ul class="nav navbar-nav">
                 <li><a ng-href="#/ustanove">Pretraži</a></li>
                 <li><a ng-href="#/oNama">O nama</a></li>
                 <li><a ng-href="#/kontakt">Kontakt</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="authenticated"><a ng-href="#/login" id="prijava" style="display: inline-block">Prijava/Registracija</a></li>
-                <li ng-show="authenticated">{{account.userInfo.ime}}
-                    <a ng-href="#/logout" id="odjava" style="display: inline-block">Odjava
+                <li ng-hide="authenticated"><a ng-href="#/login" id="prijava" style="display: inline-block"><span class="text-success">Prijava</span>/<span class="text-primary">Registracija</span></a></li>
+                <li ng-show="authenticated">
+                    <a ng-href="#/user" style="display: inline-block"><span class="text-primary">{{userInfo.ime}}</span></a>
+                    <a ng-href="#/logout" id="odjava" style="display: inline-block" class="text-danger">
+                        <span class="text-danger">Odjava</span>
                         <span class="glyphicon-log-out"></span>
                     </a>
                 </li>

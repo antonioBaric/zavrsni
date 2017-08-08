@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
 import hr.tvz.baric.zavrsni.SecurityUtils;
+import hr.tvz.baric.zavrsni.model.Pacijent;
 import hr.tvz.baric.zavrsni.model.UserInfo;
 import hr.tvz.baric.zavrsni.model.UserRole;
 import hr.tvz.baric.zavrsni.repo.UserInfoJpaRepo;
@@ -52,11 +54,20 @@ public class UserRestController {
 		UserInfo existingUser = userInfoRepo.findByUsername(userInfo.getUsername());		
 		if (existingUser != null) {
 			return null;
-		}		
+		}
 		userInfo.setId(null);
 		UserRole userRole = userRoleRepo.findByNaziv("pacijent");
 		userInfo.setUserRole(userRole);
 		
+		//Pacijent pacijent = new Pacijent();
+		//userInfo.setPacijent(pacijent);
+		
+		return userInfoRepo.saveAndFlush(userInfo);
+	}
+	
+	@PutMapping
+	public UserInfo updateUser (@RequestBody UserInfo userInfo){
+		userInfo.setActive(true);
 		return userInfoRepo.saveAndFlush(userInfo);
 	}
 

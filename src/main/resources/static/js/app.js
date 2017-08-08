@@ -38,6 +38,14 @@ app.config(function($routeProvider, $locationProvider, USER_ROLES) {
 			loginRequired: false
 		}
 	})
+	.when('/user', {
+		templateUrl: './views/user.html',
+		controller: 'userController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.admin, USER_ROLES.doktor, USER_ROLES.pacijent]
+		}
+	})
 	.when('/ustanove', {
 		templateUrl: './views/ustanove.html',
 		controller: 'ustanoveController',
@@ -142,7 +150,7 @@ app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USE
         //var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "/");
         var nextLocation = '/';
 		sessionFactory.create(data);
-		$rootScope.account = sessionFactory;
+		$rootScope.userInfo = sessionFactory.userInfo;
 		$rootScope.authenticated = true;
 		$rootScope.role = sessionFactory.userInfo.userRole.naziv;
 		$location.path(nextLocation).replace();

@@ -1,0 +1,11 @@
+<div ng-show="role === 'pacijent'">
+    <div ng-include="'/views/pacijent.html'"></div>
+</div>
+
+<div ng-show="role === 'doktor'">
+    <div ng-include="'/views/doktor.html'"></div>
+</div>
+
+<div ng-show="role === 'admin'">
+    <div ng-include="'/views/admin.html'"></div>
+</div>

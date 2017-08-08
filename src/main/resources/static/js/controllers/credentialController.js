@@ -15,12 +15,12 @@ app.controller('credentialController', function ($rootScope, $scope, authFactory
         $scope.userAlreadyExist = false;
         if ($scope.registrationForm.$valid && $scope.newUserInfo.password === $scope.password2) {
             userInfoFactory.insertNewUserInfo($scope.newUserInfo)
-            .then(function (data) {
-                if(data) {
-                    alert("Uspješno ste se registrirali, molimo Vas da popunite ostale podatke nakon što se prijavite u aplikaciju " +
-                        "klikom na svoje ime u gornjem desnom kutu, kako biste mogli koristiti sve usluge stranice.");
-                    resetAllRegisterData();
-                    $location.path("/").replace();
+            .then(function (userInfo) {
+                if(userInfo) {
+                    authFactory.login(userInfo.username, userInfo.password)
+                    .then(function () {
+                        $location.path("/user").replace();
+                    });
                 } else {
                     $scope.userAlreadyExist = true;
                     $scope.newUserInfo.username = '';
