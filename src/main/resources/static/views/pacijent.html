@@ -52,60 +52,73 @@
                     <td class="text-primary"><label for="ime">Ime: </label></td>
                     <td ng-class="{'has-error': updateUserForm.ime.$invalid && !updateUserForm.ime.$pristine}">
                         <input type="text" name="ime" id="ime" class="form-control" ng-model="updatedUser.ime" required ng-pattern="/^[a-zA-Z\s]*$/">
-                        <span class="help-block" ng-show="updateUserForm.ime.$error.pattern">Ime može sadržavati samo slova!</span>
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="updateUserForm.ime.$error.pattern">Ime može sadržavati samo slova!</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-primary"><label for="prezime">Prezime: </label></td>
                     <td ng-class="{'has-error': updateUserForm.prezime.$invalid && !updateUserForm.prezime.$pristine}">
                         <input type="text" name="prezime" id="prezime" class="form-control" ng-model="updatedUser.prezime" required ng-pattern="/^[a-zA-Z\s]*$/">
-                        <span class="help-block" ng-show="updateUserForm.prezime.$error.pattern">Prezime može sadržavati samo slova!</span>
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="updateUserForm.prezime.$error.pattern">Prezime može sadržavati samo slova!</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-primary"><label for="email">E-mail: </label></td>
                     <td ng-class="{'has-error': updateUserForm.email.$invalid && !updateUserForm.email.$pristine}">
                         <input type="text" name="email" id="email" class="form-control" ng-model="updatedUser.email" required>
-                        <span class="help-block" ng-show="updateUserForm.email.$invalid">Email nije ispravan</span>
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="updateUserForm.email.$invalid">Email nije ispravan</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-primary"><label for="oib2">OIB: </label></td>
                     <td ng-class="{'has-error': updateUserForm.oib2.$invalid && !updateUserForm.oib2.$pristine}">
                         <input type="text" name="oib2" id="oib2" class="form-control" ng-model="updatedUser.oib" required ng-pattern="/^[0-9]*$/">
-                        <span class="help-block" ng-show="updateUserForm.oib2.$error.pattern">OIB može sadržavati samo brojeve!</span>
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="updateUserForm.oib2.$error.pattern">OIB može sadržavati samo brojeve!</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-primary"><label for="mobitel2">Mobitel: </label></td>
                     <td ng-class="{'has-error': updateUserForm.mobitel2.$invalid && !updateUserForm.mobitel2.$pristine}">
                         <input type="text" name="mobitel2" id="mobitel2" class="form-control" ng-model="updatedUser.mobitel" required ng-pattern="/^[0-9]*$/">
-                        <span class="help-block" ng-show="updateUserForm.mobitel2.$error.pattern">Mobitel može sadržavati samo brojeve!</span>
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="updateUserForm.mobitel2.$error.pattern">Mobitel može sadržavati samo brojeve!</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-primary"><label for="nesto2">Nesto: </label></td>
                     <td ng-class="{'has-error': updateUserForm.nesto2.$invalid && !updateUserForm.nesto2.$pristine}">
                         <input type="text" name="nesto2" id="nesto2" class="form-control" ng-model="updatedUser.pacijent.nesto" required>
-                        <span class="help-block"></span>
+                    </td>
+                    <td>
+                        <span class="text-danger"></span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-primary"><label for="password">Nova lozinka: </label></td>
                     <td ng-class="">
                         <input type="password" name="password" id="password" class="form-control" ng-model="password">
-                        <span class="help-block"></span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-primary"><label for="password2">Potvrdite novu lozinku: </label></td>
                     <td ng-class="">
                         <input type="password" name="password2" id="password2" class="form-control" ng-model="password2">
-                        <span class="help-block"></span>
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="password && password != password2">Lozinke se moraju podudarati</span>
                     </td>
                 </tr>
             </table>
-            <button class="btn btn-success btn-lg btn-info" ng-disabled="updateUserForm.$invalid">Spremi</button>
+            <button class="btn btn-success btn-lg btn-info" ng-disabled="updateUserForm.$invalid || (password && password != password2)">Spremi</button>
         </form>
     </div>
     <!-- Nadopuna preostalih podataka nakon registracije -->
@@ -137,20 +150,27 @@
                     <td class="text-danger"> <label for="oib">OIB: </label></td>
                     <td ng-class="{'has-error': completeUserForm.oib.$invalid && !completeUserForm.oib.$pristine}">
                         <input type="text" name="oib" id="oib" ng-model="userInfo.oib" class="form-control" required ng-pattern="/^[0-9]*$/">
-                        <span class="help-block" ng-show="completeUserForm.oib.$error.pattern">OIB moze sadrzavati samo brojeve!</span>
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="completeUserForm.oib.$error.pattern">OIB moze sadrzavati samo brojeve!</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-danger"><label for="mobitel">Broj mobitela: </label></td>
                     <td ng-class="{'has-error': completeUserForm.mobitel.$invalid && !completeUserForm.mobitel.$pristine}">
                         <input type="text" name="mobitel" id="mobitel" ng-model="userInfo.mobitel" class="form-control" required ng-pattern="/^[0-9]*$/">
-                        <span class="help-block" ng-show="completeUserForm.mobitel.$error.pattern">Broj mobitela moze sadrzavati samo brojeve!</span>
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="completeUserForm.mobitel.$error.pattern">Broj mobitela moze sadrzavati samo brojeve!</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-danger"><label for="nesto">Nesto: </label></td>
                     <td>
                         <input type="text" name="nesto" id="nesto" ng-model="userInfo.pacijent.nesto" class="form-control" required>
+                    </td>
+                    <td>
+                        <span class="text-danger"></span>
                     </td>
                 </tr>
             </table>

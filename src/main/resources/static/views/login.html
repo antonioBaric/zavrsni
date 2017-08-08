@@ -54,7 +54,7 @@
                 <div class="form-group form-group-lg">
                     <label for="passwordReg2">Ponovljena lozinka</label>
                     <input type="password" name="passwordReg2" id="passwordReg2" ng-model="password2" class="form-control" placeholder="lozinka" required>
-                    <p class="help-block text-danger" ng-show="newUserInfo.password !== password2">Lozinke se moraju podudarati</p>
+                    <p class="text-danger" ng-show="newUserInfo.password !== password2">Lozinke se moraju podudarati</p>
                 </div>
                 <button class="btn btn-success btn-lg btn-info" ng-disabled="registrationForm.$invalid || newUserInfo.password !== password2">Registriraj se</button>
             </form>

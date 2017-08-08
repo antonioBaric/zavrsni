@@ -23,6 +23,9 @@ app.controller('userController', function ($rootScope, $scope, $location, userIn
     
     $scope.updateUser = function () {
         if ($scope.updateUserForm.$valid) {
+            if ($scope.password && $scope.password !== "" && $scope.password === $scope.password2) {
+                $scope.updatedUser.password = $scope.password;
+            }
             userInfoFactory.updateUserInfo($scope.updatedUser)
             .then(function (user) {
                 $rootScope.userInfo = user;
