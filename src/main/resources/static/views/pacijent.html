@@ -14,6 +14,7 @@
         <p ng-show="updateSuccessful === true" class="alert alert-success">
             Uspješno ste ažurirali svoje podatke.
         </p>
+        <!-- Prikaz spremljenih podataka -->
         <table class="table borderless" ng-show="updatingInProgress !== true">
             <tr>
                 <td class="text-primary">Ime: </td>
@@ -41,10 +42,10 @@
             </tr>
             <tr>
                 <td class="text-primary">Nesto: </td>
-                <td>{{userInfo.nesto}}</td>
+                <td>{{userInfo.pacijent.nesto}}</td>
             </tr>
         </table>
-        <!-- ng submit && ng model && ng show -->
+        <!-- Izmjena svih postojecih podataka -->
         <form novalidate name="updateUserForm" ng-show="updatingInProgress === true" ng-submit="updateUser()" class="form-inline">
             <table class="table">
                 <tr>
@@ -85,7 +86,7 @@
                 <tr>
                     <td class="text-primary"><label for="nesto2">Nesto: </label></td>
                     <td ng-class="{'has-error': updateUserForm.nesto2.$invalid && !updateUserForm.nesto2.$pristine}">
-                        <input type="text" name="nesto2" id="nesto2" class="form-control" ng-model="nesto2" required>
+                        <input type="text" name="nesto2" id="nesto2" class="form-control" ng-model="updatedUser.pacijent.nesto" required>
                         <span class="help-block"></span>
                     </td>
                 </tr>
@@ -107,7 +108,7 @@
             <button class="btn btn-success btn-lg btn-info" ng-disabled="updateUserForm.$invalid">Spremi</button>
         </form>
     </div>
-
+    <!-- Nadopuna preostalih podataka nakon registracije -->
     <div class="row" ng-show="userInfo.active === false">
         <p class="alert alert-danger">
             Molimo Vas da popunite preostale podatke kako biste mogli ne smetano korisiti usluge aplikacije.
@@ -149,7 +150,7 @@
                 <tr>
                     <td class="text-danger"><label for="nesto">Nesto: </label></td>
                     <td>
-                        <input type="text" name="nesto" id="nesto" ng-model="nesto" class="form-control" required>
+                        <input type="text" name="nesto" id="nesto" ng-model="userInfo.pacijent.nesto" class="form-control" required>
                     </td>
                 </tr>
             </table>
