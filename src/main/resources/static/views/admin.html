@@ -29,12 +29,14 @@
         <h3>Korisnici({{users.length}}): </h3>
         <table class="table">
             <tr>
+                <th>Id</th>
                 <th>Ime i Prezime</th>
                 <th>Korisničko ime</th>
                 <th>Uloga</th>
                 <th>Akcije</th>
             </tr>
             <tr ng-repeat="user in users">
+                <td class="text-primary">{{user.id}}</td>
                 <td class="text-primary">{{user.ime}}</td>
                 <td class="text-info">{{user.username}}</td>
                 <td>{{user.userRole.naziv}}</td>
@@ -48,7 +50,29 @@
     </div>
 
     <div class="row" ng-show="screenShow === 'ustanove'">
-        <h1>ustanove</h1>
+        <h3>Ustanove({{ustanove.length}}): </h3>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Naziv</th>
+                <th>Vrsta</th>
+                <th>Specijalizacija</th>
+                <th>Mjesto</th>
+                <th>Akcije</th>
+            </tr>
+            <tr ng-repeat="ustanova in ustanove">
+                <td class="text-primary">{{ustanova.id}}</td>
+                <td class="text-primary">{{ustanova.ime}}</td>
+                <td class="text-info">{{ustanova.vrstaUstanove.naziv}}</td>
+                <td class="text-info">{{ustanova.specijalizacijaUstanove.naziv}}</td>
+                <td class="text-info">{{ustanova.mjesto.naziv}}</td>
+                <td>
+                    <button ng-disabled = "ustanova.active" ng-click="activateUstanova(ustanova)" class="btn btn-success">Aktiviraj</button>
+                    <button ng-disabled = "!ustanova.active" ng-click="deactivateUstanova(ustanova)" class="btn btn-warning">Deaktiviraj</button>
+                    <button ng-click="deleteUstanova(ustanova.id, $index)" class="btn btn-danger">Izbriši</button>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <div class="row" ng-show="screenShow === 'odjeli'">

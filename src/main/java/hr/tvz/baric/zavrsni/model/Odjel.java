@@ -30,6 +30,9 @@ public class Odjel {
 	@JoinColumn(name="NAZIV_ODJELA", referencedColumnName = "NAZIV_ODJELA_ID")
 	private NazivOdjela nazivOdjela;
 	
+	@Column(name = "ACTIVE")
+	private Boolean active;
+	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="USTANOVA", referencedColumnName = "USTANOVA_ID")
 	@JsonBackReference
@@ -70,6 +73,22 @@ public class Odjel {
 
 	public void setNazivOdjela(NazivOdjela nazivOdjela) {
 		this.nazivOdjela = nazivOdjela;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public List<Pregled> getPregledi() {
+		return pregledi;
+	}
+
+	public void setPregledi(List<Pregled> pregledi) {
+		this.pregledi = pregledi;
 	}
 
 	public String getPrivatniOpisOdjela() {

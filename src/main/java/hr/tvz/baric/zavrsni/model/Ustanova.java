@@ -42,6 +42,9 @@ public class Ustanova {
 	@JoinColumn(name="MJESTO", referencedColumnName="MJESTO_ID")
 	private Mjesto mjesto;
 	
+	@Column(name = "ACTIVE")
+	private Boolean active;
+	
 	@Column(name="ADRESA")
 	private String adresa;
 	
@@ -107,6 +110,14 @@ public class Ustanova {
 
 	public void setMjesto(Mjesto mjesto) {
 		this.mjesto = mjesto;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	public String getAdresa() {
