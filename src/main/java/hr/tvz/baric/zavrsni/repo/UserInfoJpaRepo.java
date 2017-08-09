@@ -7,5 +7,6 @@ import hr.tvz.baric.zavrsni.model.UserInfo;
 public interface UserInfoJpaRepo extends JpaRepository<UserInfo, Long> {
 	
 	UserInfo findByUsername(String username);
-
+	UserInfo findById(Long id);
+	
 }

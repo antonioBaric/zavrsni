@@ -27,3 +27,9 @@ table.borderless td,table.borderless th{
     border: none ! important;
 }
 */
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}

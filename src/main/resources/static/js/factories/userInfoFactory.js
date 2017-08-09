@@ -25,6 +25,26 @@ app.factory('userInfoFactory', function ($http, $q) {
             .catch(function (e) {
                 console.log("error in updating user (userInfoFactory)", e);
             });
+        },
+
+        getAllUsers: function () {
+            return $http.get(api)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error in 'getAllUsers'", e);
+            });
+        },
+
+        deleteUserById: function (id) {
+            return $http.delete(api + id)
+            .then(function (response) {
+                return $q.resolve(response.status);
+            })
+            .catch(function (e) {
+                console.log(e);
+            });
         }
         
     };

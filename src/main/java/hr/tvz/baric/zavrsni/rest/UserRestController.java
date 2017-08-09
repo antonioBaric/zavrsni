@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,10 +83,6 @@ public class UserRestController {
 	
 	@PutMapping
 	public UserInfo updateUser (@RequestBody UserInfo userInfo){
-		if (userInfo.getActive() == null || userInfo.getActive() == false) {
-			userInfo.setActive(true);
-		}
-		
 		if (userInfo.getUserRole().getNaziv().equals(UserRoles.pacijent.name())) {
 			Pacijent pacijent = userInfo.getPacijent();
 			pacijentRepo.save(pacijent);
@@ -94,6 +92,29 @@ public class UserRestController {
 		}
 		
 		return userInfoRepo.saveAndFlush(userInfo);
+	}
+	
+	@DeleteMapping("/{id}")
+	public void deleteUser(@PathVariable Long id) {
+		if (userInfoRepo.findById(id) == null) {
+			return;
+		}
+		
+		UserInfo userInfo = userInfoRepo.findById(id);
+		
+		if (userInfo.getUserRole().getNaziv().equals(UserRoles.pacijent.name())) {
+			Pacijent pacijent = userInfo.getPacijent();
+			pacijent.setUserInfo(null);
+			userInfo.setPacijent(null);
+			pacijentRepo.delete(pacijent.getId());
+		} else if (userInfo.getUserRole().getNaziv().equals(UserRoles.doktor.name())) {
+			Doktor doktor = userInfo.getDoktor();
+			doktor.setUserInfo(null);
+			userInfo.setDoktor(null);
+			doktorRepo.delete(doktor.getId());
+		}
+		
+		userInfoRepo.delete(userInfo.getId());		
 	}
 
 }

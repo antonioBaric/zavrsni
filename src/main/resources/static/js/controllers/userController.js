@@ -1,19 +1,32 @@
 app.controller('userController', function ($rootScope, $scope, $location, userInfoFactory) {
 
     $scope.updatedUser = jQuery.extend(true, {}, $rootScope.userInfo);
-
     $scope.activeFirstTime = jQuery.extend(true, {}, $rootScope.userInfo.active);
-
     $scope.updatingInProgress = false;
     $scope.updateSuccessful = false;
+    $scope.screenShow = "korisnici";
+
+    if ($rootScope.role === "admin") {
+        userInfoFactory.getAllUsers()
+        .then(function (users) {
+            $scope.users = users;
+        })
+        .catch(function (e) {
+           console.log("error when trying to fetch all users", e);
+        });
+    }
+
+    $scope.changeScreen = function (part) {
+        $scope.screenShow = part;
+    }
 
     $scope.completeUser = function () {
         if ($scope.completeUserForm.$valid) {
+            $rootScope.userInfo.active = true;
             userInfoFactory.updateUserInfo($rootScope.userInfo)
             .then(function (user) {
                 $scope.updatedUser = $rootScope.userInfo = user;
                 $scope.firstUpdateSuccess = true;
-
             })
             .catch(function (e) {
                 console.log("Error in completing user", e);
@@ -34,6 +47,46 @@ app.controller('userController', function ($rootScope, $scope, $location, userIn
             })
             .catch(function (e) {
                console.log("Error in updating user", e);
+            });
+        }
+    }
+
+    $scope.activateUser = function (user) {
+        if ($rootScope.role === "admin") {
+            user.active = true;
+            userInfoFactory.updateUserInfo(user)
+            .then(function (data) {
+                user = data;
+            })
+            .catch(function (e) {
+                console.log("Error in activating user", e);
+            });
+        }
+    }
+
+    $scope.deactivateUser = function (user) {
+        if ($rootScope.role === "admin") {
+            user.active = false;
+            userInfoFactory.updateUserInfo(user)
+            .then(function (data) {
+                user = data;
+            })
+            .catch(function (e) {
+                console.log("Error in deactivating user", e);
+            });
+        }
+    }
+
+    $scope.deleteUser = function (id, index) {
+        if ($rootScope.role === "admin") {
+            userInfoFactory.deleteUserById(id)
+            .then(function (response) {
+                if (response === 200) {
+                    $scope.users.splice(index,1);
+                }
+            })
+            .catch(function (e) {
+               console.log(e);
             });
         }
     }

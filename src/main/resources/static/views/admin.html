@@ -1,1 +1,62 @@
-<h1>BOK ADMIN</h1>
+<div class="container" ng-controller="userController">
+    <div class="row">
+        <h1>Administrator {{userInfo.ime}}</h1>
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navBar">
+                <ul class="nav navbar-nav">
+                    <!-- <li><a ng-href="#/ustanove">Korisnici</a></li> -->
+                    <li ng-click="changeScreen('korisnici')"><a><h4>Korisnici</h4></a></li>
+                    <li ng-click="changeScreen('ustanove')"><a><h4>Ustanove</h4></a></li>
+                    <li ng-click="changeScreen('odjeli')"><a><h4>Odjeli</h4></a></li>
+                    <li ng-click="changeScreen('pregledi')"><a><h4>Pregledi</h4></a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <div class="row" ng-show="screenShow === 'korisnici'">
+        <h3>Korisnici({{users.length}}): </h3>
+        <table class="table">
+            <tr>
+                <th>Ime i Prezime</th>
+                <th>Korisničko ime</th>
+                <th>Uloga</th>
+                <th>Akcije</th>
+            </tr>
+            <tr ng-repeat="user in users">
+                <td class="text-primary">{{user.ime}}</td>
+                <td class="text-info">{{user.username}}</td>
+                <td>{{user.userRole.naziv}}</td>
+                <td>
+                    <button ng-disabled = "user.active" ng-click="activateUser(user)" class="btn btn-success">Aktiviraj</button>
+                    <button ng-disabled = "!user.active" ng-click="deactivateUser(user)" class="btn btn-warning">Deaktiviraj</button>
+                    <button ng-click="deleteUser(user.id, $index)" class="btn btn-danger">Izbriši</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row" ng-show="screenShow === 'ustanove'">
+        <h1>ustanove</h1>
+    </div>
+
+    <div class="row" ng-show="screenShow === 'odjeli'">
+        <h1>odjeli</h1>
+    </div>
+
+    <div class="row" ng-show="screenShow === 'pregledi'">
+        <h1>pregledi</h1>
+    </div>
+
+</div>
