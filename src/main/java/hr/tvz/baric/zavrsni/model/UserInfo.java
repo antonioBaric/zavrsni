@@ -28,12 +28,12 @@ public class UserInfo {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "DOKTOR", referencedColumnName = "DOKTOR_ID")
-	@JsonManagedReference
+//	@JsonManagedReference
 	private Doktor doktor;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PACIJENT", referencedColumnName = "PACIJENT_ID")
-	@JsonManagedReference
+//	@JsonManagedReference
 	private Pacijent pacijent;
 	
 	@Column(name ="IME")

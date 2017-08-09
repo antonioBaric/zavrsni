@@ -21,10 +21,10 @@ public class Doktor {
 	@Column(name = "DOKTOR_ID")
 	private Long id;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "USER_INFO", referencedColumnName = "USER_INFO_ID")
-	@JsonBackReference
-	private UserInfo userInfo;
+//	@OneToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "USER_INFO", referencedColumnName = "USER_INFO_ID")
+//	@JsonBackReference
+//	private UserInfo userInfo;
 	
 	@Column(name = "TITULA")
 	private String titula;
@@ -37,13 +37,13 @@ public class Doktor {
 		this.id = id;
 	}
 
-	public UserInfo getUserInfo() {
-		return userInfo;
-	}
-
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
-	}
+//	public UserInfo getUserInfo() {
+//		return userInfo;
+//	}
+//
+//	public void setUserInfo(UserInfo userInfo) {
+//		this.userInfo = userInfo;
+//	}
 
 	public String getTitula() {
 		return titula;

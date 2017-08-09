@@ -73,7 +73,6 @@ public class UserRestController {
 		userInfoRepo.save(userInfo);
 		
 		Pacijent pacijent = new Pacijent();
-		pacijent.setUserInfo(userInfo);
 		pacijentRepo.save(pacijent);
 		
 		userInfo.setPacijent(pacijent);
@@ -101,20 +100,15 @@ public class UserRestController {
 		}
 		
 		UserInfo userInfo = userInfoRepo.findById(id);
+		userInfoRepo.delete(userInfo.getId());	
 		
 		if (userInfo.getUserRole().getNaziv().equals(UserRoles.pacijent.name())) {
 			Pacijent pacijent = userInfo.getPacijent();
-			pacijent.setUserInfo(null);
-			userInfo.setPacijent(null);
 			pacijentRepo.delete(pacijent.getId());
 		} else if (userInfo.getUserRole().getNaziv().equals(UserRoles.doktor.name())) {
 			Doktor doktor = userInfo.getDoktor();
-			doktor.setUserInfo(null);
-			userInfo.setDoktor(null);
 			doktorRepo.delete(doktor.getId());
-		}
-		
-		userInfoRepo.delete(userInfo.getId());		
+		}	
 	}
 
 }

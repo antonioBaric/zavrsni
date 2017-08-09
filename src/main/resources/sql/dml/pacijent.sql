@@ -1,1 +1,1 @@
-INSERT INTO pacijent (user_info, nesto) VALUES (3, 'example property nesto, remove later');
+INSERT INTO pacijent (nesto) VALUES ('example property nesto, remove later');
