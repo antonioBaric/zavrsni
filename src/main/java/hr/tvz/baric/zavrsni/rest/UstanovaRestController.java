@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +39,12 @@ public class UstanovaRestController {
 		return ustanove;
 	}
 	
+	@GetMapping("/active")
+	public List<Ustanova> getAllActiveUstanove() {
+		List<Ustanova> activeUstanove = ustanovaRepo.findByActiveTrue();
+		return activeUstanove;
+	}
+	
 	@GetMapping("/{ustanovaId}")
 	public Ustanova getUstanovaByid(@PathVariable Long ustanovaId){
 		return ustanovaRepo.findById(ustanovaId);
@@ -51,6 +60,20 @@ public class UstanovaRestController {
 	public List<SpecijalizacijaUstanove> getAllSpecUstanove() {
 		List<SpecijalizacijaUstanove> specs = specijalizacijaUstanoveRepo.findAll();
 		return specs;
+	}
+	
+	@PutMapping
+	public Ustanova updateUstanova(@RequestBody Ustanova ustanova) {
+		return ustanovaRepo.saveAndFlush(ustanova);
+	}
+	
+	@DeleteMapping("/{id}")
+	public void deleteUstanova(@PathVariable Long id) {
+		if (ustanovaRepo.findById(id) == null) {
+			return;
+		}
+		
+		ustanovaRepo.delete(id);
 	}
 
 }

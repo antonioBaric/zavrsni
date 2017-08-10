@@ -1,4 +1,4 @@
-app.controller('userController', function ($rootScope, $scope, $location, userInfoFactory, ustanovaFactory, odjelFacotry, pregledFacotry) {
+app.controller('userController', function ($rootScope, $scope, $location, $q, userInfoFactory, ustanovaFactory, odjelFacotry, pregledFacotry) {
 
     $scope.updatedUser = jQuery.extend(true, {}, $rootScope.userInfo);
     $scope.activeFirstTime = jQuery.extend(true, {}, $rootScope.userInfo.active);
@@ -23,17 +23,41 @@ app.controller('userController', function ($rootScope, $scope, $location, userIn
             console.log("error when trying to fetch all 'ustanove'", e);
         });
 
-        odjelFacotry.getAllOdjeli()
-        .then(function (odjeli) {
-            $scope.odjeli = odjeli;
+        odjelFacotry.getAllNaziviOdjela()
+        .then(function (naziviOdjela) {
+            $scope.naziviOdjela = naziviOdjela;
+            $scope.ustanoveOdjela = [];
+            /*$scope.odjeli.forEach(function (odjel) {
+                var ustanovaId = odjelFacotry.getUstanovaIdOfThisOdjel(odjel.id);
+                var ustanovaIme = odjelFacotry.getUstanovaImeOfThisOdjel(odjel.id);
+                $scope.ustanoveOdjela.push({
+                    "id": ustanovaId,
+                    "ime": ustanovaIme
+                });
+            })
+
+            var promises = [];
+            $scope.odjeli.forEach(function (odjel) {
+                promises.push(
+                    odjelFacotry.getUstanovaImeOfThisOdjel(odjel.id)
+                        .then(function (ime) {
+                            $scope.ustanoveOdjela.push(ime);
+                        })
+                );
+            });
+
+            Promise.all(promises).then(function (data) {
+               console.log(data);
+            });
+            */
         })
         .catch(function (e) {
             console.log("error when trying to fetch all 'odjeli'", e);
         });
 
-        pregledFacotry.getAllPregledi()
-        .then(function (pregledi) {
-            $scope.pregledi = pregledi;
+        pregledFacotry.getAllNaziviPregleda()
+        .then(function (naziviPregleda) {
+            $scope.naziviPregleda = naziviPregleda;
         })
         .catch(function (e) {
             console.log("error when trying to fetch all 'pregledi'", e);
@@ -44,6 +68,57 @@ app.controller('userController', function ($rootScope, $scope, $location, userIn
         $scope.screenShow = part;
     };
 
+/* KASNIJE KORISTITI ? DA SE ZA SVAKI PRIKAZ ONDA UZIMAJU PODACI A NE SVI ODJEDNOM
+    if ($rootScope.role === "admin") {
+        userInfoFactory.getAllUsers()
+        .then(function (users) {
+            $scope.users = users;
+        })
+        .catch(function (e) {
+            console.log("error when trying to fetch all users", e);
+        });
+    }
+
+    $scope.changeScreen = function (part) {
+        if ($rootScope.role === "admin") {
+            if (part === "korisnici") {
+                userInfoFactory.getAllUsers()
+                .then(function (users) {
+                    $scope.users = users;
+                })
+                .catch(function (e) {
+                    console.log("error when trying to fetch all users", e);
+                });
+            } else if (part === "ustanove") {
+                ustanovaFactory.getAllUstanove()
+                .then(function (ustanove) {
+                    $scope.ustanove = ustanove;
+                })
+                .catch(function (e) {
+                    console.log("error when trying to fetch all 'ustanove'", e);
+                });
+            } else if (part === "odjeli") {
+                odjelFacotry.getAllOdjeli()
+                .then(function (odjeli) {
+                    $scope.odjeli = odjeli;
+                    $scope.ustanoveOdjela = [];
+                })
+                .catch(function (e) {
+                    console.log("error when trying to fetch all 'odjeli'", e);
+                });
+            } else if (part === "pregledi") {
+                pregledFacotry.getAllPregledi()
+                .then(function (pregledi) {
+                    $scope.pregledi = pregledi;
+                })
+                .catch(function (e) {
+                    console.log("error when trying to fetch all 'pregledi'", e);
+                });
+            }
+            $scope.screenShow = part;
+        }
+    };
+*/
     $scope.completeUser = function () {
         if ($scope.completeUserForm.$valid) {
             $rootScope.userInfo.active = true;
@@ -117,13 +192,27 @@ app.controller('userController', function ($rootScope, $scope, $location, userIn
     
     $scope.activateUstanova = function (ustanova) {
         if ($rootScope.role === "admin") {
-
+            ustanova.active = true;
+            ustanovaFactory.updateUstanova(ustanova)
+            .then(function (data) {
+                ustanova = data;
+            })
+            .catch(function (e) {
+                console.log("error in activating ustanova", e);
+            });
         }
     };
     
-    $scope.deactivateUstanova = function () {
+    $scope.deactivateUstanova = function (ustanova) {
         if ($rootScope.role === "admin") {
-
+            ustanova.active = false;
+            ustanovaFactory.updateUstanova(ustanova)
+            .then(function (data) {
+                ustanova = data;
+            })
+            .catch(function (e) {
+                console.log("error in updating ustanova", e);
+            });
         }
     };
     
@@ -133,9 +222,17 @@ app.controller('userController', function ($rootScope, $scope, $location, userIn
         }
     };
     
-    $scope.deleteUstanova = function () {
+    $scope.deleteUstanova = function (id, index) {
         if ($rootScope.role === "admin") {
-
+            ustanovaFactory.deleteUstanovaById(id)
+            .then(function (response) {
+                if (response === 200) {
+                    $scope.ustanove.splice(index,1);
+                }
+            })
+            .catch(function (e) {
+                console.log(e);
+            });
         }
     };
 
@@ -157,12 +254,34 @@ app.controller('userController', function ($rootScope, $scope, $location, userIn
         }
     };
 
-    $scope.deleteOdjel = function () {
+    $scope.deleteNazivOdjela = function (id, index) {
         if ($rootScope.role === "admin") {
-
+            odjelFacotry.deleteNazivOdjela(id)
+            .then(function (response) {
+                if (response === 200) {
+                    $scope.ustanove.splice(index,1);
+                }
+            })
+            .catch(function (e) {
+                console.log(e);
+            });
         }
     };
 
+/*    $scope.x = function (odjelId) {
+         odjelFacotry.getUstanovaImeOfThisOdjel(odjelId).then(function (naziv) {
+            $scope.name = naziv;
+        });
+    };
+*//*
+    $scope.getNazivUstanoveByOdjelId = function () {
+        $scope.odjeli.forEach(function (odjel) {
+           odjelFacotry.getUstanovaImeOfThisOdjel(odjel.id).then(function (ime) {
+               $scope.ustanoveOdjela.push(ime);
+           });
+        });
+    };
+*/
     $scope.activatePregled = function () {
         if ($rootScope.role === "admin") {
 

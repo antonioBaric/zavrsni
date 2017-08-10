@@ -30,6 +30,16 @@ app.factory('ustanovaFactory', function ($http, $q) {
             });
         },
 
+        getAllActiveUstanove: function () {
+            return $http.get(apiString + "active")
+            .then(function(response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (response) {
+                $q.reject(response);
+            });
+        },
+
         getUstanovaById: function (id) {
             return $http.get(apiString + id).then(function(response){
                 return response.data;
@@ -37,6 +47,26 @@ app.factory('ustanovaFactory', function ($http, $q) {
             .catch(function (response) {
                 $q.reject(response);
             })
+        },
+
+        updateUstanova: function (ustanova) {
+            return $http.put(apiString, ustanova)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error in updating ustanova (ustanovaFactory)", e);
+            });
+        },
+
+        deleteUstanovaById: function (id) {
+            return $http.delete(apiString + id)
+            .then(function (response) {
+                return $q.resolve(response.status);
+            })
+            .catch(function (e) {
+                console.log(e);
+            });
         }
     };
 });

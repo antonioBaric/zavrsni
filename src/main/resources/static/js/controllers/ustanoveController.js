@@ -1,6 +1,6 @@
 app.controller('ustanoveController', function ($scope, ustanovaFactory) {
-
-    ustanovaFactory.getAllUstanove().then(function (data) {
+    //get all active ustanove! & odjele & preglede
+    ustanovaFactory.getAllActiveUstanove().then(function (data) {
         $scope.ustanove = data;
     })
     .catch(function (e) {

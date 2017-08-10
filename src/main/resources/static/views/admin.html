@@ -61,8 +61,8 @@
                 <th>Akcije</th>
             </tr>
             <tr ng-repeat="ustanova in ustanove">
-                <td class="text-primary">{{ustanova.id}}</td>
-                <td class="text-primary">{{ustanova.ime}}</td>
+                <td class="text-primary"><a ng-href="#/ustanove/{{ustanova.id}}">{{ustanova.id}}</a></td>
+                <td class="text-primary"><a ng-href="#/ustanove/{{ustanova.id}}">{{ustanova.ime}}</a></td>
                 <td class="text-info">{{ustanova.vrstaUstanove.naziv}}</td>
                 <td class="text-info">{{ustanova.specijalizacijaUstanove.naziv}}</td>
                 <td class="text-info">{{ustanova.mjesto.naziv}}</td>
@@ -74,13 +74,61 @@
             </tr>
         </table>
     </div>
+<!--
+    <div class="row" ng-show="screenShow === 'odjeli'">
+        <h3>Odjeli({{odjeli.length}}): </h3>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Naziv</th>
+                <th>Ustanova</th>
+                <th>Akcije</th>
+            </tr>
+            <tr ng-repeat="odjel in odjeli"ng-init="">
+                <td class="text-primary">{{odjel.id}}</td>
+                <td class="text-primary">{{odjel.nazivOdjela.naziv}}</td>
+                <td class="text-info">{{ustanoveOdjela[$index]}}</td>
+                <td>
+                    <button ng-disabled = "odjel.active" ng-click="activateOdjel(odjel)" class="btn btn-success">Aktiviraj</button>
+                    <button ng-disabled = "!odjel.active" ng-click="deactivateOdjel(odjel)" class="btn btn-warning">Deaktiviraj</button>
+                    <button ng-click="deleteOdjel(odjel.id, $index)" class="btn btn-danger">Izbriši</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+-->
 
     <div class="row" ng-show="screenShow === 'odjeli'">
-        <h1>odjeli</h1>
+        <h3>Nazivi Odjela({{naziviOdjela.length}}): </h3>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Naziv</th>
+                <!--<th>Akcije</th>-->
+            </tr>
+            <tr ng-repeat="nazivOdjela in naziviOdjela">
+                <td class="text-primary">{{nazivOdjela.id}}</td>
+                <td class="text-primary">{{nazivOdjela.naziv}}</td><!--
+                <td>
+                    <button ng-click="deleteNazivOdjela(nazivOdjela.id)" class="btn btn-danger">Izbriši</button>
+                </td>-->
+            </tr>
+        </table>
     </div>
 
     <div class="row" ng-show="screenShow === 'pregledi'">
-        <h1>pregledi</h1>
+        <h3>Nazivi pregleda</h3>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Naziv</th>
+                <!--<th>Akcije</th>-->
+            </tr>
+            <tr ng-repeat="nazivPregleda in naziviPregleda">
+                <td class="text-primary">{{nazivPregleda.id}}</td>
+                <td class="text-primary">{{nazivPregleda.naziv}}</td>
+            </tr>
+        </table>
     </div>
 
 </div>
