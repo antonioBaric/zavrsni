@@ -99,6 +99,26 @@ app.factory('odjelFacotry', function ($http, $q) {
             .catch(function (e) {
                 console.log(e);
             });
+        },
+
+        updateNazivOdjela: function (nazivOdjel) {
+            return $http.put(apiStringNaziv, nazivOdjel)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error in updating odjel (odjelFactory)", e);
+            });
+        },
+
+        insertNewNazivOdjela: function (nazivOdjela) {
+            return $http.post(apiStringNaziv, nazivOdjela)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error while inserting new nazivOdjela", e);
+            });
         }
     };
 });

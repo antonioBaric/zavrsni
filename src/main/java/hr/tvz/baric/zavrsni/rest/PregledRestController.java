@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import hr.tvz.baric.zavrsni.model.NazivOdjela;
 import hr.tvz.baric.zavrsni.model.NazivPregleda;
 import hr.tvz.baric.zavrsni.model.Odjel;
 import hr.tvz.baric.zavrsni.model.Pregled;
@@ -89,6 +91,20 @@ public class PregledRestController {
 		Gson gson = new Gson();
 		String string = gson.toJson(odjel.getNazivOdjela().getNaziv());
 		return string;
+	}
+	
+	@PostMapping("/nazivPregleda")
+	public NazivPregleda insertNewNazivPregelda(@RequestBody NazivPregleda nazivPregleda) {
+		if (nazivPregledaJpaRepo.findByNaziv(nazivPregleda.getNaziv()) != null) {
+			return null;
+		}
+		nazivPregleda.setId(null);
+		return nazivPregledaJpaRepo.saveAndFlush(nazivPregleda);
+	}
+	
+	@PutMapping("/nazivPregleda")
+	public NazivPregleda updateNazivPregleda(@RequestBody NazivPregleda nazivPregleda) {
+		return nazivPregledaJpaRepo.saveAndFlush(nazivPregleda);
 	}
 	
 

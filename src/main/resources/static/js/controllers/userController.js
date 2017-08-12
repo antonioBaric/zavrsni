@@ -5,6 +5,8 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
     $scope.updatingInProgress = false;
     $scope.updateSuccessful = false;
     $scope.screenShow = "korisnici";
+    $scope.editingNazivOdjela = -1;
+    $scope.editingNazivPregelda = -1;
 
     if ($rootScope.role === "admin") {
         userInfoFactory.getAllUsers()
@@ -248,9 +250,18 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         }
     };
 
-    $scope.addNewOdjel = function () {
+    $scope.addNewNazivOdjela = function (newNazivOdjela) {
         if ($rootScope.role === "admin") {
-
+            odjelFacotry.insertNewNazivOdjela(newNazivOdjela)
+            .then(function (data) {
+                $scope.naziviOdjela.push(data);
+                newNazivOdjela.naziv = "";
+                newNazivOdjela.kratica = "";
+                newNazivOdjela.opis = "";
+            })
+            .catch(function (e) {
+                console.log("error in inserting new naziv odjela(userController)", e);
+            });
         }
     };
 
@@ -268,6 +279,30 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         }
     };
 
+    $scope.updateNazivOdjel = function (nazivOdjela, updatedNazivOdjela) {
+        if ($rootScope.role === "admin") {
+            nazivOdjela.naziv = updatedNazivOdjela.naziv;
+            nazivOdjela.kratica = updatedNazivOdjela.kratica;
+            nazivOdjela.opis = updatedNazivOdjela.opis;
+            odjelFacotry.updateNazivOdjela(nazivOdjela)
+            .then(function (data) {
+                nazivOdjela = data;
+                updatedNazivOdjela.naziv = "";
+                updatedNazivOdjela.kratica = "";
+                updatedNazivOdjela.opis = "";
+            })
+            .catch(function (e) {
+                console.log("error in activating ustanova", e);
+            });
+        }
+    };
+/*
+    $scope.editNazivOdjela = function (nazivOdjela) {
+        if ($rootScope.role === "admin"){
+            $scope.updatedNazivOdjela = jQuery.extend(true, {}, nazivOdjela);
+        }
+    };
+*/
 /*    $scope.x = function (odjelId) {
          odjelFacotry.getUstanovaImeOfThisOdjel(odjelId).then(function (naziv) {
             $scope.name = naziv;
@@ -294,9 +329,17 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         }
     };
 
-    $scope.addNewPregled = function () {
+    $scope.addNewNazivPregleda = function (newNazivPregleda) {
         if ($rootScope.role === "admin") {
-
+            pregledFacotry.insertNewNazivPregleda(newNazivPregleda)
+            .then(function (data) {
+                $scope.naziviPregleda.push(data);
+                newNazivPregleda.naziv = "";
+                newNazivPregleda.opis = "";
+            })
+            .catch(function (e) {
+                console.log("error while inserting new naziv pregled(userController)", e);
+            });
         }
     };
 
@@ -305,5 +348,21 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
 
         }
     };
+    
+    $scope.updateNazivPrelgeda = function (nazivPregleda, updatedNazivPregleda) {
+        if ($rootScope.role === "admin") {
+            nazivPregleda.naziv = updatedNazivPregleda.naziv;
+            nazivPregleda.opis = updatedNazivPregleda.opis;
+            pregledFacotry.updateNazivPregleda(nazivPregleda)
+            .then(function (data) {
+                nazivPregleda = data;
+                updatedNazivPregleda.naziv = "";
+                updatedNazivPregleda.opis = "";
+            })
+            .catch(function (e) {
+                console.log("error in activating ustanova", e);
+            });
+        }
+    }
 
 });

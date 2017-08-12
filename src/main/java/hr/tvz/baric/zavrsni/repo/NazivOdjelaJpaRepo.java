@@ -6,6 +6,6 @@ import hr.tvz.baric.zavrsni.model.NazivOdjela;
 
 public interface NazivOdjelaJpaRepo extends JpaRepository<NazivOdjela, Long>{
 	
-	
+	public NazivOdjela findByNaziv(String naziv);
 
 }

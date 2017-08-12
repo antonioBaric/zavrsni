@@ -1,6 +1,7 @@
 app.factory('pregledFacotry', function ($http, $q) {
 
     var apiString = '/api/pregled/';
+    var apiStringNazivPregleda = '/api/pregled/nazivPregleda';
 
     return {
         getAllPregledi: function () {
@@ -13,7 +14,7 @@ app.factory('pregledFacotry', function ($http, $q) {
         },
 
         getAllNaziviPregleda: function () {
-            return $http.get(apiString + 'nazivPregleda').then(function(response) {
+            return $http.get(apiStringNazivPregleda).then(function(response) {
                 return response.data;
             })
             .catch(function (response) {
@@ -87,6 +88,26 @@ app.factory('pregledFacotry', function ($http, $q) {
             })
             .catch(function (response) {
                 $q.reject(response);
+            });
+        },
+
+        updateNazivPregleda: function (nazivPregleda) {
+            return $http.put(apiStringNazivPregleda, nazivPregleda)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error in updating nazivPregleda (pregledFactory)", e);
+            });
+        },
+
+        insertNewNazivPregleda: function (newNazivPregleda) {
+            return $http.post(apiStringNazivPregleda, newNazivPregleda)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+               console.log("error ")
             });
         }
     };

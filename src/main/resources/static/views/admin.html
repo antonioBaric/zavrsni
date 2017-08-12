@@ -98,37 +98,152 @@
     </div>
 -->
 
-    <div class="row" ng-show="screenShow === 'odjeli'">
-        <h3>Nazivi Odjela({{naziviOdjela.length}}): </h3>
-        <table class="table">
-            <tr>
-                <th>Id</th>
-                <th>Naziv</th>
-                <!--<th>Akcije</th>-->
-            </tr>
-            <tr ng-repeat="nazivOdjela in naziviOdjela">
-                <td class="text-primary">{{nazivOdjela.id}}</td>
-                <td class="text-primary">{{nazivOdjela.naziv}}</td><!--
-                <td>
-                    <button ng-click="deleteNazivOdjela(nazivOdjela.id)" class="btn btn-danger">Izbriši</button>
-                </td>-->
-            </tr>
-        </table>
+    <div class="row" ng-show="screenShow === 'odjeli'" ng-init="addingNewNazivOdjela = false;">
+        <div class="row">
+            <h3>Nazivi Odjela({{naziviOdjela.length}}): </h3>
+            <button class="btn btn-success pull-right" ng-click="addingNewNazivOdjela = !addingNewNazivOdjela">
+                Dodaj novi
+            </button>
+            <br><br>
+        </div>
+        <div class="row" ng-show="addingNewNazivOdjela">
+            <h4 class="text-info">Novi naziv odjela</h4>
+            <form novalidate name="newNazivodjelaForm" ng-submit="addNewNazivOdjela(newNazivodjela); addingNewNazivOdjela = false;" class="form-inline">
+                <div class="form-group">
+                    <label for="newNazivodjelaNaziv">Naziv: </label>
+                    <input type="text" id="newNazivodjelaNaziv" name="newNazivodjelaNaziv" ng-model="newNazivodjela.naziv" class="form-control" required ng-pattern="/^[a-zA-Z\s]*$/">
+                    <span class="text-danger" ng-show="newNazivodjelaForm.newNazivodjelaNaziv.$error.pattern">Naziv može sadržavati samo slova!</span>
+                </div>
+                <div class="form-group">
+                    <label for="newNazivodjelaKratica">Kratica: </label>
+                    <input type="text" id="newNazivodjelaKratica" name="newNazivodjelaKratica" ng-model="newNazivodjela.kratica" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="newNazivodjelaOpis">Opis: </label>
+                    <textarea id="newNazivodjelaOpis" name="newNazivodjelaOpis" ng-model="newNazivodjela.opis" class="form-control"></textarea>
+                </div>
+                <button class="btn btn-success" ng-disabled="newNazivodjelaForm.$invalid">Spremi</button>
+            </form>
+            <br><br>
+        </div>
+        <div class="row" style="border-top: 1px solid #e0d4d9">
+            <div class="col-md-1">
+                <h4><b>Id</b></h4>
+            </div>
+            <div class="col-md-3">
+                <h4><b>Naziv</b></h4>
+            </div>
+            <div class="col-md-4">
+                <h4><b>Akcije</b></h4>
+            </div>
+        </div>
+        <div class="row" ng-repeat="nazivOdjela in naziviOdjela" style="border-top: 1px solid #e0d4d9">
+            <div class="col-md-1">
+                <p class="text-primary" style="font-size: medium; margin-top: 10px">{{nazivOdjela.id}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="text-primary" style="font-size: medium; margin-top: 10px">{{nazivOdjela.naziv}}</p>
+            </div>
+            <div class="col-md-4">
+                <!--<button ng-click="deleteNazivOdjela(nazivOdjela.id)" class="btn btn-danger">Izbriši</button>-->
+                <button ng-show="editingNazivOdjela != $index" ng-click="editingNazivOdjela = $index" class="btn btn-warning" style="margin: 5px 0">
+                    Izmjeni
+                </button>
+                <button ng-show="editingNazivOdjela === $index" ng-click="editingNazivOdjela = -1" class="btn btn-danger" style="margin: 5px 0">
+                    Odustani
+                </button>
+                <!--<button ng-click="updateNazivOdjel(nazivOdjela)" class="btn btn-warning">Izmjeni</button>-->
+            </div>
+            <div class="row" ng-show="editingNazivOdjela === $index" style="border-top: 1px solid #e0d4d9">
+                <div class="col-lg-8">
+                    <form novalidate name="nazivOdjelaForm" ng-submit="updateNazivOdjel(nazivOdjela, updatedNazivOdjela); editingNazivOdjela = -1;" class="form-inline">
+                        <div class="form-group">
+                            <label for="nazivOdjelaNaziv">Naziv: </label>
+                            <input type="text" id="nazivOdjelaNaziv" name="nazivOdjelaNaziv" ng-model="updatedNazivOdjela.naziv" class="form-control" required ng-pattern="/^[a-zA-Z\s]*$/">
+                            <span class="text-danger" ng-show="nazivOdjelaForm.nazivOdjelaNaziv.$error.pattern">Naziv može sadržavati samo slova!</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="nazivOdjelaKratica">Kratica: </label>
+                            <input type="text" id="nazivOdjelaKratica" name="nazivOdjelaKratica" ng-model="updatedNazivOdjela.kratica" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nazivOdjelaOpis">Opis: </label>
+                            <textarea id="nazivOdjelaOpis" name="nazivOdjelaOpis" ng-model="updatedNazivOdjela.opis" class="form-control"></textarea>
+                        </div>
+                        <button class="btn btn-success" ng-disabled="nazivOdjelaForm.$invalid">Spremi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row" ng-show="screenShow === 'pregledi'">
-        <h3>Nazivi pregleda</h3>
-        <table class="table">
-            <tr>
-                <th>Id</th>
-                <th>Naziv</th>
-                <!--<th>Akcije</th>-->
-            </tr>
-            <tr ng-repeat="nazivPregleda in naziviPregleda">
-                <td class="text-primary">{{nazivPregleda.id}}</td>
-                <td class="text-primary">{{nazivPregleda.naziv}}</td>
-            </tr>
-        </table>
+    <div class="row" ng-show="screenShow === 'pregledi'" ng-init="addingNewNazivPregleda = false">
+        <div class="row">
+            <h3>Nazivi Pregleda({{naziviPregleda.length}}): </h3>
+            <button class="btn btn-success pull-right" ng-click="addingNewNazivPregleda = !addingNewNazivPregleda">
+                Dodaj novi
+            </button>
+            <br><br>
+        </div>
+        <div class="row" ng-show="addingNewNazivPregleda">
+            <h4 class="text-info">Novi naziv pregleda</h4>
+            <form novalidate name="newNazivPregledaForm" ng-submit="addNewNazivPregleda(newNazivPregleda); addingNewNazivPregleda = false;" class="form-inline">
+                <div class="form-group">
+                    <label for="newNazivPregledaNaziv">Naziv: </label>
+                    <input type="text" id="newNazivPregledaNaziv" name="newNazivPregledaNaziv" ng-model="newNazivPregleda.naziv" class="form-control" required ng-pattern="/^[a-zA-Z\s]*$/">
+                    <span class="text-danger" ng-show="newNazivPregledaForm.newNazivPregledaNaziv.$error.pattern">Naziv može sadržavati samo slova!</span>
+                </div>
+                <div class="form-group">
+                    <label for="newNazivPregledaOpis">Opis: </label>
+                    <textarea id="newNazivPregledaOpis" name="newNazivPregledaOpis" ng-model="newNazivPregleda.opis" class="form-control"></textarea>
+                </div>
+                <button class="btn btn-success" ng-disabled="newNazivPregledaForm.$invalid">Spremi</button>
+            </form>
+            <br><br>
+        </div>
+        <div class="row" style="border-top: 1px solid #e0d4d9">
+            <div class="col-md-1">
+                <h4><b>Id</b></h4>
+            </div>
+            <div class="col-md-3">
+                <h4><b>Naziv</b></h4>
+            </div>
+            <div class="col-md-4">
+                <h4><b>Akcije</b></h4>
+            </div>
+        </div>
+        <div class="row" ng-repeat="nazivPregleda in naziviPregleda" style="border-top: 1px solid #e0d4d9">
+            <div class="col-md-1">
+                <p class="text-primary" style="font-size: medium; margin-top: 10px">{{nazivPregleda.id}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="text-primary" style="font-size: medium; margin-top: 10px">{{nazivPregleda.naziv}}</p>
+            </div>
+            <div class="col-md-4">
+                <button ng-show="editingNazivPregelda != $index" ng-click="editingNazivPregelda = $index" class="btn btn-warning" style="margin: 5px 0">
+                    Izmjeni
+                </button>
+                <button ng-show="editingNazivPregelda === $index" ng-click="editingNazivPregelda = -1" class="btn btn-danger" style="margin: 5px 0">
+                    Odustani
+                </button>
+            </div>
+            <div class="row" ng-show="editingNazivPregelda === $index" style="border-top: 1px solid #e0d4d9">
+                <div class="col-lg-8">
+                    <form novalidate name="nazivPregledaForm" ng-submit="updateNazivPrelgeda(nazivPregleda, updatedNazivPregleda); editingNazivPregelda = -1;" class="form-inline">
+                        <div class="form-group">
+                            <label for="nazivOdjelaNaziv">Naziv: </label>
+                            <input type="text" id="nazivPregledaNaziv" name="nazivPregledaNaziv" ng-model="updatedNazivPregleda.naziv" class="form-control" required ng-pattern="/^[a-zA-Z\s]*$/">
+                            <span class="text-danger" ng-show="nazivPregledaForm.nazivPregledaNaziv.$error.pattern">Naziv može sadržavati samo slova!</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="nazivPregledaOpis">Opis: </label>
+                            <textarea id="nazivPregledaOpis" name="nazivPregledaOpis" ng-model="updatedNazivPregleda.opis" class="form-control"></textarea>
+                        </div>
+                        <button class="btn btn-success" ng-disabled="nazivPregledaForm.$invalid">Spremi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
