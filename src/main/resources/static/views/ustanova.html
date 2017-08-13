@@ -120,19 +120,86 @@
             </div>
         </div>
     </div>
-    <!-- PRIKAZ SPREMLJENIH ODJELA USTANOVE -->
-    <div>
+    <!-- PRIKAZ ODJELA USTANOVE -->
+    <div ng-init="addingNewOdjel = false">
         <div class="row" style="margin-top:50px">
             <h3>Odjeli({{ustanova.odjeli.length}}): </h3>
         </div>
-        <form class="form-inline">
-            <div class="form-group">
-                <label>Pretraži odjele: </label>
-                <input ng-model="pretraga" type="text" class="form-control" placeholder="Upisite Odjel">
+        <div class="row">
+            <form class="form-inline col-md-6">
+                <div class="form-group">
+                    <label>Pretraži odjele: </label>
+                    <input ng-model="pretraga" type="text" class="form-control" placeholder="Upisite Odjel">
+                </div>
+            </form>
+            <div class="col-md-6" ng-show="role === 'admin'">
+                <button class="btn btn-success pull-right" ng-click="addingNewOdjel = !addingNewOdjel">Dodaj novi</button>
             </div>
-        </form>
-        <div class="row well" ng-repeat="odjel in ustanova.odjeli |filter:pretraga">
-            <a ng-href="#/odjeli/{{odjel.id}}"><h4>{{odjel.nazivOdjela.naziv}}</h4></a>
+        </div>
+        <br>
+        <!-- Dodavanje novog Odjela -->
+        <div class="row alert alert-info" ng-show="addingNewOdjel">
+            <h4>Novi Odjel: </h4>
+            <p class="bg-info">
+                Nakon što dodate osnovne informacije o novom odjelu ustanove, potrebno je i dodati preglede koje odjel zastupa klikom na novo spremljeni odjel
+            </p>
+            <br><br>
+            <form novalidate name="newOdjelForm" ng-submit="addNewOdjel(newOdjel); addingNewOdjel = false;" class="form-inline">
+                <table class="table">
+                    <tr>
+                        <td><label for="newOdjelNazivOdjela">Naziv odjela: </label></td>
+                        <td>
+                            <select class="form-control" id="newOdjelNazivOdjela" name="newOdjelNazivOdjela" ng-model="newOdjel.nazivOdjela" required>
+                                <option ng-repeat="nazivOdjela in naziviOdjela" ng-value="nazivOdjela">{{nazivOdjela.naziv}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newOdjelPrivatniOpis">Privatni opis odjela: </label></td>
+                        <td>
+                            <textarea id="newOdjelPrivatniOpis" name="newOdjelPrivatniOpis" ng-model="newOdjel.privatniOpisOdjela" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newOdjelTelefon">Telefon: </label></td>
+                        <td>
+                            <input type="text" id="newOdjelTelefon" name="newOdjelTelefon" ng-model="newOdjel.telefon" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newOdjelEmail">E-mail: </label></td>
+                        <td>
+                            <input type="text" id="newOdjelEmail" name="newOdjelEmail" ng-model="newOdjel.email" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newOdjelZgrada">Zgrada Bolnice: </label></td>
+                        <td>
+                            <input type="text" id="newOdjelZgrada" name="newOdjelZgrada" ng-model="newOdjel.zgradaBolnice" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newOdjelKat">Kat: </label></td>
+                        <td>
+                            <input type="text" id="newOdjelKat" name="newOdjelKat" ng-model="newOdjel.kat" class="form-control">
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn btn-success" ng-disabled="newOdjelForm.$invalid">Spremi</button>
+            </form>
+        </div>
+        <!-- Prikaz spremljenih odjela -->
+        <div ng-repeat="odjel in ustanova.odjeli |filter:pretraga">
+            <div class="row well" ng-hide="role != 'admin' && odjel.active != true">
+                <div class="col-md-6">
+                    <a ng-href="#/odjeli/{{odjel.id}}"><h4>{{odjel.nazivOdjela.naziv}}</h4></a>
+                </div>
+                <div class="col-md-6" ng-show="role === 'admin'">
+                    <button class="btn btn-success" ng-disabled="odjel.active" ng-click="activateOdjel(odjel)">Aktiviraj</button>
+                    <button class="btn btn-warning" ng-disabled="!odjel.active" ng-click="deactivateOdjel(odjel)">Deaktiviraj</button>
+                    <button class="btn btn-danger" ng-click="deleteOdjel(odjel.id, $index)">Izbrisi</button>
+                </div>
+            </div>
         </div>
     </div>
 

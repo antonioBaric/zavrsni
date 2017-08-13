@@ -1,7 +1,8 @@
-app.factory('odjelFacotry', function ($http, $q) {
+app.factory('odjelFactory', function ($http, $q) {
 
     var apiString = '/api/odjel/';
     var apiStringNaziv = '/api/odjel/nazivOdjela/';
+    var apiStringInsertOdjel = '/api/odjel/insertNewOdjelToUstanova/';
 
     return {
         getAllNaziviOdjela: function () {
@@ -118,6 +119,18 @@ app.factory('odjelFacotry', function ($http, $q) {
             })
             .catch(function (e) {
                 console.log("error while inserting new nazivOdjela", e);
+            });
+        },
+
+        insertNewOdjelToUstanova: function (newOdjel, ustanovaId) {
+            newOdjel.active = false;
+            return $http.post(apiStringInsertOdjel + ustanovaId, newOdjel)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error in inserting new odjel to ustanova", e);
+                $q.reject(e);
             });
         }
     };

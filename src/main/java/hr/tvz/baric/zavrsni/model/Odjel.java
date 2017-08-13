@@ -33,7 +33,7 @@ public class Odjel {
 	@Column(name = "ACTIVE")
 	private Boolean active;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="USTANOVA", referencedColumnName = "USTANOVA_ID")
 	@JsonBackReference
 	private Ustanova ustanova;

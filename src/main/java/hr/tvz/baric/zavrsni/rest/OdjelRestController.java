@@ -19,6 +19,7 @@ import hr.tvz.baric.zavrsni.model.Odjel;
 import hr.tvz.baric.zavrsni.model.Ustanova;
 import hr.tvz.baric.zavrsni.repo.NazivOdjelaJpaRepo;
 import hr.tvz.baric.zavrsni.repo.OdjelJpaRepo;
+import hr.tvz.baric.zavrsni.repo.UstanovaJpaRepo;
 
 @RestController
 @RequestMapping("/api/odjel")
@@ -29,6 +30,9 @@ public class OdjelRestController {
 	
 	@Autowired
 	NazivOdjelaJpaRepo nazivOdjelaRepo;
+	
+	@Autowired
+	UstanovaJpaRepo ustanovaRepo;
 	
 	@GetMapping
 	public List<Odjel> getAllOdjeli() {
@@ -55,6 +59,10 @@ public class OdjelRestController {
 	
 	@PutMapping
 	public Odjel updateOdjel(@RequestBody Odjel odjel) {
+		Ustanova ustanova = odjelRepo.findById(odjel.getId()).getUstanova();
+		if (odjel.getUstanova() == null) {
+			odjel.setUstanova(ustanova);
+		}
 		return odjelRepo.saveAndFlush(odjel);
 	}
 	
@@ -63,7 +71,8 @@ public class OdjelRestController {
 		if (odjelRepo.findById(id) == null) {
 			return;
 		}
-		
+		Odjel odjel = odjelRepo.findById(id);
+		odjel.setUstanova(null);
 		odjelRepo.delete(id);
 	}
 	
@@ -90,14 +99,14 @@ public class OdjelRestController {
 		return string;
 	}
 	
-	@DeleteMapping("/nazivOdjela/{id}")
-	public void deleteNazivOdjela(@PathVariable Long id) {
-		if (odjelRepo.findById(id) == null) {
-			return;
-		}
-		
-		nazivOdjelaRepo.delete(id);
-	}
+//	@DeleteMapping("/nazivOdjela/{id}")
+//	public void deleteNazivOdjela(@PathVariable Long id) {
+//		if (nazivOdjelaRepo.findById(id) == null) {
+//			return;
+//		}
+//		
+//		nazivOdjelaRepo.delete(id);
+//	}
 	
 	@PutMapping("/nazivOdjela")
 	public NazivOdjela updateNazivOdjela(@RequestBody NazivOdjela nazivOdjela) {
@@ -111,6 +120,18 @@ public class OdjelRestController {
 		}
 		nazivOdjela.setId(null);
 		return nazivOdjelaRepo.saveAndFlush(nazivOdjela);
+	}
+	
+	@PostMapping("/insertNewOdjelToUstanova/{ustanovaId}")
+	public Odjel insertNewOdjelToUstanova(@RequestBody Odjel odjel, @PathVariable Long ustanovaId) {
+		Ustanova ustanova = ustanovaRepo.findById(ustanovaId);
+		odjel.setId(null);
+		odjel.setUstanova(ustanova);
+//		List<Odjel> odjeliUstanove = ustanova.getOdjeli();
+//		odjeliUstanove.add(odjel);
+		odjel = odjelRepo.saveAndFlush(odjel);
+//		ustanovaRepo.saveAndFlush(ustanova);
+		return odjel;
 	}
 
 }

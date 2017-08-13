@@ -11,7 +11,7 @@ app.controller('ustanoveController', function ($scope, ustanovaFactory) {
 
 });
 
-app.controller('ustanovaController', function ($scope, $rootScope, $routeParams, ustanovaFactory, mjestoFacotry) {
+app.controller('ustanovaController', function ($scope, $rootScope, $routeParams, ustanovaFactory, mjestoFacotry, odjelFactory) {
 
     var ustanovaId = $routeParams.ustanovaId;
     if ($rootScope.role === "admin") {
@@ -47,6 +47,14 @@ app.controller('ustanovaController', function ($scope, $rootScope, $routeParams,
             console.log("error while fetching all 'mjesta' in  ustanoveController: ", e);
         });
 
+        odjelFactory.getAllNaziviOdjela()
+        .then(function (naziviOdjela) {
+            $scope.naziviOdjela = naziviOdjela;
+        })
+        .catch(function (e) {
+            console.log("errir while fetching all 'nazivi odjela' in ustanovaController", e);
+        });
+
     } else {
         ustanovaFactory.getActiveUstanovaById(ustanovaId).then(function (data) {
             $scope.ustanova = data;
@@ -66,6 +74,58 @@ app.controller('ustanovaController', function ($scope, $rootScope, $routeParams,
             })
             .catch(function (e) {
                console.log("Error when updating ustanova in ustanovaController",e);
+            });
+        }
+    };
+
+    $scope.activateOdjel = function (odjel) {
+        if ($rootScope.role === "admin") {
+            odjel.active = true;
+            odjelFactory.updateOdjel(odjel)
+            .then(function (data) {
+                odjel = data;
+            })
+            .catch(function (e) {
+                console.log("error in activating odjel", e);
+            });
+        }
+    };
+
+    $scope.deactivateOdjel = function (odjel) {
+        if ($rootScope.role === "admin") {
+            odjel.active = false;
+            odjelFactory.updateOdjel(odjel)
+            .then(function (data) {
+                odjel = data;
+            })
+            .catch(function (e) {
+                console.log("error in updating odjel", e);
+            });
+        }
+    };
+
+    $scope.deleteOdjel = function (odjelId, index) {
+        if ($rootScope.role === "admin") {
+            odjelFactory.deleteOdjelById(odjelId)
+            .then(function (status) {
+                if (status === 200) {
+                    $scope.ustanova.odjeli.splice(index, 1);
+                }
+            })
+            .catch(function (e) {
+                console.log("Error in deleting odjel(ustanovaController)", e);
+            });
+        }
+    };
+
+    $scope.addNewOdjel = function (newOdjel) {
+        if ($rootScope.role === "admin") {
+            odjelFactory.insertNewOdjelToUstanova(newOdjel, $scope.ustanova.id)
+            .then(function (data) {
+                $scope.ustanova.odjeli.push(data);
+            })
+            .catch(function (e) {
+               console.log("error while inserting new odjel to ustanova(ustanovaController)") ;
             });
         }
     }

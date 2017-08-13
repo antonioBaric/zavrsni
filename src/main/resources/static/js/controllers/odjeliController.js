@@ -2,14 +2,14 @@ app.controller('odjeliController', function ($scope) {
 
 });
 
-app.controller('odjelController', function ($scope, $routeParams, odjelFacotry) {
+app.controller('odjelController', function ($scope, $routeParams, odjelFactory) {
 
     var odjelId = $routeParams.odjelId;
-    odjelFacotry.getOdjelById(odjelId).then(function (data) {
+    odjelFactory.getOdjelById(odjelId).then(function (data) {
         $scope.odjel = data;
     })
     .catch(function (e) {
-        console.log("odjelFacotry.getOdjelById nije uspio: ", e);
+        console.log("odjelFactory.getOdjelById nije uspio: ", e);
     })
 
 });

@@ -1,4 +1,4 @@
-app.controller('userController', function ($rootScope, $scope, $location, $q, userInfoFactory, ustanovaFactory, odjelFacotry, pregledFacotry, mjestoFacotry) {
+app.controller('userController', function ($rootScope, $scope, $location, $q, userInfoFactory, ustanovaFactory, odjelFactory, pregledFacotry, mjestoFacotry) {
 
     $scope.updatedUser = jQuery.extend(true, {}, $rootScope.userInfo);
     $scope.activeFirstTime = jQuery.extend(true, {}, $rootScope.userInfo.active);
@@ -25,13 +25,13 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
             console.log("error when trying to fetch all 'ustanove'", e);
         });
 
-        odjelFacotry.getAllNaziviOdjela()
+        odjelFactory.getAllNaziviOdjela()
         .then(function (naziviOdjela) {
             $scope.naziviOdjela = naziviOdjela;
             /*$scope.ustanoveOdjela = [];
             $scope.odjeli.forEach(function (odjel) {
-                var ustanovaId = odjelFacotry.getUstanovaIdOfThisOdjel(odjel.id);
-                var ustanovaIme = odjelFacotry.getUstanovaImeOfThisOdjel(odjel.id);
+                var ustanovaId = odjelFactory.getUstanovaIdOfThisOdjel(odjel.id);
+                var ustanovaIme = odjelFactory.getUstanovaImeOfThisOdjel(odjel.id);
                 $scope.ustanoveOdjela.push({
                     "id": ustanovaId,
                     "ime": ustanovaIme
@@ -41,7 +41,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
             var promises = [];
             $scope.odjeli.forEach(function (odjel) {
                 promises.push(
-                    odjelFacotry.getUstanovaImeOfThisOdjel(odjel.id)
+                    odjelFactory.getUstanovaImeOfThisOdjel(odjel.id)
                         .then(function (ime) {
                             $scope.ustanoveOdjela.push(ime);
                         })
@@ -127,7 +127,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
                     console.log("error when trying to fetch all 'ustanove'", e);
                 });
             } else if (part === "odjeli") {
-                odjelFacotry.getAllOdjeli()
+                odjelFactory.getAllOdjeli()
                 .then(function (odjeli) {
                     $scope.odjeli = odjeli;
                     $scope.ustanoveOdjela = [];
@@ -289,7 +289,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
 
     $scope.addNewNazivOdjela = function (newNazivOdjela) {
         if ($rootScope.role === "admin") {
-            odjelFacotry.insertNewNazivOdjela(newNazivOdjela)
+            odjelFactory.insertNewNazivOdjela(newNazivOdjela)
             .then(function (data) {
                 $scope.naziviOdjela.push(data);
                 newNazivOdjela.naziv = "";
@@ -304,7 +304,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
 
     $scope.deleteNazivOdjela = function (id, index) {
         if ($rootScope.role === "admin") {
-            odjelFacotry.deleteNazivOdjela(id)
+            odjelFactory.deleteNazivOdjela(id)
             .then(function (response) {
                 if (response === 200) {
                     $scope.ustanove.splice(index,1);
@@ -321,7 +321,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
             nazivOdjela.naziv = updatedNazivOdjela.naziv;
             nazivOdjela.kratica = updatedNazivOdjela.kratica;
             nazivOdjela.opis = updatedNazivOdjela.opis;
-            odjelFacotry.updateNazivOdjela(nazivOdjela)
+            odjelFactory.updateNazivOdjela(nazivOdjela)
             .then(function (data) {
                 nazivOdjela = data;
                 updatedNazivOdjela.naziv = "";
@@ -341,14 +341,14 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
     };
 */
 /*    $scope.x = function (odjelId) {
-         odjelFacotry.getUstanovaImeOfThisOdjel(odjelId).then(function (naziv) {
+         odjelFactory.getUstanovaImeOfThisOdjel(odjelId).then(function (naziv) {
             $scope.name = naziv;
         });
     };
 *//*
     $scope.getNazivUstanoveByOdjelId = function () {
         $scope.odjeli.forEach(function (odjel) {
-           odjelFacotry.getUstanovaImeOfThisOdjel(odjel.id).then(function (ime) {
+           odjelFactory.getUstanovaImeOfThisOdjel(odjel.id).then(function (ime) {
                $scope.ustanoveOdjela.push(ime);
            });
         });

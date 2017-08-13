@@ -1,4 +1,4 @@
-app.controller('testController', function($scope, $http, mjestoFacotry, ustanovaFactory, odjelFacotry, pregledFacotry) {
+app.controller('testController', function($scope, $http, mjestoFacotry, ustanovaFactory, odjelFactory, pregledFacotry) {
 
 	$scope.message = "Hello Angular ;)";
 /*
@@ -96,18 +96,18 @@ app.controller('testController', function($scope, $http, mjestoFacotry, ustanova
         console.log("mjestoFacotry.getAllMjesta nije uspio: ", e);
     });
 
-    odjelFacotry.getAllNaziviOdjela().then(function (data) {
+    odjelFactory.getAllNaziviOdjela().then(function (data) {
         console.log("nazivi odjela: ", data)
     })
     .catch(function (e) {
-        console.log("odjelFacotry.getAllNaziviOdjela", e);
+        console.log("odjelFactory.getAllNaziviOdjela", e);
     });
 
-    odjelFacotry.getAllOdjeli().then(function (data) {
+    odjelFactory.getAllOdjeli().then(function (data) {
         console.log("odjeli: ", data);
     })
     .catch(function (e) {
-        console.log("odjelFacotry.getAllOdjeli", e);
+        console.log("odjelFactory.getAllOdjeli", e);
     });
 
     pregledFacotry.getAllNaziviPregleda().then(function (data) {

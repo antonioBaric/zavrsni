@@ -31,7 +31,7 @@ public class Pregled {
 	@Column(name = "ACTIVE")
 	private Boolean active;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="ODJEL", referencedColumnName = "ODJEL_ID")
 	@JsonBackReference
 	private Odjel odjel;
