@@ -49,6 +49,15 @@ app.factory('ustanovaFactory', function ($http, $q) {
             })
         },
 
+        getActiveUstanovaById: function (id) {
+            return $http.get(apiString + "active/" + id).then(function(response){
+                return response.data;
+            })
+            .catch(function (response) {
+                $q.reject(response);
+            });
+        },
+
         updateUstanova: function (ustanova) {
             return $http.put(apiString, ustanova)
             .then(function (response) {
@@ -66,6 +75,17 @@ app.factory('ustanovaFactory', function ($http, $q) {
             })
             .catch(function (e) {
                 console.log(e);
+            });
+        },
+
+        insertNewUstanova: function (newUstanova) {
+            newUstanova.active = false;
+            return $http.post(apiString, newUstanova)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error in inserting new Ustanova", e);
             });
         }
     };

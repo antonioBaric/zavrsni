@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,11 @@ public class UstanovaRestController {
 		return ustanovaRepo.findById(ustanovaId);
 	}
 	
+	@GetMapping("/active/{ustanovaId}")
+	public Ustanova getActiveUstanovaById(@PathVariable Long ustanovaId) {
+		return ustanovaRepo.findByIdAndActiveTrue(ustanovaId);
+	}
+	
 	@GetMapping("/vrstaUstanove")
 	public List<VrstaUstanove> getAllVrsteUstanove(){
 		List<VrstaUstanove> vrsteUstanova = vrstaUstanoveRepo.findAll();
@@ -74,6 +80,15 @@ public class UstanovaRestController {
 		}
 		
 		ustanovaRepo.delete(id);
+	}
+	
+	@PostMapping
+	public Ustanova insertNewUstanova(@RequestBody Ustanova ustanova) {
+		if (true) {
+			
+		}
+		
+		return ustanovaRepo.saveAndFlush(ustanova);
 	}
 
 }

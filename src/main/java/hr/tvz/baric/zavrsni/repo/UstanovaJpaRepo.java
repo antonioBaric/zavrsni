@@ -10,5 +10,6 @@ public interface UstanovaJpaRepo extends JpaRepository<Ustanova, Long>{
 	
 	public Ustanova findById(Long id);
 	public List<Ustanova> findByActiveTrue();
+	public Ustanova findByIdAndActiveTrue(Long id);
 
 }

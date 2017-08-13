@@ -24,7 +24,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </div>
-
+    <!-- KORISNICI -->
     <div class="row" ng-show="screenShow === 'korisnici'">
         <h3>Korisnici({{users.length}}): </h3>
         <table class="table">
@@ -48,9 +48,105 @@
             </tr>
         </table>
     </div>
-
-    <div class="row" ng-show="screenShow === 'ustanove'">
-        <h3>Ustanove({{ustanove.length}}): </h3>
+    <!-- USTANOVE -->
+    <div class="row" ng-show="screenShow === 'ustanove'" ng-init="addingNewUstanova = false">
+        <div class="row">
+            <h3>Ustanove({{ustanove.length}}): </h3>
+            <button class="btn btn-success pull-right" ng-click="addingNewUstanova = !addingNewUstanova">Dodaj novu</button>
+            <br><br>
+        </div>
+        <!-- Nova Ustanova -->
+        <div ng-show="addingNewUstanova === true" class="row alert alert-info">
+            <h4>Nova Ustanova: </h4>
+            <p class="bg-info"> Nakon što ispunite osnonve podatke o ustanovi, potrebno je istu spremiti te zatim na stranici ustanove dodati nove odjele i preglede.
+                Ustanova će imati neaktivan status te neće biti vidljiva korisnicima sve dok je administrator ne aktivira.
+            </p>
+            <br><br>
+            <form novalidate name="newUstanovaForm" ng-submit="addNewUstanova(newUstanova); addingNewUstanova = false;" class="form-inline">
+                <table class="table">
+                    <tr>
+                        <td><label for="newUstanovaIme">Ime: </label></td>
+                        <td ng-class="{'has-error': newUstanovaForm.newUstanovaIme.$invalid && !newUstanovaForm.newUstanovaIme.$pristine}">
+                            <input type="text" id="newUstanovaIme" name="newUstanovaIme" ng-model="newUstanova.ime" class="form-control" required ng-pattern="/^[a-zA-Z\s]*$/">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="newUstanovaForm.newUstanovaIme.$error.pattern">Ime može sadržavati samo slova!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                       <td><label for="newUstanovaVrsta">Vrsta ustanove: </label></td>
+                       <td>
+                           <select class="form-control" id="newUstanovaVrsta" name="newUstanovaVrsta" ng-model="newUstanova.vrstaUstanove" required>
+                               <option ng-repeat="vrsta in vrsteUstanova" ng-value="vrsta">{{vrsta.naziv}}</option>
+                           </select>
+                       </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaSpec">Specijalizacija ustanove: </label></td>
+                        <td>
+                            <select class="form-control" id="newUstanovaSpec" name="newUstanovaSpec" ng-model="newUstanova.specijalizacijaUstanove" required>
+                                <option ng-repeat="spec in specijalizacijeUstanova" ng-value="spec">{{spec.naziv}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaMjesto"></label>Mjesto: </td>
+                        <td>
+                            <select class="form-control" id="newUstanovaMjesto" name="newUstanovaMjesto" ng-model="newUstanova.mjesto" required>
+                                <option ng-repeat="mjesto in mjesta" ng-value="mjesto">{{mjesto.naziv}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaAdresa"></label>Adresa: </td>
+                        <td ng-class="{'has-error': newUstanovaForm.newUstanovaAdresa.$invalid && !newUstanovaForm.newUstanovaAdresa.$pristine}">
+                            <input type="text" id="newUstanovaAdresa" name="newUstanovaAdresa" ng-model="newUstanova.adresa" class="form-control" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaNaslov"></label>Naslov: </td>
+                        <td ng-class="{'has-error': newUstanovaForm.newUstanovaNaslov.$invalid && !newUstanovaForm.newUstanovaNaslov.$pristine}">
+                            <input type="text" id="newUstanovaNaslov" name="newUstanovaNaslov" ng-model="newUstanova.naslov" class="form-control" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaKratkiOpis"></label>Kratki opis: </td>
+                        <td>
+                            <textarea id="newUstanovaKratkiOpis" name="newUstanovaKratkiOpis" ng-model="newUstanova.kratkiOpis" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaSiriOpis"></label>Siri opis: </td>
+                        <td>
+                            <textarea id="newUstanovaSiriOpis" name="newUstanovaSiriOpis" ng-model="newUstanova.siriOpis" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaTelefon"></label>Telefon: </td>
+                        <td ng-class="{'has-error': newUstanovaForm.newUstanovaTelefon.$invalid && !newUstanovaForm.newUstanovaTelefon.$pristine}">
+                            <input type="text" id="newUstanovaTelefon" name="newUstanovaTelefon" ng-model="newUstanova.telefon" class="form-control" required ng-pattern="/^[a-zA-Z0-9]+$/">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="newUstanovaForm.newUstanovaTelefon.$error.pattern">Telefon može sadržavati samo brojke!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaEmail"></label>E-mail: </td>
+                        <td ng-class="{'has-error': newUstanovaForm.newUstanovaEmail.$invalid && !newUstanovaForm.newUstanovaEmail.$pristine}">
+                            <input type="text" id="newUstanovaEmail" name="newUstanovaEmail" ng-model="newUstanova.email" class="form-control" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="newUstanovaSlika"></label>Slika: </td>
+                        <td>
+                            <input type="text" id="newUstanovaSlika" name="newUstanovaSlika" ng-model="newUstanova.slika" class="form-control">
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn btn-success" ng-disabled="newUstanovaForm.$invalid">Spremi</button>
+            </form>
+        </div>
+        <!-- Prikaz svih Ustanova -->
         <table class="table">
             <tr>
                 <th>Id</th>
@@ -74,7 +170,7 @@
             </tr>
         </table>
     </div>
-<!--
+<!--ODJELI
     <div class="row" ng-show="screenShow === 'odjeli'">
         <h3>Odjeli({{odjeli.length}}): </h3>
         <table class="table">
@@ -97,7 +193,7 @@
         </table>
     </div>
 -->
-
+    <!-- ODJELI -->
     <div class="row" ng-show="screenShow === 'odjeli'" ng-init="addingNewNazivOdjela = false;">
         <div class="row">
             <h3>Nazivi Odjela({{naziviOdjela.length}}): </h3>
@@ -106,7 +202,7 @@
             </button>
             <br><br>
         </div>
-        <div class="row" ng-show="addingNewNazivOdjela">
+        <div class="row alert-info" ng-show="addingNewNazivOdjela">
             <h4 class="text-info">Novi naziv odjela</h4>
             <form novalidate name="newNazivodjelaForm" ng-submit="addNewNazivOdjela(newNazivodjela); addingNewNazivOdjela = false;" class="form-inline">
                 <div class="form-group">
@@ -154,7 +250,7 @@
                 </button>
                 <!--<button ng-click="updateNazivOdjel(nazivOdjela)" class="btn btn-warning">Izmjeni</button>-->
             </div>
-            <div class="row" ng-show="editingNazivOdjela === $index" style="border-top: 1px solid #e0d4d9">
+            <div class="row alert-info" ng-show="editingNazivOdjela === $index" style="border-top: 1px solid #e0d4d9">
                 <div class="col-lg-8">
                     <form novalidate name="nazivOdjelaForm" ng-submit="updateNazivOdjel(nazivOdjela, updatedNazivOdjela); editingNazivOdjela = -1;" class="form-inline">
                         <div class="form-group">
@@ -176,7 +272,7 @@
             </div>
         </div>
     </div>
-
+    <!-- PREGLEDI -->
     <div class="row" ng-show="screenShow === 'pregledi'" ng-init="addingNewNazivPregleda = false">
         <div class="row">
             <h3>Nazivi Pregleda({{naziviPregleda.length}}): </h3>
@@ -185,7 +281,7 @@
             </button>
             <br><br>
         </div>
-        <div class="row" ng-show="addingNewNazivPregleda">
+        <div class="row alert alert-info" ng-show="addingNewNazivPregleda">
             <h4 class="text-info">Novi naziv pregleda</h4>
             <form novalidate name="newNazivPregledaForm" ng-submit="addNewNazivPregleda(newNazivPregleda); addingNewNazivPregleda = false;" class="form-inline">
                 <div class="form-group">
@@ -227,7 +323,7 @@
                     Odustani
                 </button>
             </div>
-            <div class="row" ng-show="editingNazivPregelda === $index" style="border-top: 1px solid #e0d4d9">
+            <div class="row alert alert-info" ng-show="editingNazivPregelda === $index" style="border-top: 1px solid #e0d4d9">
                 <div class="col-lg-8">
                     <form novalidate name="nazivPregledaForm" ng-submit="updateNazivPrelgeda(nazivPregleda, updatedNazivPregleda); editingNazivPregelda = -1;" class="form-inline">
                         <div class="form-group">

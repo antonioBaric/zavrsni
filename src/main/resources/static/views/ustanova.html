@@ -1,40 +1,140 @@
-<div ng-controller="ustanovaController" class="container">
+<div ng-controller="ustanovaController" class="container" ng-init="editingUstanova = false">
+    <div class="row">
+        <h1 class="text-primary">{{ustanova.ime}}</h1>
+        <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingUstanova = !editingUstanova">
+            Izmjeni
+        </button>
+        <br>
+        <hr>
+    </div>
+    <!-- IZMJENA USTANOVE -->
+    <div ng-show="role ==='admin' && editingUstanova" class="row alert alert-info">
+        <h4>Izmjena osnovnih podataka: </h4>
+        <br><br>
+        <form novalidate name="updateUstanovaForm" ng-submit="updateUstanova(updatedUstanova); editingUstanova = false;" class="form-inline">
+            <table class="table">
+                <tr>
+                    <td><label for="updatedUstanovaIme">Ime: </label></td>
+                    <td ng-class="{'has-error': updatedUstanovaForm.updatedUstanovaIme.$invalid && !updatedUstanovaForm.updatedUstanovaIme.$pristine}">
+                        <input type="text" id="updatedUstanovaIme" name="updatedUstanovaIme" ng-model="updatedUstanova.ime" class="form-control" required ng-pattern="/^[a-zA-Z\s]*$/">
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="updatedUstanovaForm.updatedUstanovaIme.$error.pattern">Ime može sadržavati samo slova!</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaVrsta">Vrsta ustanove: </label></td>
+                    <td>
+                        <select class="form-control" id="updatedUstanovaVrsta" name="updatedUstanovaVrsta" ng-model="updatedUstanova.vrstaUstanove" required>
+                            <option ng-repeat="vrsta in vrsteUstanova" ng-value="vrsta">{{vrsta.naziv}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaSpec">Specijalizacija ustanove: </label></td>
+                    <td>
+                        <select class="form-control" id="updatedUstanovaSpec" name="updatedUstanovaSpec" ng-model="updatedUstanova.specijalizacijaUstanove" required>
+                            <option ng-repeat="spec in specijalizacijeUstanova" ng-value="spec">{{spec.naziv}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaMjesto"></label>Mjesto: </td>
+                    <td>
+                        <select class="form-control" id="updatedUstanovaMjesto" name="updatedUstanovaMjesto" ng-model="updatedUstanova.mjesto" required>
+                            <option ng-repeat="mjesto in mjesta" ng-value="mjesto">{{mjesto.naziv}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaAdresa"></label>Adresa: </td>
+                    <td ng-class="{'has-error': updatedUstanovaForm.updatedUstanovaAdresa.$invalid && !updatedUstanovaForm.updatedUstanovaAdresa.$pristine}">
+                        <input type="text" id="updatedUstanovaAdresa" name="updatedUstanovaAdresa" ng-model="updatedUstanova.adresa" class="form-control" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaNaslov"></label>Naslov: </td>
+                    <td ng-class="{'has-error': updatedUstanovaForm.updatedUstanovaNaslov.$invalid && !updatedUstanovaForm.updatedUstanovaNaslov.$pristine}">
+                        <input type="text" id="updatedUstanovaNaslov" name="updatedUstanovaNaslov" ng-model="updatedUstanova.naslov" class="form-control" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaKratkiOpis"></label>Kratki opis: </td>
+                    <td>
+                        <textarea id="updatedUstanovaKratkiOpis" name="updatedUstanovaKratkiOpis" ng-model="updatedUstanova.kratkiOpis" class="form-control"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaSiriOpis"></label>Siri opis: </td>
+                    <td>
+                        <textarea id="updatedUstanovaSiriOpis" name="updatedUstanovaSiriOpis" ng-model="updatedUstanova.siriOpis" class="form-control"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaTelefon"></label>Telefon: </td>
+                    <td ng-class="{'has-error': updatedUstanovaForm.updatedUstanovaTelefon.$invalid && !updatedUstanovaForm.updatedUstanovaTelefon.$pristine}">
+                        <input type="text" id="updatedUstanovaTelefon" name="updatedUstanovaTelefon" ng-model="updatedUstanova.telefon" class="form-control" required ng-pattern="/^[a-zA-Z0-9]+$/">
+                    </td>
+                    <td>
+                        <span class="text-danger" ng-show="updatedUstanovaForm.updatedUstanovaTelefon.$error.pattern">Telefon može sadržavati samo brojke!</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaEmail"></label>E-mail: </td>
+                    <td ng-class="{'has-error': updatedUstanovaForm.updatedUstanovaEmail.$invalid && !updatedUstanovaForm.updatedUstanovaEmail.$pristine}">
+                        <input type="text" id="updatedUstanovaEmail" name="updatedUstanovaEmail" ng-model="updatedUstanova.email" class="form-control" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatedUstanovaSlika"></label>Slika: </td>
+                    <td>
+                        <input type="text" id="updatedUstanovaSlika" name="updatedUstanovaSlika" ng-model="updatedUstanova.slika" class="form-control">
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-success" ng-disabled="updateUstanovaForm.$invalid">Spremi</button>
+        </form>
+    </div>
+    <!-- PRIKAZ SPREMLJENIH PODATAKA(OSNOVNIH) -->
+    <div ng-show="!editingUstanova">
+        <div class="row">
+            <div class="col-md-4">
+                <p>Vrsta ustanove: <span>{{ustanova.vrstaUstanove.naziv}}</span></p>
+            </div>
+            <div class="col-md-4">
+                <p>Specijalizacija ustanove: <span>{{ustanova.specijalizacijaUstanove.naziv}}</span></p>
+            </div>
+            <div class="col-md-4">
+                <p>Mjesto: <span>{{ustanova.mjesto.naziv}}</span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p>Telefon: <span>{{ustanova.telefon}}</span></p>
+            </div>
+            <div class="col-md-4">
+                <p>Email: <span>{{ustanova.email}}</span></p>
+            </div>
+            <div class="col-md-4">
+                <p>Adresa: <span>{{ustanova.adresa}}</span></p>
+            </div>
+        </div>
+    </div>
+    <!-- PRIKAZ SPREMLJENIH ODJELA USTANOVE -->
+    <div>
+        <div class="row" style="margin-top:50px">
+            <h3>Odjeli({{ustanova.odjeli.length}}): </h3>
+        </div>
+        <form class="form-inline">
+            <div class="form-group">
+                <label>Pretraži odjele: </label>
+                <input ng-model="pretraga" type="text" class="form-control" placeholder="Upisite Odjel">
+            </div>
+        </form>
+        <div class="row well" ng-repeat="odjel in ustanova.odjeli |filter:pretraga">
+            <a ng-href="#/odjeli/{{odjel.id}}"><h4>{{odjel.nazivOdjela.naziv}}</h4></a>
+        </div>
+    </div>
 
-    <h1 class="text-primary">{{ustanova.ime}}</h1>
-    <hr>
-    <div class="row">
-        <div class="col-md-4">
-            <p>Vrsta ustanove: <span>{{ustanova.vrstaUstanove.naziv}}</span></p>
-        </div>
-        <div class="col-md-4">
-            <p>Specijalizacija ustanove: <span>{{ustanova.specijalizacijaUstanove.naziv}}</span></p>
-        </div>
-        <div class="col-md-4">
-            <p>Mjesto: <span>{{ustanova.mjesto.naziv}}</span></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <p>Telefon: <span>{{ustanova.telefon}}</span></p>
-        </div>
-        <div class="col-md-4">
-            <p>Email: <span>{{ustanova.email}}</span></p>
-        </div>
-        <div class="col-md-4">
-            <p>Adresa: <span>{{ustanova.adresa}}</span></p>
-        </div>
-    </div>
-    <div class="row" style="margin-top:50px">
-        <h3>Odjeli: </h3>
-    </div>
-    <form class="form-inline">
-        <div class="form-group">
-            <label>Pretraži odjele: </label>
-            <input ng-model="pretraga" type="text" class="form-control" placeholder="Upisite Odjel">
-        </div>
-    </form>
-    <div class="row well" ng-repeat="odjel in ustanova.odjeli |filter:pretraga">
-        <a ng-href="#/odjeli/{{odjel.id}}"><h4>{{odjel.nazivOdjela.naziv}}</h4></a>
-    </div>
 
 </div>

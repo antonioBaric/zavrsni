@@ -1,4 +1,4 @@
-app.controller('userController', function ($rootScope, $scope, $location, $q, userInfoFactory, ustanovaFactory, odjelFacotry, pregledFacotry) {
+app.controller('userController', function ($rootScope, $scope, $location, $q, userInfoFactory, ustanovaFactory, odjelFacotry, pregledFacotry, mjestoFacotry) {
 
     $scope.updatedUser = jQuery.extend(true, {}, $rootScope.userInfo);
     $scope.activeFirstTime = jQuery.extend(true, {}, $rootScope.userInfo.active);
@@ -16,7 +16,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         .catch(function (e) {
            console.log("error when trying to fetch all users", e);
         });
-
+        // Napraviti sve u jednome chainu ?!
         ustanovaFactory.getAllUstanove()
         .then(function (ustanove) {
             $scope.ustanove = ustanove;
@@ -28,8 +28,8 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         odjelFacotry.getAllNaziviOdjela()
         .then(function (naziviOdjela) {
             $scope.naziviOdjela = naziviOdjela;
-            $scope.ustanoveOdjela = [];
-            /*$scope.odjeli.forEach(function (odjel) {
+            /*$scope.ustanoveOdjela = [];
+            $scope.odjeli.forEach(function (odjel) {
                 var ustanovaId = odjelFacotry.getUstanovaIdOfThisOdjel(odjel.id);
                 var ustanovaIme = odjelFacotry.getUstanovaImeOfThisOdjel(odjel.id);
                 $scope.ustanoveOdjela.push({
@@ -64,6 +64,33 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         .catch(function (e) {
             console.log("error when trying to fetch all 'pregledi'", e);
         });
+
+        //dodatno:
+
+        ustanovaFactory.getAllVrsteUstanova()
+        .then(function (vrsteUstanova) {
+            $scope.vrsteUstanova = vrsteUstanova;
+        })
+        .catch(function (e) {
+            console.log("error while fetching all 'vrsteUstanova' in  userController: ", e);
+        });
+
+        ustanovaFactory.getAllSpecijalizacijeUstanova()
+        .then(function (specijalizacijeUstanova) {
+            $scope.specijalizacijeUstanova = specijalizacijeUstanova;
+        })
+        .catch(function (e) {
+            console.log("error while fetching all 'specijalizacijeUstanova' in  userController: ", e);
+        });
+
+        mjestoFacotry.getAllMjesta()
+        .then(function (mjesta) {
+            $scope.mjesta = mjesta;
+        })
+        .catch(function (e) {
+            console.log("error while fetching all 'mjesta' in  userController: ", e);
+        });
+
     }
 
     $scope.changeScreen = function (part) {
@@ -218,9 +245,19 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         }
     };
     
-    $scope.addNewUstanova = function () {
+    $scope.addNewUstanova = function (newUstanova) {
         if ($rootScope.role === "admin") {
-
+            if ($scope.newUstanovaForm.$valid) {
+                ustanovaFactory.insertNewUstanova(newUstanova)
+                .then(function (newUstanova) {
+                    $scope.ustanove.push(newUstanova);
+                })
+                .catch(function (e) {
+                   console.log("error while inserting new Ustanova(userController)",e);
+                });
+            } else {
+                alert("Niste dobro unijeli sve potrebne podatke!");
+            }
         }
     };
     
@@ -343,7 +380,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         }
     };
 
-    $scope.deletePregled = function () {
+    $scope.deleteNazivPregleda = function () {
         if ($rootScope.role === "admin") {
 
         }
