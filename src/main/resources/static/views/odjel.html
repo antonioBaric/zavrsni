@@ -106,14 +106,16 @@
         </div>
     </div>
 
-        <div class="row well" ng-repeat="pregled in odjel.pregledi">
-            <div class="col-md-6">
-                <a ng-href="#/pregledi/{{pregled.id}}"><h4>{{pregled.nazivPregleda.naziv}}</h4></a>
-            </div>
-            <div class="col-md-6" ng-show="role === 'admin'">
-                <button class="btn btn-success" ng-disabled="pregled.active" ng-click="activatePregled(pregled)">Aktiviraj</button>
-                <button class="btn btn-warning" ng-disabled="!pregled.active" ng-click="deactivatePregled(pregled)">Deaktiviraj</button>
-                <button class="btn btn-danger" ng-click="deletePregled(pregled.id, $index)">Izbrisi</button>
+        <div ng-repeat="pregled in odjel.pregledi">
+            <div class="row well" ng-hide="role != 'admin' && pregled.active != true">
+                <div class="col-md-6">
+                    <a ng-href="#/pregledi/{{pregled.id}}"><h4>{{pregled.nazivPregleda.naziv}}</h4></a>
+                </div>
+                <div class="col-md-6" ng-show="role === 'admin'">
+                    <button class="btn btn-success" ng-disabled="pregled.active" ng-click="activatePregled(pregled)">Aktiviraj</button>
+                    <button class="btn btn-warning" ng-disabled="!pregled.active" ng-click="deactivatePregled(pregled)">Deaktiviraj</button>
+                    <button class="btn btn-danger" ng-click="deletePregled(pregled.id, $index)">Izbrisi</button>
+                </div>
             </div>
         </div>
 </div>

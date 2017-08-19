@@ -62,6 +62,11 @@ public class PregledRestController {
 		return activePregledi;
 	}
 	
+	@GetMapping("/active/{pregledId}")
+	public Pregled getActiveUPregledById(@PathVariable Long pregledId) {
+		return pregledJpaRepo.findByIdAndActiveTrue(pregledId);
+	}
+	
 	@PostMapping("/{odjelId}")
 	public Pregled insertNewPregled(@RequestBody Pregled newPregled, @PathVariable Long odjelId) {
 		Odjel odjel = odjelJpaRepo.findById(odjelId);

@@ -57,6 +57,12 @@ public class OdjelRestController {
 		return activeOdjeli;
 	}
 	
+	@GetMapping("/active/{odjelId}")
+	public Odjel getActiveOdjelById(@PathVariable Long odjelId) {
+		Odjel odjel = odjelRepo.findByIdAndActiveTrue(odjelId);
+		return odjel;
+	}
+	
 	@PutMapping
 	public Odjel updateOdjel(@RequestBody Odjel odjel) {
 		Ustanova ustanova = odjelRepo.findById(odjel.getId()).getUstanova();

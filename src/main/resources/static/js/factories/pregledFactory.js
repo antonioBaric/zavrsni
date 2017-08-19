@@ -120,6 +120,15 @@ app.factory('pregledFacotry', function ($http, $q) {
             .catch(function (e) {
                 console.log("error in inserting pregled (pregledFactory)", e);
             });
+        },
+
+        getActivePregledById: function (id) {
+            return $http.get(apiString + "active/" + id).then(function(response){
+                return response.data;
+            })
+            .catch(function (response) {
+                $q.reject(response);
+            });
         }
     };
 });

@@ -10,5 +10,6 @@ public interface PregledJpaRepo extends JpaRepository<Pregled, Long>{
 	
 	public Pregled findById(Long id);
 	public List<Pregled> findByActiveTrue();
+	public Pregled findByIdAndActiveTrue(Long id);
 
 }

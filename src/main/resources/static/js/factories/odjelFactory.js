@@ -132,6 +132,15 @@ app.factory('odjelFactory', function ($http, $q) {
                 console.log("error in inserting new odjel to ustanova", e);
                 $q.reject(e);
             });
+        },
+
+        getActiveOdjelById: function (id) {
+            return $http.get(apiString + "active/" + id).then(function(response){
+                return response.data;
+            })
+            .catch(function (response) {
+                $q.reject(response);
+            });
         }
     };
 });

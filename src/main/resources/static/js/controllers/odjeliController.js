@@ -13,34 +13,40 @@ app.controller('odjelController', function ($scope, $rootScope, $routeParams, od
     var odjelId = $routeParams.odjelId;
 
     if ($rootScope.role === "admin") {
-        //dohvatiti odjel
-    } else {
-        //dohvatiti odjel samo ako je aktivan (ako nije admin)
-    }
+        odjelFactory.getOdjelById(odjelId).then(function (data) {
+            $scope.odjel = data;
+            $scope.updatedOdjel = jQuery.extend(true, {}, $scope.odjel);
+        })
+        .catch(function (e) {
+            console.log("odjelFactory.getOdjelById nije uspio: ", e);
+        });
 
-    odjelFactory.getOdjelById(odjelId).then(function (data) {
-        $scope.odjel = data;
-        $scope.updatedOdjel = jQuery.extend(true, {}, $scope.odjel);
-    })
-    .catch(function (e) {
-        console.log("odjelFactory.getOdjelById nije uspio: ", e);
-    });
+        odjelFactory.getAllNaziviOdjela()
+        .then(function (naziviOdjela) {
+            $scope.naziviOdjela = naziviOdjela;
+        })
+        .catch(function (e) {
+            console.log("odjelFactory.getAllNaziviOdjela nije uspio: ", e);
+        });
 
-    odjelFactory.getAllNaziviOdjela()
-    .then(function (naziviOdjela) {
-        $scope.naziviOdjela = naziviOdjela;
-    })
-    .catch(function (e) {
-        console.log("odjelFactory.getAllNaziviOdjela nije uspio: ", e);
-    });
-
-    pregledFacotry.getAllNaziviPregleda()
+        pregledFacotry.getAllNaziviPregleda()
         .then(function (naziviPregleda) {
             $scope.naziviPregleda = naziviPregleda;
         })
         .catch(function (e) {
             console.log("pregledFacotry.getAllNaziviPregleda() nije uspio: ", e);
         });
+
+    } else {
+        odjelFactory.getActiveOdjelById(odjelId).then(function (data) {
+            $scope.odjel = data;
+        })
+        .catch(function (e) {
+            console.log("odjelFactory.getActiveOdjelById nije uspio: ", e);
+        });
+    }
+
+
 
     $scope.updateOdjel = function (updatedOdjel) {
         if ($rootScope.role === "admin") {

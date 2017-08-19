@@ -60,7 +60,7 @@ app.controller('ustanovaController', function ($scope, $rootScope, $routeParams,
             $scope.ustanova = data;
         })
         .catch(function (e) {
-            console.log("ustanovaFactory.getUstanovaById nije uspjelo: ", e);
+            console.log("ustanovaFactory.getActiveUstanovaById nije uspjelo: ", e);
         });
     }
 
