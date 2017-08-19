@@ -1,7 +1,38 @@
-<div ng-controller="pregledController" class="container">
+<div ng-controller="pregledController" class="container" ng-init="editingPregled = false">
+    <div class="row">
+        <h2>{{pregled.nazivPregleda.naziv}}</h2>
+        <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingPregled = !editingPregled">
+            Izmjeni
+        </button>
+        <br><br>
+    </div>
 
-    <h1>{{pregled.nazivPregleda.naziv}}</h1>
-    <hr>
-    <p>Opis pregleda: {{pregled.opis}}</p>
+    <!-- Izmjena pregleda -->
+    <div ng-show="role === 'admin' && editingPregled === true" class="row alert alert-info">
+        <h4>Izmjena podataka za pregled: </h4>
+        <br><br>
+        <form novalidate name="updatePregledForm" ng-submit="updatePregled(updatedPregled); editingPregled = false;" class="form-inline">
+            <table class="table">
+                <tr>
+                    <td><label for="updatePregledNazivOdjela">Naziv pregleda: </label></td>
+                    <td>
+                        <select class="form-control" id="updatePregledNazivOdjela" name="updatePregledNazivOdjela" ng-model="updatedPregled.nazivPregleda" required>
+                            <option ng-repeat="nazivPregleda in naziviPregleda" ng-value="nazivPregleda">{{nazivPregleda.naziv}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updatePregledPrivatniOpis">Opis pregleda: </label></td>
+                    <td>
+                        <textarea id="updatePregledPrivatniOpis" name="updatePregledPrivatniOpis" ng-model="updatedPregled.opis" class="form-control"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-success" ng-disabled="updatePregledForm.$invalid">Spremi</button>
+        </form>
+    </div>
 
+    <div>
+        <p>Opis pregleda: {{pregled.opis}}</p>
+    </div>
 </div>

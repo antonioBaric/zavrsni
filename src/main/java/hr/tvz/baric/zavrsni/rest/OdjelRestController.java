@@ -122,7 +122,7 @@ public class OdjelRestController {
 		return nazivOdjelaRepo.saveAndFlush(nazivOdjela);
 	}
 	
-	@PostMapping("/insertNewOdjelToUstanova/{ustanovaId}")
+	@PostMapping("/{ustanovaId}")
 	public Odjel insertNewOdjelToUstanova(@RequestBody Odjel odjel, @PathVariable Long ustanovaId) {
 		Ustanova ustanova = ustanovaRepo.findById(ustanovaId);
 		odjel.setId(null);

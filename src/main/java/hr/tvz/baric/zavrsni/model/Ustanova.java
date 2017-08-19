@@ -48,7 +48,7 @@ public class Ustanova {
 	@Column(name="ADRESA")
 	private String adresa;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ustanova", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ustanova", cascade = CascadeType.REMOVE)
 	@JsonManagedReference
 	private List<Odjel> odjeli;
 	

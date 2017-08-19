@@ -38,7 +38,7 @@ public class Odjel {
 	@JsonBackReference
 	private Ustanova ustanova;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "odjel", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "odjel", cascade = CascadeType.REMOVE)
 	@JsonManagedReference
 	private List<Pregled> pregledi;
 	

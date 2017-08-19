@@ -1,5 +1,7 @@
 package hr.tvz.baric.zavrsni.rest;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import hr.tvz.baric.zavrsni.model.Odjel;
 import hr.tvz.baric.zavrsni.model.Pregled;
 import hr.tvz.baric.zavrsni.model.Ustanova;
 import hr.tvz.baric.zavrsni.repo.NazivPregledaJpaRepo;
+import hr.tvz.baric.zavrsni.repo.OdjelJpaRepo;
 import hr.tvz.baric.zavrsni.repo.PregledJpaRepo;
 
 @RestController
@@ -31,6 +34,9 @@ public class PregledRestController {
 	
 	@Autowired
 	NazivPregledaJpaRepo nazivPregledaJpaRepo;
+	
+	@Autowired
+	OdjelJpaRepo odjelJpaRepo;
 	
 	@GetMapping
 	public List<Pregled> getAllPreglede() {
@@ -56,8 +62,21 @@ public class PregledRestController {
 		return activePregledi;
 	}
 	
+	@PostMapping("/{odjelId}")
+	public Pregled insertNewPregled(@RequestBody Pregled newPregled, @PathVariable Long odjelId) {
+		Odjel odjel = odjelJpaRepo.findById(odjelId);
+		newPregled.setId(null);
+		newPregled.setOdjel(odjel);
+		newPregled = pregledJpaRepo.saveAndFlush(newPregled);
+		return newPregled;
+	}
+	
 	@PutMapping
 	public Pregled updatePregled(@RequestBody Pregled pregled) {
+		Odjel odjel = pregledJpaRepo.findById(pregled.getId()).getOdjel();
+		if (pregled.getOdjel() == null) {
+			pregled.setOdjel(odjel);
+		}
 		return pregledJpaRepo.saveAndFlush(pregled);
 	}
 	
@@ -66,7 +85,8 @@ public class PregledRestController {
 		if (pregledJpaRepo.findById(id) == null) {
 			return;
 		}
-		
+		Pregled pregled = pregledJpaRepo.findById(id);
+		pregled.setOdjel(null);
 		pregledJpaRepo.delete(id);
 	}
 	

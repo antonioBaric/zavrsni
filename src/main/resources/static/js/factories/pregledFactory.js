@@ -109,6 +109,17 @@ app.factory('pregledFacotry', function ($http, $q) {
             .catch(function (e) {
                console.log("error ")
             });
+        },
+
+        insertNewPregled: function (newPregled, odjelId) {
+            newPregled.active = false;
+            return $http.post(apiString + odjelId, newPregled)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error in inserting pregled (pregledFactory)", e);
+            });
         }
     };
 });

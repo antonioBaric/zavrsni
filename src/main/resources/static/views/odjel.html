@@ -1,14 +1,119 @@
-<div ng-controller="odjelController" class="container">
-    <h2>{{odjel.nazivOdjela.naziv}}</h2>
-    <p>Opis: {{odjel.privatniOpisOdjela}}</p>
-    <p> Zgrada: {{odjel.zgradaBolnice}}</p>
-    <p>Kat: {{odjel.kat}}</p>
-    <p>email: {{odjel.email}}</p>
-    <p>telefon: {{odjel.telefon}}</p>
-
-    <h3>Pregledi: </h3>
-    <div class="row well" ng-repeat="pregled in odjel.pregledi">
-        <a ng-href="#/pregledi/{{pregled.id}}"><h4>{{pregled.nazivPregleda.naziv}}</h4></a>
+<div ng-controller="odjelController" class="container" ng-init="editingOdjel = false">
+    <div class="row">
+        <h2>{{odjel.nazivOdjela.naziv}}</h2>
+        <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingOdjel = !editingOdjel">
+            Izmjeni
+        </button>
+        <br>
+        <br>
+    </div>
+    <!-- Izmjena odjela -->
+    <div ng-show="role === 'admin' && editingOdjel" class="row alert alert-info">
+        <h4>Izmjena osnovnih podataka: </h4>
+        <br><br>
+        <form novalidate name="updateOdjelForm" ng-submit="updateOdjel(updatedOdjel); editingOdjel = false;" class="form-inline">
+            <table class="table">
+                <tr>
+                    <td><label for="updateOdjelNazivOdjela">Naziv odjela: </label></td>
+                    <td>
+                        <select class="form-control" id="updateOdjelNazivOdjela" name="updateOdjelNazivOdjela" ng-model="updatedOdjel.nazivOdjela" required>
+                            <option ng-repeat="nazivOdjela in naziviOdjela" ng-value="nazivOdjela">{{nazivOdjela.naziv}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updateOdjelPrivatniOpis">Privatni opis odjela: </label></td>
+                    <td>
+                        <textarea id="updateOdjelPrivatniOpis" name="updateOdjelPrivatniOpis" ng-model="updatedOdjel.privatniOpisOdjela" class="form-control"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updateOdjelTelefon">Telefon: </label></td>
+                    <td>
+                        <input type="text" id="updateOdjelTelefon" name="updateOdjelTelefon" ng-model="updatedOdjel.telefon" class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updateOdjelEmail">E-mail: </label></td>
+                    <td>
+                        <input type="text" id="updateOdjelEmail" name="updateOdjelEmail" ng-model="updatedOdjel.email" class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updateOdjelZgrada">Zgrada Bolnice: </label></td>
+                    <td>
+                        <input type="text" id="updateOdjelZgrada" name="updateOdjelZgrada" ng-model="updatedOdjel.zgradaBolnice" class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="updateOdjelKat">Kat: </label></td>
+                    <td>
+                        <input type="text" id="updateOdjelKat" name="updateOdjelKat" ng-model="updatedOdjel.kat" class="form-control">
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-success" ng-disabled="updateOdjelForm.$invalid">Spremi</button>
+        </form>
+    </div>
+    <!--Prikaz spremljenih odjela-->
+    <div class="row">
+        <p>Opis: {{odjel.privatniOpisOdjela}}</p>
+        <p> Zgrada: {{odjel.zgradaBolnice}}</p>
+        <p>Kat: {{odjel.kat}}</p>
+        <p>email: {{odjel.email}}</p>
+        <p>telefon: {{odjel.telefon}}</p>
+        <!--Dodavanje novih pregleda odjelu -->
+    </div>
+    <!-- -->
+    <div ng-init="addingNewPregled = false">
+        <div class="row" style="margin-top: 50px">
+            <h3>Pregledi: </h3>
+        </div>
+        <div class="row">
+            <form class="form-inline col-md-6">
+                <label>Pretrazi preglede</label>
+                <input type="text" class="form-control">
+            </form>
+            <div class="col-md-6" ng-show="role === 'admin'">
+                <button class="btn btn-success pull-right" ng-click="addingNewPregled = !addingNewPregled">
+                    Dodaj novi
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="row alert alert-info" ng-show="role ==='admin' && addingNewPregled">
+            <h4>Novi Pregled: </h4>
+            <br><br>
+            <form novalidate name="addNewPregledForm" ng-submit="addNewPregled(newPregled); addingNewPregled = false;" class="form-inline">
+                <table class="table">
+                    <tr>
+                        <td><label for="addNewPregledNazivOdjela">Naziv Pregleda: </label></td>
+                        <td>
+                            <select class="form-control" id="addNewPregledNazivOdjela" name="addNewPregledNazivOdjela" ng-model="newPregled.nazivPregleda" required>
+                                <option ng-repeat="nazivPregleda in naziviPregleda" ng-value="nazivPregleda">{{nazivPregleda.naziv}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="addNewPregledOpis">Privatni opis odjela: </label></td>
+                        <td>
+                            <textarea id="addNewPregledOpis" name="addNewPregledOpis" ng-model="newPregled.opis" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn btn-success" ng-disabled="addNewPregledForm.$invalid">Spremi</button>
+            </form>
+        </div>
     </div>
 
+        <div class="row well" ng-repeat="pregled in odjel.pregledi">
+            <div class="col-md-6">
+                <a ng-href="#/pregledi/{{pregled.id}}"><h4>{{pregled.nazivPregleda.naziv}}</h4></a>
+            </div>
+            <div class="col-md-6" ng-show="role === 'admin'">
+                <button class="btn btn-success" ng-disabled="pregled.active" ng-click="activatePregled(pregled)">Aktiviraj</button>
+                <button class="btn btn-warning" ng-disabled="!pregled.active" ng-click="deactivatePregled(pregled)">Deaktiviraj</button>
+                <button class="btn btn-danger" ng-click="deletePregled(pregled.id, $index)">Izbrisi</button>
+            </div>
+        </div>
 </div>
