@@ -35,6 +35,7 @@ public class UstanovaRestController {
 	
 	@GetMapping
 	//@PreAuthorize("hasAuthority('admin') or hasAuthority('doktor')")
+	@PreAuthorize("hasAuthority('admin')")
 	public List<Ustanova> getAllUstanove(){
 		List<Ustanova> ustanove = ustanovaRepo.findAll();
 		return ustanove;
@@ -47,6 +48,7 @@ public class UstanovaRestController {
 	}
 	
 	@GetMapping("/{ustanovaId}")
+	@PreAuthorize("hasAuthority('admin')")
 	public Ustanova getUstanovaByid(@PathVariable Long ustanovaId){
 		return ustanovaRepo.findById(ustanovaId);
 	}
@@ -57,23 +59,27 @@ public class UstanovaRestController {
 	}
 	
 	@GetMapping("/vrstaUstanove")
+	@PreAuthorize("hasAuthority('admin')")
 	public List<VrstaUstanove> getAllVrsteUstanove(){
 		List<VrstaUstanove> vrsteUstanova = vrstaUstanoveRepo.findAll();
 		return vrsteUstanova;
 	}
 	
 	@GetMapping("/specijalizacijaUstanove")
+	@PreAuthorize("hasAuthority('admin')")
 	public List<SpecijalizacijaUstanove> getAllSpecUstanove() {
 		List<SpecijalizacijaUstanove> specs = specijalizacijaUstanoveRepo.findAll();
 		return specs;
 	}
 	
 	@PutMapping
+	@PreAuthorize("hasAuthority('admin')")
 	public Ustanova updateUstanova(@RequestBody Ustanova ustanova) {
 		return ustanovaRepo.saveAndFlush(ustanova);
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('admin')")
 	public void deleteUstanova(@PathVariable Long id) {
 		if (ustanovaRepo.findById(id) == null) {
 			return;
@@ -83,6 +89,7 @@ public class UstanovaRestController {
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('admin')")
 	public Ustanova insertNewUstanova(@RequestBody Ustanova ustanova) {
 		if (true) {
 			

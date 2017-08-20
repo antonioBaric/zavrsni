@@ -136,7 +136,7 @@ app.factory('odjelFactory', function ($http, $q) {
 
         getActiveOdjelById: function (id) {
             return $http.get(apiString + "active/" + id).then(function(response){
-                return response.data;
+                return $q.resolve(response.data);
             })
             .catch(function (response) {
                 $q.reject(response);

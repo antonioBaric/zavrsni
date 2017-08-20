@@ -1,4 +1,4 @@
-<div ng-controller="odjelController" class="container" ng-init="editingOdjel = false">
+<div ng-controller="odjelController" class="container" ng-init="editingOdjel = false" ng-show="odjel && odjel != ''">
     <div class="row">
         <h2>{{odjel.nazivOdjela.naziv}}</h2>
         <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingOdjel = !editingOdjel">

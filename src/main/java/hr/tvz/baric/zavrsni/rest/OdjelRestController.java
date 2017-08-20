@@ -3,6 +3,7 @@ package hr.tvz.baric.zavrsni.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,17 +36,20 @@ public class OdjelRestController {
 	UstanovaJpaRepo ustanovaRepo;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('admin')")
 	public List<Odjel> getAllOdjeli() {
 		List<Odjel> odjeli = odjelRepo.findAll();
 		return odjeli;
 	}
 	
 	@GetMapping("/{odjelId}")
+	@PreAuthorize("hasAuthority('admin')")
 	public Odjel getOdjelById(@PathVariable Long odjelId){
 		return odjelRepo.findById(odjelId);
 	}
 	
 	@GetMapping("/nazivOdjela")
+	@PreAuthorize("hasAuthority('admin')")
 	public List<NazivOdjela> getAllNaziviOdjela() {
 		List<NazivOdjela> nazivi = nazivOdjelaRepo.findAll();
 		return nazivi;
@@ -64,6 +68,7 @@ public class OdjelRestController {
 	}
 	
 	@PutMapping
+	@PreAuthorize("hasAuthority('admin')")
 	public Odjel updateOdjel(@RequestBody Odjel odjel) {
 		Ustanova ustanova = odjelRepo.findById(odjel.getId()).getUstanova();
 		if (odjel.getUstanova() == null) {
@@ -73,6 +78,7 @@ public class OdjelRestController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('admin')")
 	public void deleteOdjel(@PathVariable Long id) {
 		if (odjelRepo.findById(id) == null) {
 			return;
@@ -115,11 +121,13 @@ public class OdjelRestController {
 //	}
 	
 	@PutMapping("/nazivOdjela")
+	@PreAuthorize("hasAuthority('admin')")
 	public NazivOdjela updateNazivOdjela(@RequestBody NazivOdjela nazivOdjela) {
 		return nazivOdjelaRepo.saveAndFlush(nazivOdjela);
 	}
 	
 	@PostMapping("/nazivOdjela")
+	@PreAuthorize("hasAuthority('admin')")
 	public NazivOdjela insertNewNazivOdjela(@RequestBody NazivOdjela nazivOdjela) {
 		if (nazivOdjelaRepo.findByNaziv(nazivOdjela.getNaziv()) != null) {
 			return null;
@@ -129,6 +137,7 @@ public class OdjelRestController {
 	}
 	
 	@PostMapping("/{ustanovaId}")
+	@PreAuthorize("hasAuthority('admin')")
 	public Odjel insertNewOdjelToUstanova(@RequestBody Odjel odjel, @PathVariable Long ustanovaId) {
 		Ustanova ustanova = ustanovaRepo.findById(ustanovaId);
 		odjel.setId(null);

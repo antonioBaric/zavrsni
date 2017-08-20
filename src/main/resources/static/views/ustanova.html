@@ -1,4 +1,4 @@
-<div ng-controller="ustanovaController" class="container" ng-init="editingUstanova = false">
+<div ng-controller="ustanovaController" class="container" ng-init="editingUstanova = false" ng-show="ustanova && ustanova != ''">
     <div class="row">
         <h1 class="text-primary">{{ustanova.ime}}</h1>
         <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingUstanova = !editingUstanova">

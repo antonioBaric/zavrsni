@@ -1,4 +1,4 @@
-<div ng-controller="pregledController" class="container" ng-init="editingPregled = false">
+<div ng-controller="pregledController" class="container" ng-init="editingPregled = false" ng-show="pregled && pregled != ''">
     <div class="row">
         <h2>{{pregled.nazivPregleda.naziv}}</h2>
         <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingPregled = !editingPregled">
