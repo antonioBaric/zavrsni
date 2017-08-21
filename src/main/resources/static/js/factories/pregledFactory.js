@@ -74,7 +74,7 @@ app.factory('pregledFacotry', function ($http, $q) {
         getOdjelIdOfThisPregled: function (pregledId) {
             return $http.get(apiString + "getOdjelId/" + pregledId)
             .then(function(response) {
-                return response;
+                return response.data;
             })
             .catch(function (response) {
                 $q.reject(response);
@@ -124,6 +124,15 @@ app.factory('pregledFacotry', function ($http, $q) {
 
         getActivePregledById: function (id) {
             return $http.get(apiString + "active/" + id).then(function(response){
+                return response.data;
+            })
+            .catch(function (response) {
+                $q.reject(response);
+            });
+        },
+
+        getOdjelBasicInformation: function (pregledId) {
+            return $http.get(apiString + "getOdjelBasicInformation/" + pregledId).then(function(response){
                 return response.data;
             })
             .catch(function (response) {

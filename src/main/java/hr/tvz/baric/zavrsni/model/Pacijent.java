@@ -1,16 +1,18 @@
 package hr.tvz.baric.zavrsni.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "PACIJENT")
@@ -25,6 +27,10 @@ public class Pacijent {
 //	@JoinColumn(name = "USER_INFO", referencedColumnName = "USER_INFO_ID")
 //	@JsonBackReference
 //	private UserInfo userInfo;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pacijent", cascade = CascadeType.REMOVE)
+	@JsonManagedReference
+	private List<PregledPacijenta> preglediPacijenta;
 	
 	@Column(name = "NESTO")
 	private String nesto;
@@ -51,6 +57,14 @@ public class Pacijent {
 
 	public void setNesto(String nesto) {
 		this.nesto = nesto;
+	}
+
+	public List<PregledPacijenta> getPreglediPacijenta() {
+		return preglediPacijenta;
+	}
+
+	public void setPreglediPacijenta(List<PregledPacijenta> preglediPacijenta) {
+		this.preglediPacijenta = preglediPacijenta;
 	}
 
 	

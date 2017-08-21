@@ -35,4 +35,10 @@
     <div>
         <p>Opis pregleda: {{pregled.opis}}</p>
     </div>
+
+    <div ng-show="role === 'pacijent'">
+        <button class="btn btn-info" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
+            Prijavi se
+        </button>
+    </div>
 </div>

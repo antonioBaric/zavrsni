@@ -1,7 +1,5 @@
 package hr.tvz.baric.zavrsni.rest;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
-import hr.tvz.baric.zavrsni.model.NazivOdjela;
 import hr.tvz.baric.zavrsni.model.NazivPregleda;
 import hr.tvz.baric.zavrsni.model.Odjel;
 import hr.tvz.baric.zavrsni.model.Pregled;
-import hr.tvz.baric.zavrsni.model.Ustanova;
 import hr.tvz.baric.zavrsni.repo.NazivPregledaJpaRepo;
 import hr.tvz.baric.zavrsni.repo.OdjelJpaRepo;
 import hr.tvz.baric.zavrsni.repo.PregledJpaRepo;
@@ -116,6 +112,19 @@ public class PregledRestController {
 		Gson gson = new Gson();
 		String string = gson.toJson(odjel.getNazivOdjela().getNaziv());
 		return string;
+	}
+	
+	@GetMapping("/getOdjelBasicInformation/{id}")
+	public Odjel findOdjelBasicInformation(@PathVariable Long id){
+		Pregled pregled = pregledJpaRepo.findById(id);
+		Odjel odjel = pregled.getOdjel();
+		
+		odjel.setActive(null);
+		odjel.setPregledi(null);
+		odjel.setPrivatniOpisOdjela(null);
+		odjel.setUstanova(null);
+		
+		return odjel;
 	}
 	
 	@PostMapping("/nazivPregleda")

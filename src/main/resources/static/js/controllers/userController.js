@@ -4,7 +4,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
     $scope.activeFirstTime = jQuery.extend(true, {}, $rootScope.userInfo.active);
     $scope.updatingInProgress = false;
     $scope.updateSuccessful = false;
-    $scope.screenShow = "korisnici";
+    //$scope.screenShow = "korisnici";
     $scope.editingNazivOdjela = -1;
     $scope.editingNazivPregelda = -1;
 
@@ -400,6 +400,26 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
                 console.log("error in activating ustanova", e);
             });
         }
+    };
+/*
+    $scope.getOdjelBasicInformation = function (pregledId) {
+        pregledFacotry.getOdjelBasicInformation(pregledId)
+        .then(function (data) {
+            $scope.odjelBasicInformation = data;
+            return pregledFacotry.getOdjelIdOfThisPregled(pregledId)
+        })
+        .then(function (data) {
+            return odjelFactory.getUstanovaImeOfThisOdjel(data)
+        })
+        .then(function (data) {
+          $scope.ustanovaIme = data;
+        })
+        .catch(function (e) {
+            console.log("error in getOdjelBasicInformation (userController)", e);
+        });
     }
+*/
+
+
 
 });

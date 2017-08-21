@@ -8,7 +8,7 @@ app.controller('preglediController', function ($scope) {
 
 });
 
-app.controller('pregledController', function ($scope, $rootScope, $routeParams, pregledFacotry) {
+app.controller('pregledController', function ($scope, $rootScope, $routeParams, pregledFacotry, userInfoFactory) {
 
     var pregledId = $routeParams.pregledId;
 
@@ -37,8 +37,6 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
         });
     }
 
-
-
     $scope.updatePregled = function (updatedPregled) {
         pregledFacotry.updatePregled(updatedPregled)
         .then(function (data) {
@@ -47,6 +45,19 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
         .catch(function (e) {
             console.log("pregledFacotry.updatePregled nije uspio: ", e);
         });
-    }
+    };
+    
+    $scope.prijavaPregleda = function (userId, pregledId) {
+        if ($rootScope.role === "pacijent") {
+            userInfoFactory.addPregledToUser(userId, pregledId)
+            .then(function (newPregled) {
+                $rootScope.userInfo.pacijent.preglediPacijenta.push(newPregled);
+                alert("Uspjesno ste se prijavili za pregled.");
+            })
+            .catch(function (e) {
+                console.log("userInfoFactory.insertNewPregled nije uspio: ", e);
+            });
+        }
+    };
 
 });

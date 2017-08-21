@@ -2,7 +2,6 @@ package hr.tvz.baric.zavrsni.model;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,13 +38,23 @@ public class Pregled {
 	@Column(name="OPIS")
 	private String opis;
 	
-	@Column(name="DATUM")
-	private Date datum;
+	@Column(name="NEXT_DATE")
+	private Date nextDate;
 	
-	@Column(name="STATUS")
-	private Boolean status;
+//	@Column(name="STATUS")
+//	private Boolean status;
 	
 	//STATUS, DATUM, VRIJEME...
+	
+	private Long idOdjela;
+	
+	private String imeOdjela;
+	
+	private Long idUstanove;
+	
+	private String imeUstanove;
+	
+	private String adresaUstanove;
 
 	public Long getId() {
 		return id;
@@ -87,24 +96,72 @@ public class Pregled {
 		this.opis = opis;
 	}
 
-	public Date getDatum() {
-		return datum;
+	public Date getNextDate() {
+		return nextDate;
 	}
 
-	public void setDatum(Date datum) {
-		this.datum = datum;
+	public void setNextDate(Date nextDate) {
+		this.nextDate = nextDate;
 	}
 
-	public Boolean getStatus() {
-		return status;
+	public Long getIdOdjela() {
+		if (this.getOdjel() != null) {
+			return this.getOdjel().getId();
+		} else {
+			return null;
+		}
 	}
 
-	public void setStatus(Boolean status) {
-		this.status = status;
+	public String getImeOdjela() {
+		if (this.getOdjel() != null) {
+			return this.getOdjel().getNazivOdjela().getNaziv();
+		} else {
+			return null;
+		}
 	}
-	
-	
-	
-	
+
+	public Long getIdUstanove() {
+		if (this.getOdjel() != null) {
+			if (this.getOdjel().getUstanova() != null) {
+				return this.getOdjel().getUstanova().getId();
+			} else {
+			return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
+	public String getImeUstanove() {
+		if (this.getOdjel() != null) {
+			if (this.getOdjel().getUstanova() != null) {
+				return this.getOdjel().getUstanova().getIme();
+			} else {
+			return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
+	public String getAdresaUstanove() {
+		if (this.getOdjel() != null) {
+			if (this.getOdjel().getUstanova() != null) {
+				return this.getOdjel().getUstanova().getAdresa();
+			} else {
+			return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
+//	public Boolean getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(Boolean status) {
+//		this.status = status;
+//	}	
 
 }

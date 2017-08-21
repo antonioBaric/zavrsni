@@ -18,10 +18,14 @@ import hr.tvz.baric.zavrsni.SecurityUtils;
 import hr.tvz.baric.zavrsni.helper.UserRoles;
 import hr.tvz.baric.zavrsni.model.Doktor;
 import hr.tvz.baric.zavrsni.model.Pacijent;
+import hr.tvz.baric.zavrsni.model.Pregled;
+import hr.tvz.baric.zavrsni.model.PregledPacijenta;
 import hr.tvz.baric.zavrsni.model.UserInfo;
 import hr.tvz.baric.zavrsni.model.UserRole;
 import hr.tvz.baric.zavrsni.repo.DoktorJpaRepo;
 import hr.tvz.baric.zavrsni.repo.PacijentJpaRepo;
+import hr.tvz.baric.zavrsni.repo.PregledJpaRepo;
+import hr.tvz.baric.zavrsni.repo.PregledPacijentaJpaRepo;
 import hr.tvz.baric.zavrsni.repo.UserInfoJpaRepo;
 import hr.tvz.baric.zavrsni.repo.UserRoleJpaRepo;
 
@@ -40,6 +44,12 @@ public class UserRestController {
 	
 	@Autowired
 	DoktorJpaRepo doktorRepo;
+	
+	@Autowired
+	PregledJpaRepo pregledRepo;
+	
+	@Autowired
+	PregledPacijentaJpaRepo pregledPacijentaRepo;
 	
 	@GetMapping
 	@PreAuthorize("hasAuthority('admin')")
@@ -109,6 +119,39 @@ public class UserRestController {
 			Doktor doktor = userInfo.getDoktor();
 			doktorRepo.delete(doktor.getId());
 		}	
+	}
+	
+	@GetMapping("/getAllPregledi/{userId}")
+	public List<PregledPacijenta> getAllPregledi (Long userId) {
+		UserInfo userInfo = userInfoRepo.findById(userId);
+		if (userInfo == null || userInfo.getPacijent() == null) {
+			return null;
+		}
+		
+		return userInfo.getPacijent().getPreglediPacijenta();
+	}
+	
+	@PostMapping("addNewPregledToUser/{userId}/{pregledId}")
+	public PregledPacijenta addNewPregledToUser(@PathVariable Long userId, @PathVariable Long pregledId) {
+		UserInfo user = userInfoRepo.findById(userId);
+		Pregled pregled = pregledRepo.findById(pregledId);		
+		if (user == null || pregled == null) {
+			return null;
+		}
+		PregledPacijenta pregledPacijenta = new PregledPacijenta();
+		pregledPacijenta.setPregled(pregled);
+		//promjeniti kasnije status
+		pregledPacijenta.setStatus("Aktivan");
+		pregledPacijenta.setPacijent(user.getPacijent());
+		Pacijent pacijent = user.getPacijent();
+		pregledPacijentaRepo.saveAndFlush(pregledPacijenta);		
+		
+		List<PregledPacijenta> preglediPacijenta = pacijent.getPreglediPacijenta();
+		preglediPacijenta.add(pregledPacijenta);
+		userInfoRepo.saveAndFlush(user);
+		
+		return pregledPacijenta;
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 app.factory('userInfoFactory', function ($http, $q) {
 
     var api = '/api/user/';
+    var apiInsertPregled = api + 'addNewPregledToUser/';
 
     return {
         
@@ -44,6 +45,17 @@ app.factory('userInfoFactory', function ($http, $q) {
             })
             .catch(function (e) {
                 console.log(e);
+            });
+        },
+        
+        addPregledToUser: function (userId, pregledId) {
+            return $http.post(apiInsertPregled + userId + "/" + pregledId)
+            .then(function (response) {
+                return $q.resolve(response.data);
+            })
+            .catch(function (e) {
+                console.log("error", e);
+                //return $q.reject(e);
             });
         }
         

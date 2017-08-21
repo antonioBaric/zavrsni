@@ -1,180 +1,239 @@
 <div class="container" ng-controller="userController">
-    <h1>Pozdrav {{userInfo.ime}}</h1>
+
     <div class="row">
-        <h3 style="display: inline">Vaši osobni podatci: </h3>
-        <button class="btn btn-warning pull-right" ng-show="userInfo.active === true" ng-click="updatingInProgress = !updatingInProgress">
-            Izmjeni podatke
-        </button>
-        <br><br>
+        <h1>Pozdrav {{userInfo.ime}} {{userInfo.prezime}}</h1>
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navBar">
+                <ul class="nav navbar-nav">
+                    <!-- <li><a ng-href="#/ustanove">Korisnici</a></li> -->
+                    <li ng-click="changeScreen('podatci')"><a><h4>Osobni podatci</h4></a></li>
+                    <li ng-click="changeScreen('pregledi')"><a><h4>Moji pregledi</h4></a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
     </div>
-    <div class="row" ng-show="userInfo.active === true">
-        <p ng-show="firstUpdateSuccess === true" class="alert alert-success">
-            Uspješno ste ažurirali sve potrebne podatke, sada možete ne smetano koristiti usluge aplikacije.
-        </p>
-        <p ng-show="updateSuccessful === true" class="alert alert-success">
-            Uspješno ste ažurirali svoje podatke.
-        </p>
-        <!-- Prikaz spremljenih podataka -->
-        <table class="table borderless" ng-show="updatingInProgress !== true">
-            <tr>
-                <td class="text-primary">Ime: </td>
-                <td>{{userInfo.ime}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">Prezime: </td>
-                <td>{{userInfo.prezime}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">Korisničko ime: </td>
-                <td>{{userInfo.username}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">E-mail: </td>
-                <td>{{userInfo.email}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">OIB: </td>
-                <td>{{userInfo.oib}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">Mobitel: </td>
-                <td>{{userInfo.mobitel}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">Nesto: </td>
-                <td>{{userInfo.pacijent.nesto}}</td>
-            </tr>
-        </table>
-        <!-- Izmjena svih postojecih podataka -->
-        <form novalidate name="updateUserForm" ng-show="updatingInProgress === true" ng-submit="updateUser()" class="form-inline">
-            <table class="table">
+
+    <div ng-show="screenShow === 'podatci' || !screenShow">
+        <div class="row">
+            <h3 style="display: inline">Vaši osobni podatci: </h3>
+            <button class="btn btn-warning pull-right" ng-show="userInfo.active === true" ng-click="updatingInProgress = !updatingInProgress">
+                Izmjeni podatke
+            </button>
+            <br><br>
+        </div>
+
+        <div class="row" ng-show="userInfo.active === true">
+            <p ng-show="firstUpdateSuccess === true" class="alert alert-success">
+                Uspješno ste ažurirali sve potrebne podatke, sada možete ne smetano koristiti usluge aplikacije.
+            </p>
+            <p ng-show="updateSuccessful === true" class="alert alert-success">
+                Uspješno ste ažurirali svoje podatke.
+            </p>
+            <!-- Prikaz spremljenih podataka -->
+            <table class="table borderless" ng-show="updatingInProgress !== true">
                 <tr>
-                    <td class="text-primary"><label for="ime">Ime: </label></td>
-                    <td ng-class="{'has-error': updateUserForm.ime.$invalid && !updateUserForm.ime.$pristine}">
-                        <input type="text" name="ime" id="ime" class="form-control" ng-model="updatedUser.ime" required ng-pattern="/^[a-zA-Z\s]*$/">
-                    </td>
-                    <td>
-                        <span class="text-danger" ng-show="updateUserForm.ime.$error.pattern">Ime može sadržavati samo slova!</span>
-                    </td>
+                    <td class="text-primary">Ime: </td>
+                    <td>{{userInfo.ime}}</td>
                 </tr>
                 <tr>
-                    <td class="text-primary"><label for="prezime">Prezime: </label></td>
-                    <td ng-class="{'has-error': updateUserForm.prezime.$invalid && !updateUserForm.prezime.$pristine}">
-                        <input type="text" name="prezime" id="prezime" class="form-control" ng-model="updatedUser.prezime" required ng-pattern="/^[a-zA-Z\s]*$/">
-                    </td>
-                    <td>
-                        <span class="text-danger" ng-show="updateUserForm.prezime.$error.pattern">Prezime može sadržavati samo slova!</span>
-                    </td>
+                    <td class="text-primary">Prezime: </td>
+                    <td>{{userInfo.prezime}}</td>
                 </tr>
                 <tr>
-                    <td class="text-primary"><label for="email">E-mail: </label></td>
-                    <td ng-class="{'has-error': updateUserForm.email.$invalid && !updateUserForm.email.$pristine}">
-                        <input type="text" name="email" id="email" class="form-control" ng-model="updatedUser.email" required>
-                    </td>
-                    <td>
-                        <span class="text-danger" ng-show="updateUserForm.email.$invalid">Email nije ispravan</span>
-                    </td>
+                    <td class="text-primary">Korisničko ime: </td>
+                    <td>{{userInfo.username}}</td>
                 </tr>
                 <tr>
-                    <td class="text-primary"><label for="oib2">OIB: </label></td>
-                    <td ng-class="{'has-error': updateUserForm.oib2.$invalid && !updateUserForm.oib2.$pristine}">
-                        <input type="text" name="oib2" id="oib2" class="form-control" ng-model="updatedUser.oib" required ng-pattern="/^[0-9]*$/">
-                    </td>
-                    <td>
-                        <span class="text-danger" ng-show="updateUserForm.oib2.$error.pattern">OIB može sadržavati samo brojeve!</span>
-                    </td>
+                    <td class="text-primary">E-mail: </td>
+                    <td>{{userInfo.email}}</td>
                 </tr>
                 <tr>
-                    <td class="text-primary"><label for="mobitel2">Mobitel: </label></td>
-                    <td ng-class="{'has-error': updateUserForm.mobitel2.$invalid && !updateUserForm.mobitel2.$pristine}">
-                        <input type="text" name="mobitel2" id="mobitel2" class="form-control" ng-model="updatedUser.mobitel" required ng-pattern="/^[0-9]*$/">
-                    </td>
-                    <td>
-                        <span class="text-danger" ng-show="updateUserForm.mobitel2.$error.pattern">Mobitel može sadržavati samo brojeve!</span>
-                    </td>
+                    <td class="text-primary">OIB: </td>
+                    <td>{{userInfo.oib}}</td>
                 </tr>
                 <tr>
-                    <td class="text-primary"><label for="nesto2">Nesto: </label></td>
-                    <td ng-class="{'has-error': updateUserForm.nesto2.$invalid && !updateUserForm.nesto2.$pristine}">
-                        <input type="text" name="nesto2" id="nesto2" class="form-control" ng-model="updatedUser.pacijent.nesto" required>
-                    </td>
-                    <td>
-                        <span class="text-danger"></span>
-                    </td>
+                    <td class="text-primary">Mobitel: </td>
+                    <td>{{userInfo.mobitel}}</td>
                 </tr>
                 <tr>
-                    <td class="text-primary"><label for="password">Nova lozinka: </label></td>
-                    <td ng-class="">
-                        <input type="password" name="password" id="password" class="form-control" ng-model="password">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-primary"><label for="password2">Potvrdite novu lozinku: </label></td>
-                    <td ng-class="">
-                        <input type="password" name="password2" id="password2" class="form-control" ng-model="password2">
-                    </td>
-                    <td>
-                        <span class="text-danger" ng-show="password && password != password2">Lozinke se moraju podudarati</span>
-                    </td>
+                    <td class="text-primary">Nesto: </td>
+                    <td>{{userInfo.pacijent.nesto}}</td>
                 </tr>
             </table>
-            <button class="btn btn-success btn-lg btn-info" ng-disabled="updateUserForm.$invalid || (password && password != password2)">Spremi</button>
-        </form>
-    </div>
-    <!-- Nadopuna preostalih podataka nakon registracije -->
-    <div class="row" ng-show="userInfo.active === false">
-        <p class="alert alert-danger">
-            Molimo Vas da popunite preostale podatke kako biste mogli ne smetano korisiti usluge aplikacije.
-        </p>
-        <table class="table borderless">
-            <tr>
-                <td class="text-primary">Ime: </td>
-                <td>{{userInfo.ime}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">Prezime: </td>
-                <td>{{userInfo.prezime}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">Korisničko ime: </td>
-                <td>{{userInfo.username}}</td>
-            </tr>
-            <tr>
-                <td class="text-primary">E-mail: </td>
-                <td>{{userInfo.email}}</td>
-            </tr>
-        </table>
-        <form novalidate name="completeUserForm" ng-submit="completeUser()" class="form-inline">
-            <table class="table">
+            <!-- Izmjena svih postojecih podataka -->
+            <form novalidate name="updateUserForm" ng-show="updatingInProgress === true" ng-submit="updateUser()" class="form-inline">
+                <table class="table">
+                    <tr>
+                        <td class="text-primary"><label for="ime">Ime: </label></td>
+                        <td ng-class="{'has-error': updateUserForm.ime.$invalid && !updateUserForm.ime.$pristine}">
+                            <input type="text" name="ime" id="ime" class="form-control" ng-model="updatedUser.ime" required ng-pattern="/^[a-zA-Z\s]*$/">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="updateUserForm.ime.$error.pattern">Ime može sadržavati samo slova!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-primary"><label for="prezime">Prezime: </label></td>
+                        <td ng-class="{'has-error': updateUserForm.prezime.$invalid && !updateUserForm.prezime.$pristine}">
+                            <input type="text" name="prezime" id="prezime" class="form-control" ng-model="updatedUser.prezime" required ng-pattern="/^[a-zA-Z\s]*$/">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="updateUserForm.prezime.$error.pattern">Prezime može sadržavati samo slova!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-primary"><label for="email">E-mail: </label></td>
+                        <td ng-class="{'has-error': updateUserForm.email.$invalid && !updateUserForm.email.$pristine}">
+                            <input type="text" name="email" id="email" class="form-control" ng-model="updatedUser.email" required>
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="updateUserForm.email.$invalid">Email nije ispravan</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-primary"><label for="oib2">OIB: </label></td>
+                        <td ng-class="{'has-error': updateUserForm.oib2.$invalid && !updateUserForm.oib2.$pristine}">
+                            <input type="text" name="oib2" id="oib2" class="form-control" ng-model="updatedUser.oib" required ng-pattern="/^[0-9]*$/">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="updateUserForm.oib2.$error.pattern">OIB može sadržavati samo brojeve!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-primary"><label for="mobitel2">Mobitel: </label></td>
+                        <td ng-class="{'has-error': updateUserForm.mobitel2.$invalid && !updateUserForm.mobitel2.$pristine}">
+                            <input type="text" name="mobitel2" id="mobitel2" class="form-control" ng-model="updatedUser.mobitel" required ng-pattern="/^[0-9]*$/">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="updateUserForm.mobitel2.$error.pattern">Mobitel može sadržavati samo brojeve!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-primary"><label for="nesto2">Nesto: </label></td>
+                        <td ng-class="{'has-error': updateUserForm.nesto2.$invalid && !updateUserForm.nesto2.$pristine}">
+                            <input type="text" name="nesto2" id="nesto2" class="form-control" ng-model="updatedUser.pacijent.nesto" required>
+                        </td>
+                        <td>
+                            <span class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-primary"><label for="password">Nova lozinka: </label></td>
+                        <td ng-class="">
+                            <input type="password" name="password" id="password" class="form-control" ng-model="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-primary"><label for="password2">Potvrdite novu lozinku: </label></td>
+                        <td ng-class="">
+                            <input type="password" name="password2" id="password2" class="form-control" ng-model="password2">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="password && password != password2">Lozinke se moraju podudarati</span>
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn btn-success btn-lg btn-info" ng-disabled="updateUserForm.$invalid || (password && password != password2)">Spremi</button>
+            </form>
+        </div>
+        <!-- Nadopuna preostalih podataka nakon registracije -->
+        <div class="row" ng-show="userInfo.active === false">
+            <p class="alert alert-danger">
+                Molimo Vas da popunite preostale podatke kako biste mogli ne smetano korisiti usluge aplikacije.
+            </p>
+            <table class="table borderless">
                 <tr>
-                    <td class="text-danger"> <label for="oib">OIB: </label></td>
-                    <td ng-class="{'has-error': completeUserForm.oib.$invalid && !completeUserForm.oib.$pristine}">
-                        <input type="text" name="oib" id="oib" ng-model="userInfo.oib" class="form-control" required ng-pattern="/^[0-9]*$/">
-                    </td>
-                    <td>
-                        <span class="text-danger" ng-show="completeUserForm.oib.$error.pattern">OIB moze sadrzavati samo brojeve!</span>
-                    </td>
+                    <td class="text-primary">Ime: </td>
+                    <td>{{userInfo.ime}}</td>
                 </tr>
                 <tr>
-                    <td class="text-danger"><label for="mobitel">Broj mobitela: </label></td>
-                    <td ng-class="{'has-error': completeUserForm.mobitel.$invalid && !completeUserForm.mobitel.$pristine}">
-                        <input type="text" name="mobitel" id="mobitel" ng-model="userInfo.mobitel" class="form-control" required ng-pattern="/^[0-9]*$/">
-                    </td>
-                    <td>
-                        <span class="text-danger" ng-show="completeUserForm.mobitel.$error.pattern">Broj mobitela moze sadrzavati samo brojeve!</span>
-                    </td>
+                    <td class="text-primary">Prezime: </td>
+                    <td>{{userInfo.prezime}}</td>
                 </tr>
                 <tr>
-                    <td class="text-danger"><label for="nesto">Nesto: </label></td>
-                    <td>
-                        <input type="text" name="nesto" id="nesto" ng-model="userInfo.pacijent.nesto" class="form-control" required>
-                    </td>
-                    <td>
-                        <span class="text-danger"></span>
-                    </td>
+                    <td class="text-primary">Korisničko ime: </td>
+                    <td>{{userInfo.username}}</td>
+                </tr>
+                <tr>
+                    <td class="text-primary">E-mail: </td>
+                    <td>{{userInfo.email}}</td>
                 </tr>
             </table>
-            <button class="btn btn-success btn-lg btn-info" ng-disabled="completeUserForm.$invalid">Spremi</button>
-        </form>
+            <form novalidate name="completeUserForm" ng-submit="completeUser()" class="form-inline">
+                <table class="table">
+                    <tr>
+                        <td class="text-danger"> <label for="oib">OIB: </label></td>
+                        <td ng-class="{'has-error': completeUserForm.oib.$invalid && !completeUserForm.oib.$pristine}">
+                            <input type="text" name="oib" id="oib" ng-model="userInfo.oib" class="form-control" required ng-pattern="/^[0-9]*$/">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="completeUserForm.oib.$error.pattern">OIB moze sadrzavati samo brojeve!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-danger"><label for="mobitel">Broj mobitela: </label></td>
+                        <td ng-class="{'has-error': completeUserForm.mobitel.$invalid && !completeUserForm.mobitel.$pristine}">
+                            <input type="text" name="mobitel" id="mobitel" ng-model="userInfo.mobitel" class="form-control" required ng-pattern="/^[0-9]*$/">
+                        </td>
+                        <td>
+                            <span class="text-danger" ng-show="completeUserForm.mobitel.$error.pattern">Broj mobitela moze sadrzavati samo brojeve!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-danger"><label for="nesto">Nesto: </label></td>
+                        <td>
+                            <input type="text" name="nesto" id="nesto" ng-model="userInfo.pacijent.nesto" class="form-control" required>
+                        </td>
+                        <td>
+                            <span class="text-danger"></span>
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn btn-success btn-lg btn-info" ng-disabled="completeUserForm.$invalid">Spremi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PREGLEDI KORISNIKA -->
+    <div ng-show="screenShow === 'pregledi'">
+        <div ng-show="userInfo.pacijent.preglediPacijenta.length > 0">
+            <h3>Vaši pregledi: </h3>
+            <div class="well" ng-repeat="pregledPacijenta in userInfo.pacijent.preglediPacijenta">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>{{pregledPacijenta.pregled.nazivPregleda.naziv}}</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>28.8.2017</h4> <!-- Promjeniti kasnije naravno -->
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="text-success">{{pregledPacijenta.status}}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="text-info">Ustanova: </span> <span>{{pregledPacijenta.pregled.imeUstanove}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="text-info">Odjel: </span> <span>{{pregledPacijenta.pregled.imeOdjela}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="text-info">Adresa: </span> <span>{{pregledPacijenta.pregled.adresaUstanove}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="userInfo.pacijent.preglediPacijenta.length === 0">
+            <h4>Niste se jos prijavili niti na jedan pregled.</h4>
+        </div>
     </div>
 </div>

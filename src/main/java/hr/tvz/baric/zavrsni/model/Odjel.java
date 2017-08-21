@@ -57,6 +57,10 @@ public class Odjel {
 	@Column(name="kat")
 	private Integer kat;
 	
+	private String nazivUstanove;
+	
+	private Long idUstanove;
+	
 	public Odjel() {}
 
 	public Long getId() {
@@ -137,6 +141,22 @@ public class Odjel {
 
 	public void setUstanova(Ustanova ustanova) {
 		this.ustanova = ustanova;
+	}
+
+	public String getNazivUstanove() {
+		if (this.getUstanova() != null) {
+			return this.getUstanova().getIme();
+		} else {
+			return "";
+		}
+	}
+
+	public Long getIdUstanove() {
+		if (this.getUstanova() != null) {
+			return this.getUstanova().getId();
+		} else {
+			return null;
+		}
 	};
 	
 	
