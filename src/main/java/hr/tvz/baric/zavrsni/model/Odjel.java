@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -57,8 +58,10 @@ public class Odjel {
 	@Column(name="kat")
 	private Integer kat;
 	
+	@Transient
 	private String nazivUstanove;
 	
+	@Transient
 	private Long idUstanove;
 	
 	public Odjel() {}

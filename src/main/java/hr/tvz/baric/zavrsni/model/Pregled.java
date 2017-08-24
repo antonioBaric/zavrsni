@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -46,14 +47,19 @@ public class Pregled {
 	
 	//STATUS, DATUM, VRIJEME...
 	
+	@Transient
 	private Long idOdjela;
 	
+	@Transient
 	private String imeOdjela;
 	
+	@Transient
 	private Long idUstanove;
 	
+	@Transient
 	private String imeUstanove;
 	
+	@Transient
 	private String adresaUstanove;
 
 	public Long getId() {

@@ -37,7 +37,8 @@
     </div>
 
     <div ng-show="role === 'pacijent'">
-        <button class="btn btn-info" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
+        <h4>Sljedeci dostupan datum je: {{pregled.nextDate}}</h4>
+        <button class="btn btn-info" ng-disabled="!accessToSign" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
             Prijavi se
         </button>
     </div>

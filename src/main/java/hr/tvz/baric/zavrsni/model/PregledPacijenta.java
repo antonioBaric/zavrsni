@@ -34,7 +34,7 @@ public class PregledPacijenta {
 	private Pregled pregled;
 	
 	@Column(name = "STATUS")
-	private String status;
+	private Boolean status;
 	
 	@Column(name = "DATE")
 	private Date date;
@@ -55,11 +55,11 @@ public class PregledPacijenta {
 		this.pregled = pregled;
 	}
 
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

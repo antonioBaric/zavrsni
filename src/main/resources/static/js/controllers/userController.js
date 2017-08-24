@@ -91,6 +91,18 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
             console.log("error while fetching all 'mjesta' in  userController: ", e);
         });
 
+    } else if ($rootScope.role === "pacijent") {
+        var preglediPacijenta = $rootScope.userInfo.pacijent.preglediPacijenta;
+        preglediPacijenta.forEach(function (it) {
+            var date =  new Date(it.date);
+            var today = new Date();
+            today.setHours(0,0,0,0);
+            if (date < today) {
+                it.status = false;
+            } else {
+                it.status = true;
+            }
+        });
     }
 
     $scope.changeScreen = function (part) {

@@ -210,24 +210,25 @@
             <div class="well" ng-repeat="pregledPacijenta in userInfo.pacijent.preglediPacijenta">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>{{pregledPacijenta.pregled.nazivPregleda.naziv}}</h4>
+                        <h4><a ng-href="#/pregledi/{{pregledPacijenta.pregled.id}}">{{pregledPacijenta.pregled.nazivPregleda.naziv}}</a></h4>
                     </div>
                     <div class="col-md-4">
-                        <h4>28.8.2017</h4> <!-- Promjeniti kasnije naravno -->
+                        <h4>{{pregledPacijenta.date}}</h4>
                     </div>
                     <div class="col-md-4">
-                        <h4 class="text-success">{{pregledPacijenta.status}}</h4>
+                        <h4 ng-show="pregledPacijenta.status" class="text-success">Aktivan</h4>
+                        <h4 ng-show="!pregledPacijenta.status" class="text-warning">Istekao</h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <span class="text-info">Ustanova: </span> <span>{{pregledPacijenta.pregled.imeUstanove}}</span>
+                        <span>Ustanova: </span> <a ng-href="#/ustanove/{{pregledPacijenta.pregled.idUstanove}}">{{pregledPacijenta.pregled.imeUstanove}}</a>
                     </div>
                     <div class="col-md-4">
-                        <span class="text-info">Odjel: </span> <span>{{pregledPacijenta.pregled.imeOdjela}}</span>
+                        <span>Odjel: </span> <a ng-href="#/odjeli/{{pregledPacijenta.pregled.idOdjela}}">{{pregledPacijenta.pregled.imeOdjela}}</a>
                     </div>
                     <div class="col-md-4">
-                        <span class="text-info">Adresa: </span> <span>{{pregledPacijenta.pregled.adresaUstanove}}</span>
+                        <span>Adresa: </span> <span class="text-info">{{pregledPacijenta.pregled.adresaUstanove}}</span>
                     </div>
                 </div>
             </div>
