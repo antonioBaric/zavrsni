@@ -181,9 +181,14 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
             }
             userInfoFactory.updateUserInfo($scope.updatedUser)
             .then(function (user) {
-                $rootScope.userInfo = user;
-                $scope.updateSuccessful = true;
-                $scope.updatingInProgress = false;
+                if(user) {
+                    $rootScope.userInfo = user;
+                    $scope.updateSuccessful = true;
+                    $scope.updatingInProgress = false;
+                    $scope.sameOib = false;
+                } else {
+                    $scope.sameOib = true;
+                }
             })
             .catch(function (e) {
                console.log("Error in updating user", e);

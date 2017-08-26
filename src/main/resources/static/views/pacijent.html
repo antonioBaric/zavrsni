@@ -71,6 +71,7 @@
             </table>
             <!-- Izmjena svih postojecih podataka -->
             <form novalidate name="updateUserForm" ng-show="updatingInProgress === true" ng-submit="updateUser()" class="form-inline">
+                <p class="text-danger" ng-show="sameOib">Već postoji korisnik sa istim OIB-om! Ažuriranje podataka nije uspjelo.</p>
                 <table class="table">
                     <tr>
                         <td class="text-primary"><label for="ime">Ime: </label></td>

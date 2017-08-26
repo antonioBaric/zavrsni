@@ -100,6 +100,10 @@ public class UserRestController {
 		if (userInfo.getUserRole().getNaziv().equals(UserRoles.pacijent.name())) {
 			Pacijent pacijent = userInfo.getPacijent();
 			pacijentRepo.save(pacijent);
+			UserInfo userByOib = userInfoRepo.findByOib(userInfo.getOib());
+			if (userByOib != null && userByOib.getId() != userInfo.getId()) {
+				return null;
+			}
 		} else if (userInfo.getUserRole().getNaziv().equals(UserRoles.doktor.name())) {
 			Doktor doktor = userInfo.getDoktor();
 			doktorRepo.save(doktor);

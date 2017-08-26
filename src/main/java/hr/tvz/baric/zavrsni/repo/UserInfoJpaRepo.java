@@ -8,5 +8,6 @@ public interface UserInfoJpaRepo extends JpaRepository<UserInfo, Long> {
 	
 	UserInfo findByUsername(String username);
 	UserInfo findById(Long id);
+	UserInfo findByOib(String oib);
 	
 }

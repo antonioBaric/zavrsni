@@ -1,18 +1,52 @@
 <div ng-controller="ustanoveController" class="container">
-    <h1>Pretražite bolnice</h1>
-    <hr>
-    <form class="form-inline">
-        <div class="form-group">
-            <label>unesite naziv bolnice: </label>
-            <input ng-model="pretraga" type="text" class="form-control" placeholder="Upisite Bolnicu">
+    <div class="row">
+        <div class="col-md-2">
+            <a><h4>Pretraži Ustanove</h4></a>
         </div>
-    </form>
+        <div class="col-md-2">
+            <a><h4>Pretraži Preglede</h4></a>
+        </div>
+    </div>
 
+    <div class="row">
+        <h1>Ustanove: </h1>
+        <hr>
+        <h3>Filteri</h3>
+        <form class="form-inline">
+            <div class="col-md-3">
+                <label for="nazivUstanove">Naziv: </label>
+                <input ng-model="nazivUstanove" type="text" id="nazivUstanove" name="nazivUstanove" class="form-control" placeholder="Upisite Ustanovu">
+            </div>
+            <div class="col-md-2">
+                <label for="grad">Grad: </label>
+                <select class="form-control" id="grad" name="grad" ng-model="gradFilter">
+                    <option ng-value="" style="font-style: italic; font-weight: bold">Svi gradovi</option>
+                    <option ng-repeat="grad in gradovi" ng-value="grad.naziv">{{grad.naziv}}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="grad">Vrsta ustanove: </label>
+                <select class="form-control" id="vrstaUstanove" name="vrstaUstanove" ng-model="vrstaUstanoveFilter">
+                    <option ng-value="" style="font-style: italic; font-weight: bold">Sve vrste</option>
+                    <option ng-repeat="vrsta in vrsteUstanova" ng-value="vrsta.naziv">{{vrsta.naziv}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="grad">Specijalziacija ustanove: </label>
+                <select class="form-control" id="specUstanove" name="specUstanove" ng-model="specUstanoveFilter">
+                    <option ng-value="" style="font-style: italic; font-weight: bold">Sve spec.</option>
+                    <option ng-repeat="spec in specijalizacijeUstanova" ng-value="spec.naziv">{{spec.naziv}}</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <br><br>
     <div ng-hide="ustanove">
         <img src="../pictures/loading.gif">
     </div>
 
-    <div ng-show="ustanove" class="row well" ng-repeat="ustanova in ustanove | filter:pretraga">
+    <div ng-show="ustanove" class="row well" ng-repeat="ustanova in ustanove | filter:nazivUstanove | filter:gradFilter:true:ustanova.mjesto.naziv
+        | filter:vrstaUstanoveFilter:true:ustanova.vrstaUstanove.naziv | filter:specUstanoveFilter:true:ustanova.specijalizacijaUstanova.naziv">
         <div class="row">
             <div class="col-md-8">
                 <a ng-href="#/ustanove/{{ustanova.id}}"><h3>{{ustanova.ime}}</h3></a>

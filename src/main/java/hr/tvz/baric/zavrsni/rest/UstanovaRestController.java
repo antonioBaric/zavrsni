@@ -59,14 +59,14 @@ public class UstanovaRestController {
 	}
 	
 	@GetMapping("/vrstaUstanove")
-	@PreAuthorize("hasAuthority('admin')")
+	//@PreAuthorize("hasAuthority('admin')")
 	public List<VrstaUstanove> getAllVrsteUstanove(){
 		List<VrstaUstanove> vrsteUstanova = vrstaUstanoveRepo.findAll();
 		return vrsteUstanova;
 	}
 	
 	@GetMapping("/specijalizacijaUstanove")
-	@PreAuthorize("hasAuthority('admin')")
+	//@PreAuthorize("hasAuthority('admin')")
 	public List<SpecijalizacijaUstanove> getAllSpecUstanove() {
 		List<SpecijalizacijaUstanove> specs = specijalizacijaUstanoveRepo.findAll();
 		return specs;

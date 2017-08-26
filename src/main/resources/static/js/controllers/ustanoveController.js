@@ -1,10 +1,34 @@
-app.controller('ustanoveController', function ($scope, ustanovaFactory) {
+app.controller('ustanoveController', function ($scope, ustanovaFactory, mjestoFacotry) {
     //get all active ustanove! & odjele & preglede
     ustanovaFactory.getAllActiveUstanove().then(function (data) {
         $scope.ustanove = data;
     })
     .catch(function (e) {
         console.log("ustanovaFactory.getAllUstanove nije uspjelo: ", e);
+    });
+
+    mjestoFacotry.getAllMjesta()
+    .then(function (mjesta) {
+        $scope.gradovi = mjesta;
+    })
+    .catch(function (e) {
+        console.log("mjestoFacotry.getAllMjesta() nije uspjelo", e);
+    });
+
+    ustanovaFactory.getAllVrsteUstanova()
+    .then(function (vrsteUstanova) {
+        $scope.vrsteUstanova = vrsteUstanova;
+    })
+    .catch(function (e) {
+        console.log("ustanovaFactory.getAllVrsteUstanova() nije uspjelo", e);
+    });
+
+    ustanovaFactory.getAllSpecijalizacijeUstanova()
+    .then(function (specijalizacijeUstanova) {
+        $scope.specijalizacijeUstanova = specijalizacijeUstanova;
+    })
+    .catch(function (e) {
+        console.log("ustanovaFactory.getAllSpecijalizacijeUstanova() nije uspjelo", e);
     });
 
 

@@ -36,10 +36,16 @@
         <p>Opis pregleda: {{pregled.opis}}</p>
     </div>
 
-    <div ng-show="role === 'pacijent'">
+    <div>
         <h4>Sljedeci dostupan datum je: {{pregled.nextDate}}</h4>
-        <button class="btn btn-info" ng-disabled="!accessToSign" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
+        <button class="btn btn-info" ng-show="role === 'pacijent'" ng-disabled="!accessToSign || !userInfo.active" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
             Prijavi se
         </button>
+        <p class="text-muted" ng-show="!role || role === ''">Uzmite u obzir da se datum pregleda može promijeniti u svakome trenurku.
+            Registrirani korisnici imaju pravo prijave na pregled.</p>
+        <p class="text-warning" ng-show="role === 'pacijent' && !accessToSign && userInfo.active">Već ste se prijavili na ovaj pregled, te vam je on još uvijek aktivan i važeći</p>
+        <p class="text-danger" ng-show="role === 'pacijent' && !userInfo.active">Trenutno još uvijek niste aktivni korisnik.
+            Molimo Vas da ispunite sve podatke na vašoj profil stranici. Ukoliko Vas je deaktivirao administrator, molimo da nam se javite putem e-maila ili
+            telefona. Kontakt podakte možete pronaći na "Kontakt" kratici.</p>
     </div>
 </div>
