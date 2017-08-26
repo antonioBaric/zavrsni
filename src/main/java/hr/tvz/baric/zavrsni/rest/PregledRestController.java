@@ -1,5 +1,7 @@
 package hr.tvz.baric.zavrsni.rest;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +70,10 @@ public class PregledRestController {
 		Odjel odjel = odjelJpaRepo.findById(odjelId);
 		newPregled.setId(null);
 		newPregled.setOdjel(odjel);
+		
+		Date nextDate = new Date(Calendar.getInstance().getTime().getTime());
+		newPregled.setNextDate(nextDate);
+		
 		newPregled = pregledJpaRepo.saveAndFlush(newPregled);
 		return newPregled;
 	}

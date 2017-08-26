@@ -67,6 +67,7 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
             })
             .then(function (pregled) {
                 $scope.pregled = pregled;
+                $scope.accessToSign = false;
                 alert("Uspjesno ste se prijavili za pregled.");
             })
             .catch(function (e) {
