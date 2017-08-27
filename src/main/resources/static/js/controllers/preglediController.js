@@ -31,17 +31,19 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
     } else {
         pregledFacotry.getActivePregledById(pregledId).then(function (data) {
             $scope.pregled = data;
-            $scope.accessToSign = true;
-            var nextDateOfPregled = new Date($scope.pregled.nextDate);
-            var today = new Date();
-            today.setHours(0,0,0,0);
-            var preglediPacijenta = $rootScope.userInfo.pacijent.preglediPacijenta;
-            preglediPacijenta.forEach(function (it) {
-                var lastDateOfUserPregled = new Date(it.date);
-               if (it.pregled.id === $scope.pregled.id && lastDateOfUserPregled <= nextDateOfPregled && lastDateOfUserPregled >= today) {
-                   $scope.accessToSign = false;
-               }
-            });
+            if ($rootScope.userInfo) {
+                $scope.accessToSign = true;
+                var nextDateOfPregled = new Date($scope.pregled.nextDate);
+                var today = new Date();
+                today.setHours(0,0,0,0);
+                var preglediPacijenta = $rootScope.userInfo.pacijent.preglediPacijenta;
+                preglediPacijenta.forEach(function (it) {
+                    var lastDateOfUserPregled = new Date(it.date);
+                    if (it.pregled.id === $scope.pregled.id && lastDateOfUserPregled <= nextDateOfPregled && lastDateOfUserPregled >= today) {
+                        $scope.accessToSign = false;
+                    }
+                });
+            }
         })
         .catch(function (e) {
             console.log("pregledFacotry.getActivePregledById nije uspio: ", e);
@@ -59,7 +61,7 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
     };
     
     $scope.prijavaPregleda = function (userId, pregledId) {
-        if ($rootScope.role === "pacijent") {
+        if ($rootScope.role === "pacijent" && $rootScope.userInfo.status === 1) {
             userInfoFactory.addPregledToUser(userId, pregledId)
             .then(function (newPregled) {
                 $rootScope.userInfo.pacijent.preglediPacijenta.push(newPregled);

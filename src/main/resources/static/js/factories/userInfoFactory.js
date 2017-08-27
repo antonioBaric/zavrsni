@@ -6,7 +6,7 @@ app.factory('userInfoFactory', function ($http, $q) {
     return {
         
         insertNewUserInfo: function (newUserInfo) {
-            newUserInfo.active = false;
+            newUserInfo.status = 0;
             return $http.post(api, newUserInfo)
                 .then(function (response) {
                     //console.log("success: ", response);

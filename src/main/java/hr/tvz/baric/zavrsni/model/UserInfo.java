@@ -52,8 +52,8 @@ public class UserInfo {
 	@Column(name = "PASSWORD")
 	private String password;
 	
-	@Column(name = "ACTIVE")
-	private Boolean active;
+	@Column(name = "STATUS")
+	private Integer status;
 	
 	@Column(name = "MOBITEL")
 	private String mobitel;
@@ -140,12 +140,12 @@ public class UserInfo {
 		this.password = password;
 	}
 
-	public Boolean getActive() {
-		return active;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setActive(Boolean active) {
-		this.active = active;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getMobitel() {

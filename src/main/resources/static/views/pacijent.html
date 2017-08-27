@@ -25,13 +25,13 @@
     <div ng-show="screenShow === 'podatci' || !screenShow">
         <div class="row">
             <h3 style="display: inline">Vaši osobni podatci: </h3>
-            <button class="btn btn-warning pull-right" ng-show="userInfo.active === true" ng-click="updatingInProgress = !updatingInProgress">
+            <button class="btn btn-warning pull-right" ng-show="userInfo.status === 1" ng-click="updatingInProgress = !updatingInProgress">
                 Izmjeni podatke
             </button>
             <br><br>
         </div>
 
-        <div class="row" ng-show="userInfo.active === true">
+        <div class="row" ng-show="userInfo.status === 1">
             <p ng-show="firstUpdateSuccess === true" class="alert alert-success">
                 Uspješno ste ažurirali sve potrebne podatke, sada možete ne smetano koristiti usluge aplikacije.
             </p>
@@ -147,10 +147,11 @@
             </form>
         </div>
         <!-- Nadopuna preostalih podataka nakon registracije -->
-        <div class="row" ng-show="userInfo.active === false">
+        <div class="row" ng-show="userInfo.status === 0">
             <p class="alert alert-danger">
                 Molimo Vas da popunite preostale podatke kako biste mogli ne smetano korisiti usluge aplikacije.
             </p>
+            <p class="text-danger" ng-show="sameOib">Već postoji korisnik sa istim OIB-om! Ažuriranje podataka nije uspjelo.</p>
             <table class="table borderless">
                 <tr>
                     <td class="text-primary">Ime: </td>
@@ -202,10 +203,14 @@
                 <button class="btn btn-success btn-lg btn-info" ng-disabled="completeUserForm.$invalid">Spremi</button>
             </form>
         </div>
+
+        <div ng-show="userInfo.status === -1">
+            <p class="text-danger">Vaš korisnički račun je blokiran, molimo Vas da se obratite administratoru.</p>
+        </div>
     </div>
 
     <!-- PREGLEDI KORISNIKA -->
-    <div ng-show="screenShow === 'pregledi'">
+    <div ng-show="screenShow === 'pregledi' && userInfo.status != -1">
         <div ng-show="userInfo.pacijent.preglediPacijenta.length > 0">
             <h3>Vaši pregledi: </h3>
             <div class="well" ng-repeat="pregledPacijenta in userInfo.pacijent.preglediPacijenta">

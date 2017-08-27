@@ -1,7 +1,7 @@
 app.controller('userController', function ($rootScope, $scope, $location, $q, userInfoFactory, ustanovaFactory, odjelFactory, pregledFacotry, mjestoFacotry) {
 
     $scope.updatedUser = jQuery.extend(true, {}, $rootScope.userInfo);
-    $scope.activeFirstTime = jQuery.extend(true, {}, $rootScope.userInfo.active);
+    $scope.activeFirstTime = jQuery.extend(true, {}, $rootScope.userInfo.status);
     $scope.updatingInProgress = false;
     $scope.updateSuccessful = false;
     //$scope.screenShow = "korisnici";
@@ -161,44 +161,65 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
     };
 */
     $scope.completeUser = function () {
-        if ($scope.completeUserForm.$valid) {
-            $rootScope.userInfo.active = true;
-            userInfoFactory.updateUserInfo($rootScope.userInfo)
-            .then(function (user) {
-                $scope.updatedUser = $rootScope.userInfo = user;
-                $scope.firstUpdateSuccess = true;
-            })
-            .catch(function (e) {
-                console.log("Error in completing user", e);
-            });
+        if ($rootScope.role === "pacijent" && $rootScope.userInfo.status === 0) {
+            completeUser();
         }
     };
+
+    function completeUser() {
+        if ($scope.completeUserForm.$valid) {
+            $rootScope.userInfo.status = 1;
+            userInfoFactory.updateUserInfo($rootScope.userInfo)
+                .then(function (user) {
+                    if (user) {
+                        $scope.updatedUser = $rootScope.userInfo = user;
+                        $scope.firstUpdateSuccess = true;
+                    } else {
+                        $rootScope.userInfo.status = 0;
+                        $scope.sameOib = true;
+                        $rootScope.userInfo.oib = null;
+                        $rootScope.userInfo.mobitel = null;
+                    }
+                })
+                .catch(function (e) {
+                    console.log("Error in completing user", e);
+                });
+        }
+    }
     
     $scope.updateUser = function () {
+       if ($rootScope.role === "admin") {
+           updateUser();
+       } else if ($rootScope.role === "pacijent" && $rootScope.userInfo.status === 1) {
+            updateUser();
+       }
+    };
+
+    function updateUser() {
         if ($scope.updateUserForm.$valid) {
             if ($scope.password && $scope.password !== "" && $scope.password === $scope.password2) {
                 $scope.updatedUser.password = $scope.password;
             }
             userInfoFactory.updateUserInfo($scope.updatedUser)
-            .then(function (user) {
-                if(user) {
-                    $rootScope.userInfo = user;
-                    $scope.updateSuccessful = true;
-                    $scope.updatingInProgress = false;
-                    $scope.sameOib = false;
-                } else {
-                    $scope.sameOib = true;
-                }
-            })
-            .catch(function (e) {
-               console.log("Error in updating user", e);
-            });
+                .then(function (user) {
+                    if(user) {
+                        $rootScope.userInfo = user;
+                        $scope.updateSuccessful = true;
+                        $scope.updatingInProgress = false;
+                        $scope.sameOib = false;
+                    } else {
+                        $scope.sameOib = true;
+                    }
+                })
+                .catch(function (e) {
+                    console.log("Error in updating user", e);
+                });
         }
-    };
+    }
 
     $scope.activateUser = function (user) {
         if ($rootScope.role === "admin") {
-            user.active = true;
+            user.status = 1;
             userInfoFactory.updateUserInfo(user)
             .then(function (data) {
                 user = data;
@@ -211,7 +232,7 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
 
     $scope.deactivateUser = function (user) {
         if ($rootScope.role === "admin") {
-            user.active = false;
+            user.status= -1;
             userInfoFactory.updateUserInfo(user)
             .then(function (data) {
                 user = data;

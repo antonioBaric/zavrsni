@@ -38,14 +38,16 @@
 
     <div>
         <h4>Sljedeci dostupan datum je: {{pregled.nextDate}}</h4>
-        <button class="btn btn-info" ng-show="role === 'pacijent'" ng-disabled="!accessToSign || !userInfo.active" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
+        <button class="btn btn-info" ng-show="role === 'pacijent'" ng-disabled="!accessToSign || userInfo.status != 1" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
             Prijavi se
         </button>
         <p class="text-muted" ng-show="!role || role === ''">Uzmite u obzir da se datum pregleda može promijeniti u svakome trenurku.
             Registrirani korisnici imaju pravo prijave na pregled.</p>
-        <p class="text-warning" ng-show="role === 'pacijent' && !accessToSign && userInfo.active">Već ste se prijavili na ovaj pregled, te vam je on još uvijek aktivan i važeći</p>
-        <p class="text-danger" ng-show="role === 'pacijent' && !userInfo.active">Trenutno još uvijek niste aktivni korisnik.
-            Molimo Vas da ispunite sve podatke na vašoj profil stranici. Ukoliko Vas je deaktivirao administrator, molimo da nam se javite putem e-maila ili
-            telefona. Kontakt podakte možete pronaći na "Kontakt" kratici.</p>
+        <p class="text-warning" ng-show="role === 'pacijent' && !accessToSign && userInfo.status === 1">Već ste se prijavili na ovaj pregled, te vam je on još uvijek aktivan i važeći</p>
+        <p class="text-danger" ng-show="role === 'pacijent' && userInfo.status === 0">Trenutno još uvijek niste aktivni korisnik.
+            Molimo Vas da ispunite sve podatke na vašoj profil stranici.</p>
+        <p class="text-danger" ng-show="role === 'pacijent' && userInfo.status === -1">
+            Vaš korisnički račun je blokiran, molimo Vas da se obratite administratoru.
+        </p>
     </div>
 </div>

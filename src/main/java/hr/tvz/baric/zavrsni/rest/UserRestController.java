@@ -85,6 +85,7 @@ public class UserRestController {
 		userInfo.setId(null);
 		UserRole userRole = userRoleRepo.findByNaziv("pacijent");
 		userInfo.setUserRole(userRole);
+		userInfo.setStatus(0);
 		userInfoRepo.save(userInfo);
 		
 		Pacijent pacijent = new Pacijent();

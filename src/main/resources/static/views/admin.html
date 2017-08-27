@@ -33,6 +33,7 @@
                 <th>Ime i Prezime</th>
                 <th>Korisničko ime</th>
                 <th>Uloga</th>
+                <th>Status</th>
                 <th>Akcije</th>
             </tr>
             <tr ng-repeat="user in users">
@@ -40,9 +41,12 @@
                 <td class="text-primary">{{user.ime}}</td>
                 <td class="text-info">{{user.username}}</td>
                 <td>{{user.userRole.naziv}}</td>
+                <td ng-show="user.status === 1">Aktiviran</td>
+                <td ng-show="user.status === -1">Blokiran</td>
+                <td ng-show="user.status === 0">Nedovršen</td>
                 <td>
-                    <button ng-disabled = "user.active" ng-click="activateUser(user)" class="btn btn-success">Aktiviraj</button>
-                    <button ng-disabled = "!user.active" ng-click="deactivateUser(user)" class="btn btn-warning">Deaktiviraj</button>
+                    <button ng-disabled = "user.status == 1" ng-click="activateUser(user)" class="btn btn-success">Aktiviraj</button>
+                    <button ng-disabled = "user.status == -1" ng-click="deactivateUser(user)" class="btn btn-warning">Deaktiviraj</button>
                     <button ng-click="deleteUser(user.id, $index)" class="btn btn-danger">Izbriši</button>
                 </td>
             </tr>

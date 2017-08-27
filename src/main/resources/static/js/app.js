@@ -178,6 +178,7 @@ app.run(function ($rootScope, $location, $http, authFactory, sessionFactory, USE
     });
 
     $rootScope.$on('event:auth-loginCancelled', function () {
+    	$rootScope.userInfo = undefined;
     	$location.path('/').replace();
     });
 
