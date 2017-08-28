@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'http-auth-interceptor']);
+var app = angular.module('app', ['ngRoute', 'http-auth-interceptor', 'dtrw.bcrypt']);
 
 app.constant('USER_ROLES', {
     'admin': 'admin',

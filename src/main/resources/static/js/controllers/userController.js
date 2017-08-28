@@ -1,4 +1,4 @@
-app.controller('userController', function ($rootScope, $scope, $location, $q, userInfoFactory, ustanovaFactory, odjelFactory, pregledFacotry, mjestoFacotry) {
+app.controller('userController', function ($rootScope, $scope, $location, $q, userInfoFactory, ustanovaFactory, odjelFactory, pregledFacotry, mjestoFacotry, bcrypt) {
 
     $scope.updatedUser = jQuery.extend(true, {}, $rootScope.userInfo);
     $scope.activeFirstTime = jQuery.extend(true, {}, $rootScope.userInfo.status);
@@ -198,7 +198,8 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
     function updateUser() {
         if ($scope.updateUserForm.$valid) {
             if ($scope.password && $scope.password !== "" && $scope.password === $scope.password2) {
-                $scope.updatedUser.password = $scope.password;
+                var hash = bcrypt.hashSync($scope.password, 10);
+                $scope.updatedUser.password = hash;
             }
             userInfoFactory.updateUserInfo($scope.updatedUser)
                 .then(function (user) {
