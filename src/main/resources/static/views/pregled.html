@@ -1,6 +1,11 @@
 <div ng-controller="pregledController" class="container" ng-init="editingPregled = false" ng-show="pregled && pregled != ''">
     <div class="row">
-        <h2>{{pregled.nazivPregleda.naziv}}</h2>
+        <h2 class="text-primary">{{pregled.nazivPregleda.naziv}}</h2>
+        <a class="text-info" ng-href="#/ustanove/{{pregled.idUstanove}}">{{pregled.imeUstanove}}</a>
+        <span> &gt; </span>
+        <a class="text-info" ng-href="#/odjeli/{{pregled.idOdjela}}">{{pregled.imeOdjela}}</a>
+        <span> &gt; </span>
+        <span>{{pregled.nazivPregleda.naziv}}</span>
         <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingPregled = !editingPregled">
             Izmjeni
         </button>
@@ -33,9 +38,11 @@
     </div>
 
     <div>
-        <p>Opis pregleda: {{pregled.opis}}</p>
+        <p><span style="font-weight: bold">Ustanova: </span> {{pregled.imeUstanove}}</p>
+        <p><span style="font-weight: bold">Odjel: </span> {{pregled.imeOdjela}}</p>
+        <p><span style="font-weight: bold">Opis pregleda:</span> {{pregled.nazivPregleda.opis}}</p>
     </div>
-
+    <br>
     <div>
         <h4>Sljedeci dostupan datum je: {{pregled.nextDate}}</h4>
         <button class="btn btn-info" ng-show="role === 'pacijent'" ng-disabled="!accessToSign || userInfo.status != 1" ng-click="prijavaPregleda(userInfo.id, pregled.id)">

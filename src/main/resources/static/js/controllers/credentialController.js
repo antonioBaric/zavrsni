@@ -25,7 +25,7 @@ app.controller('credentialController', function ($rootScope, $scope, authFactory
             userInfoFactory.insertNewUserInfo($scope.newUserInfo)
             .then(function (userInfo) {
                 if(userInfo) {
-                    authFactory.login(userInfo.username, userInfo.password)
+                    authFactory.login(userInfo.username, sif)
                     .then(function () {
                         $location.path("/user").replace();
                     });

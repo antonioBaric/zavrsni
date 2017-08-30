@@ -1,6 +1,7 @@
 <div ng-controller="odjelController" class="container" ng-init="editingOdjel = false" ng-show="odjel && odjel != ''">
     <div class="row">
-        <h2>{{odjel.nazivOdjela.naziv}}</h2>
+        <h2 class="text-primary">{{odjel.nazivOdjela.naziv}}</h2>
+        <a class="text-info" ng-href="#/ustanove/{{odjel.idUstanove}}">{{odjel.nazivUstanove}}</a> <span> &gt; {{odjel.nazivOdjela.naziv}}</span>
         <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingOdjel = !editingOdjel">
             Izmjeni
         </button>
@@ -57,22 +58,33 @@
     </div>
     <!--Prikaz spremljenih odjela-->
     <div class="row">
-        <p>Opis: {{odjel.privatniOpisOdjela}}</p>
-        <p> Zgrada: {{odjel.zgradaBolnice}}</p>
-        <p>Kat: {{odjel.kat}}</p>
-        <p>email: {{odjel.email}}</p>
-        <p>telefon: {{odjel.telefon}}</p>
+        <div class="col-md-6">
+            <h3 class="text-info" style="font-style: italic">Osnovne informacije: </h3>
+            <hr style="color: #2b669a; border-color: #2b669a; background-color: #2b669a">
+            <p><span style="font-weight: bold">Ustanova: </span>{{odjel.nazivUstanove}}</p>
+            <p><span style="font-weight: bold">Zgrada: </span>{{odjel.zgradaBolnice}}</p>
+            <p><span style="font-weight: bold">Kat: </span>{{odjel.kat}}</p>
+            <p><span style="font-weight: bold">email: </span>{{odjel.email}}</p>
+            <p><span style="font-weight: bold">telefon: </span>{{odjel.telefon}}</p>
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-info" style="font-style: italic">Opis odjela: </h3>
+            <hr style="color: #2b669a; border-color: #2b669a; background-color: #2b669a">
+            <p>{{odjel.nazivOdjela.opis}}</p>
+        </div>
+
         <!--Dodavanje novih pregleda odjelu -->
     </div>
     <!-- -->
     <div ng-init="addingNewPregled = false">
-        <div class="row" style="margin-top: 50px">
-            <h3>Pregledi: </h3>
+        <div class="row">
+            <h3 class="text-info" style="font-style: italic">Pregledi: </h3>
+            <hr style="color: #2b669a; border-color: #2b669a; background-color: #2b669a">
         </div>
         <div class="row">
             <form class="form-inline col-md-6">
                 <label>Pretrazi preglede</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" placeholder="Upišite prelged">
             </form>
             <div class="col-md-6" ng-show="role === 'admin'">
                 <button class="btn btn-success pull-right" ng-click="addingNewPregled = !addingNewPregled">

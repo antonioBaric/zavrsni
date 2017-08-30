@@ -4,8 +4,6 @@
         <button class="btn btn-warning pull-right" ng-show="role === 'admin'" ng-click="editingUstanova = !editingUstanova">
             Izmjeni
         </button>
-        <br>
-        <hr>
     </div>
     <!-- IZMJENA USTANOVE -->
     <div ng-show="role ==='admin' && editingUstanova" class="row alert alert-info">
@@ -96,34 +94,39 @@
         </form>
     </div>
     <!-- PRIKAZ SPREMLJENIH PODATAKA(OSNOVNIH) -->
-    <div ng-show="!editingUstanova">
-        <div class="row">
-            <div class="col-md-4">
-                <p>Vrsta ustanove: <span>{{ustanova.vrstaUstanove.naziv}}</span></p>
+    <div ng-show="!editingUstanova" style="font-size: 120%; line-height: 250%">
+        <h3 class="text-info" style="font-style: italic">Osnovne informacije: </h3>
+        <hr style="color: #2b669a; border-color: #2b669a; background-color: #2b669a">
+        <div class="well">
+            <div class="row">
+                <div class="col-md-4">
+                    <span style="font-weight: bold">Vrsta ustanove: </span><span>{{ustanova.vrstaUstanove.naziv}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span style="font-weight: bold">Specijalizacija ustanove: </span><span>{{ustanova.specijalizacijaUstanove.naziv}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span style="font-weight: bold">Mjesto: </span><span>{{ustanova.mjesto.naziv}}</span>
+                </div>
             </div>
-            <div class="col-md-4">
-                <p>Specijalizacija ustanove: <span>{{ustanova.specijalizacijaUstanove.naziv}}</span></p>
-            </div>
-            <div class="col-md-4">
-                <p>Mjesto: <span>{{ustanova.mjesto.naziv}}</span></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <p>Telefon: <span>{{ustanova.telefon}}</span></p>
-            </div>
-            <div class="col-md-4">
-                <p>Email: <span>{{ustanova.email}}</span></p>
-            </div>
-            <div class="col-md-4">
-                <p>Adresa: <span>{{ustanova.adresa}}</span></p>
+            <div class="row">
+                <div class="col-md-4">
+                    <span style="font-weight: bold">Telefon: </span><span>{{ustanova.telefon}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span style="font-weight: bold">Email: </span><span>{{ustanova.email}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span style="font-weight: bold">Adresa: </span><span>{{ustanova.adresa}}</span>
+                </div>
             </div>
         </div>
     </div>
     <!-- PRIKAZ ODJELA USTANOVE -->
     <div ng-init="addingNewOdjel = false">
         <div class="row" style="margin-top:50px">
-            <h3>Odjeli({{ustanova.odjeli.length}}): </h3>
+            <h3 class="text-info" style="font-style: italic">Odjeli: </h3>
+            <hr style="color: #2b669a; border-color: #2b669a; background-color: #2b669a">
         </div>
         <div class="row">
             <form class="form-inline col-md-6">
