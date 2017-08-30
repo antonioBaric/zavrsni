@@ -19,7 +19,7 @@ public class NazivOdjela {
 	@Column(name="NAZIV")
 	private String naziv;
 	
-	@Column(name="OPIS")
+	@Column(name="OPIS", length = 500)
 	private String opis;
 	
 	@Column(name="kratica")

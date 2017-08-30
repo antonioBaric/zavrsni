@@ -19,7 +19,7 @@ public class NazivPregleda {
 	@Column(name="NAZIV")
 	private String naziv;
 	
-	@Column(name = "opis")
+	@Column(name = "opis", length = 500)
 	private String opis;
 	
 	public NazivPregleda() {}
