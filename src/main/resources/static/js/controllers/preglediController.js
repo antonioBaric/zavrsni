@@ -33,7 +33,12 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
             $scope.pregled = data;
             if ($rootScope.userInfo) {
                 $scope.accessToSign = true;
-                var nextDateOfPregled = new Date($scope.pregled.nextDate);
+                var nextDateOfPregled = $scope.minDate =  new Date($scope.pregled.nextDate);
+                $scope.maxDate = new Date(
+                    $scope.minDate.getFullYear(),
+                    $scope.minDate.getMonth() + 6,
+                    $scope.minDate.getDate()
+                );
                 var today = new Date();
                 today.setHours(0,0,0,0);
                 var preglediPacijenta = $rootScope.userInfo.pacijent.preglediPacijenta;
@@ -77,5 +82,9 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
             });
         }
     };
+
+    $scope.check = function () {
+        console.log($scope.datum);
+    }
 
 });

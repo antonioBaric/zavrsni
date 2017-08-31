@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'http-auth-interceptor', 'dtrw.bcrypt']);
+var app = angular.module('app', ['ngRoute', 'http-auth-interceptor', 'dtrw.bcrypt', 'ngAnimate', 'ngMaterial']);
 
 app.constant('USER_ROLES', {
     'admin': 'admin',

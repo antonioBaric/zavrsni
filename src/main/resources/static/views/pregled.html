@@ -44,7 +44,11 @@
     </div>
     <br>
     <div>
-        <h4>Sljedeci dostupan datum je: {{pregled.nextDate}}</h4>
+        <h4>Prvi dostupan termin je: {{pregled.nextDate}}</h4>
+        <div ng-show="role === 'pacijent'">
+            <span>ili odaberite drugi datum: </span>
+            <md-datepicker ng-disabled="!accessToSign || userInfo.status != 1" md-min-date="minDate" md-max-date="maxDate" md-placeholder="Unesi datum" ng-model="datum"></md-datepicker>
+        </div> <button ng-click="check()">Check</button>
         <button class="btn btn-info" ng-show="role === 'pacijent'" ng-disabled="!accessToSign || userInfo.status != 1" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
             Prijavi se
         </button>
@@ -56,5 +60,6 @@
         <p class="text-danger" ng-show="role === 'pacijent' && userInfo.status === -1">
             Vaš korisnički račun je blokiran, molimo Vas da se obratite administratoru.
         </p>
+
     </div>
 </div>
