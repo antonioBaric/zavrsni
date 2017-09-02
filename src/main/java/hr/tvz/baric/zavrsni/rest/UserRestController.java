@@ -141,17 +141,24 @@ public class UserRestController {
 		return userInfo.getPacijent().getPreglediPacijenta();
 	}
 	
-	@PostMapping("addNewPregledToUser/{userId}/{pregledId}")
-	public PregledPacijenta addNewPregledToUser(@PathVariable Long userId, @PathVariable Long pregledId) {
+	@PostMapping("addNewPregledToUser/{userId}/{pregledId}/{pickedDateTimestamp}")
+	public PregledPacijenta addNewPregledToUser(@PathVariable Long userId, @PathVariable Long pregledId, @PathVariable Long pickedDateTimestamp) {
 		// SHIT CODE, SHIT FUNCTION, MAKE IT BETTER LATER!!!
 		UserInfo user = userInfoRepo.findById(userId);
 		Pregled pregled = pregledRepo.findById(pregledId);		
 		if (user == null || pregled == null) {
 			return null;
 		}
+		
+		List<PregledPacijenta> existingPregled = pregledPacijentaRepo.findByDateAndPregled_Id(pickedDateTimestamp, pregledId);
+		
+		if (!existingPregled.isEmpty() || existingPregled.size() > 0) {
+			return null;
+		}
+		
 		PregledPacijenta pregledPacijenta = new PregledPacijenta();
 		pregledPacijenta.setPregled(pregled);
-		pregledPacijenta.setDate(pregled.getNextDate());
+		pregledPacijenta.setDate(pickedDateTimestamp);
 
 		pregledPacijenta.setStatus(true);
 		pregledPacijenta.setPacijent(user.getPacijent());
@@ -162,24 +169,42 @@ public class UserRestController {
 		preglediPacijenta.add(pregledPacijenta);
 		userInfoRepo.saveAndFlush(user);
 		
-		Date date = pregled.getNextDate();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		cal.add(Calendar.DATE, 1);
-		Date nextDate = new Date(cal.getTimeInMillis());
-		if (nextDate.getDay() == 6) {
-			cal = Calendar.getInstance();
-			cal.setTime(nextDate);
-			cal.add(Calendar.DATE, 2);
-			nextDate = new Date(cal.getTimeInMillis());
-		} else if (nextDate.getDay() == 0) {
-			cal = Calendar.getInstance();
-			cal.setTime(nextDate);
-			cal.add(Calendar.DATE, 1);
-			nextDate = new Date(cal.getTimeInMillis());
-		} 
-		pregled.setNextDate(nextDate);
-		pregledRepo.saveAndFlush(pregled);
+		Long timestamp = pregled.getNextDate();
+		
+		if (pickedDateTimestamp.equals(timestamp)) {
+			List<PregledPacijenta> zauzetiPregledi = pregledPacijentaRepo.findByPregled_IdAndDateGreaterThan(pregledId, timestamp);
+			Date date = new Date(timestamp);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			Boolean condition = null;
+			Date nextDate = null;
+			
+			do {
+				cal.add(Calendar.HOUR, 2);
+				nextDate = new Date(cal.getTimeInMillis());
+				if (nextDate.getDay() == 6) {
+					cal = Calendar.getInstance();
+					cal.setTime(nextDate);
+					cal.add(Calendar.DATE, 2);
+					nextDate = new Date(cal.getTimeInMillis());
+				} else if (nextDate.getDay() == 0) {
+					cal = Calendar.getInstance();
+					cal.setTime(nextDate);
+					cal.add(Calendar.DATE, 1);
+					nextDate = new Date(cal.getTimeInMillis());
+				}
+				condition = true;
+				for (PregledPacijenta zauzetPregled : zauzetiPregledi) {
+					if (zauzetPregled.getDate().equals(nextDate.getTime())) {
+						condition = false;
+					}
+				}				
+			} while (!condition);			
+			
+			
+			pregled.setNextDate(nextDate.getTime());
+			pregledRepo.saveAndFlush(pregled);
+		}
 		
 		return pregledPacijenta;
 		

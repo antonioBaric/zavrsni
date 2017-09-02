@@ -2,6 +2,8 @@ app.factory('pregledFacotry', function ($http, $q) {
 
     var apiString = '/api/pregled/';
     var apiStringNazivPregleda = '/api/pregled/nazivPregleda';
+    var apiStringGetAllDatesOfTakenPregledId = '/api/pregled/getAllTakenDatesByPregledId/';
+    var apiStringCheckIfDateIsAvailable = '/api/pregledPacijenta/checkIfDateOfPregledIsAvailable/';
 
     return {
         getAllPregledi: function () {
@@ -133,6 +135,24 @@ app.factory('pregledFacotry', function ($http, $q) {
 
         getOdjelBasicInformation: function (pregledId) {
             return $http.get(apiString + "getOdjelBasicInformation/" + pregledId).then(function(response){
+                return response.data;
+            })
+            .catch(function (response) {
+                $q.reject(response);
+            });
+        },
+
+        getAllDatesOfTakenPregledId: function (pregledId) {
+            return $http.get(apiStringGetAllDatesOfTakenPregledId + pregledId).then(function(response){
+                return response.data;
+            })
+            .catch(function (response) {
+                $q.reject(response);
+            });
+        },
+
+        checkIfDateIsAvailable: function (pickedDateTimestamp, pregledId) {
+            return $http.get(apiStringCheckIfDateIsAvailable + pregledId + "/" + pickedDateTimestamp).then(function(response){
                 return response.data;
             })
             .catch(function (response) {

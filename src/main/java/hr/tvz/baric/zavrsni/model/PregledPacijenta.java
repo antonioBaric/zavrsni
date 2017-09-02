@@ -37,7 +37,8 @@ public class PregledPacijenta {
 	private Boolean status;
 	
 	@Column(name = "DATE")
-	private Date date;
+	// IN TIMESTAMP
+	private Long date;
 
 	public Long getId() {
 		return id;
@@ -63,11 +64,11 @@ public class PregledPacijenta {
 		this.status = status;
 	}
 
-	public Date getDate() {
+	public Long getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Long date) {
 		this.date = date;
 	}
 

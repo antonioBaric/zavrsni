@@ -40,7 +40,8 @@ public class Pregled {
 	private String opis;
 	
 	@Column(name="NEXT_DATE")
-	private Date nextDate;
+	//IN TIMESTAMP
+	private Long nextDate;
 	
 //	@Column(name="STATUS")
 //	private Boolean status;
@@ -102,11 +103,11 @@ public class Pregled {
 		this.opis = opis;
 	}
 
-	public Date getNextDate() {
+	public Long getNextDate() {
 		return nextDate;
 	}
 
-	public void setNextDate(Date nextDate) {
+	public void setNextDate(Long nextDate) {
 		this.nextDate = nextDate;
 	}
 

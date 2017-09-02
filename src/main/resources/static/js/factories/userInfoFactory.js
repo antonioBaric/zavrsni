@@ -48,8 +48,8 @@ app.factory('userInfoFactory', function ($http, $q) {
             });
         },
         
-        addPregledToUser: function (userId, pregledId) {
-            return $http.post(apiInsertPregled + userId + "/" + pregledId)
+        addPregledToUser: function (userId, pregledId, timestamp) {
+            return $http.post(apiInsertPregled + userId + "/" + pregledId + "/" + timestamp)
             .then(function (response) {
                 return $q.resolve(response.data);
             })

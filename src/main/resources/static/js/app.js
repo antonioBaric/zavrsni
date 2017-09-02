@@ -1,4 +1,5 @@
-var app = angular.module('app', ['ngRoute', 'http-auth-interceptor', 'dtrw.bcrypt', 'ngAnimate', 'ngMaterial']);
+var app = angular.module('app', ['ngRoute', 'http-auth-interceptor', 'dtrw.bcrypt', 'ngAnimate', 'ngMaterial',
+	'md.time.picker']);
 
 app.constant('USER_ROLES', {
     'admin': 'admin',

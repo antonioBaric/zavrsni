@@ -43,7 +43,14 @@ public class PostConstruct implements ApplicationListener<ContextRefreshedEvent>
 //				Date dateOfPregled = pregled.getNextDate();
 //				Date datum = pregledPacijentaRepo.getLastDateOfThisPregled(dateOfPregled);
 //				Long time = datum.getTime();
-				Date nextDate = new Date(Calendar.getInstance().getTime().getTime());
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(Calendar.HOUR_OF_DAY, 8);
+				calendar.set(Calendar.MINUTE, 0);
+				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
+				calendar.add(Calendar.HOUR, 24);
+				Date nextDate = new Date(calendar.getTime().getTime());
+				//nextDate.setMinutes(0);
 				if (nextDate.getDay() == 6) {
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(nextDate);
@@ -61,9 +68,10 @@ public class PostConstruct implements ApplicationListener<ContextRefreshedEvent>
 //					cal.add(Calendar.DATE, 4);
 //					nextDay = new Date(cal.getTimeInMillis());
 //				}
-				Date nextDateOfPregled = pregled.getNextDate();
-				if (nextDateOfPregled == null || nextDateOfPregled.before(nextDate)) {
-					nextDateOfPregled = nextDate;
+				Long nextDateTimestamp = nextDate.getTime();
+				Long nextDateOfPregled = pregled.getNextDate();
+				if (nextDateOfPregled == null || nextDateOfPregled < nextDateTimestamp) {
+					nextDateOfPregled = nextDateTimestamp;
 					pregled.setNextDate(nextDateOfPregled);
 					pregledRepo.saveAndFlush(pregled);
 				}

@@ -22,6 +22,7 @@ import hr.tvz.baric.zavrsni.model.Pregled;
 import hr.tvz.baric.zavrsni.repo.NazivPregledaJpaRepo;
 import hr.tvz.baric.zavrsni.repo.OdjelJpaRepo;
 import hr.tvz.baric.zavrsni.repo.PregledJpaRepo;
+import hr.tvz.baric.zavrsni.repo.PregledPacijentaJpaRepo;
 
 @RestController
 @RequestMapping("/api/pregled")
@@ -35,6 +36,9 @@ public class PregledRestController {
 	
 	@Autowired
 	OdjelJpaRepo odjelJpaRepo;
+	
+	@Autowired
+	PregledPacijentaJpaRepo pregledPacijentaJpa;
 	
 	@GetMapping
 	public List<Pregled> getAllPreglede() {
@@ -71,8 +75,13 @@ public class PregledRestController {
 		newPregled.setId(null);
 		newPregled.setOdjel(odjel);
 		
-		Date nextDate = new Date(Calendar.getInstance().getTime().getTime());
-		newPregled.setNextDate(nextDate);
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 8);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Date nextDate = new Date(calendar.getTime().getTime());
+		newPregled.setNextDate(nextDate.getTime());
 		
 		newPregled = pregledJpaRepo.saveAndFlush(newPregled);
 		return newPregled;
@@ -145,6 +154,14 @@ public class PregledRestController {
 	@PutMapping("/nazivPregleda")
 	public NazivPregleda updateNazivPregleda(@RequestBody NazivPregleda nazivPregleda) {
 		return nazivPregledaJpaRepo.saveAndFlush(nazivPregleda);
+	}
+	
+	@GetMapping("/getAllTakenDatesByPregledId/{pregledId}")
+	public List<Long> getAllTakenDatesByPregledId(@PathVariable("pregledId")Long pregledId) {
+		
+		List<Long> takenDates = pregledPacijentaJpa.findDateByPregled_Id(pregledId);
+		
+		return takenDates;
 	}
 	
 

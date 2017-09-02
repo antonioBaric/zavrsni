@@ -219,7 +219,7 @@
                         <h4><a ng-href="#/pregledi/{{pregledPacijenta.pregled.id}}">{{pregledPacijenta.pregled.nazivPregleda.naziv}}</a></h4>
                     </div>
                     <div class="col-md-4">
-                        <h4>{{pregledPacijenta.date}}</h4>
+                        <h4>{{pregledPacijenta.dateString}} u {{pregledPacijenta.timeString}}</h4>
                     </div>
                     <div class="col-md-4">
                         <h4 ng-show="pregledPacijenta.status" class="text-success">Aktivan</h4>

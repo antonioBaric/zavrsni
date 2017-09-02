@@ -17,5 +17,12 @@ public interface PregledPacijentaJpaRepo extends JpaRepository<PregledPacijenta,
 	public PregledPacijenta findFirstByPregled_IdAndDateAfterOrderByDateDesc(Long pregledId, Date date);
 	
 	public List<PregledPacijenta> findByPregled_Id(Long pregledId);
+	
+	@Query("SELECT p.date FROM PregledPacijenta p WHERE p.pregled.id = :pregledId")
+	public List<Long> findDateByPregled_Id(@Param("pregledId")Long pregledId);
+	
+	public List<PregledPacijenta> findByDateAndPregled_Id(@Param("date")Long date, @Param("pregledId")Long pregledId);
+	
+	public List<PregledPacijenta> findByPregled_IdAndDateGreaterThan(Long pregledId, Long nextDateOfPregled);
 
 }

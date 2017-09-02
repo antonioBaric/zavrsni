@@ -96,7 +96,11 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
         preglediPacijenta.forEach(function (it) {
             var date =  new Date(it.date);
             var today = new Date();
-            today.setHours(0,0,0,0);
+            // PROMJENITI SLJEDECU LINIJU NAKON DODAVANJA SATI
+            //today.setHours(0,0,0,0);
+            it.dateString = date.toLocaleDateString();
+            it.dateString = it.dateString.replace(/[/]/g, '.');
+            it.timeString = date.toLocaleTimeString();
             if (date < today) {
                 it.status = false;
             } else {
