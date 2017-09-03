@@ -47,6 +47,14 @@ app.config(function($routeProvider, $locationProvider, USER_ROLES) {
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.doktor, USER_ROLES.pacijent]
 		}
 	})
+	.when('/user/:userId', {
+		templateUrl: './views/userDetails.html',
+		controller: 'userDetailsController',
+		access: {
+			loginRequired: true,
+            authorizedRoles: [USER_ROLES.admin]
+		}
+	})
 	.when('/ustanove', {
 		templateUrl: './views/ustanove.html',
 		controller: 'ustanoveController',

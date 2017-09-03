@@ -1,0 +1,81 @@
+<div class="container" ng-controller="userDetailsController">
+    <div class="row">
+        <h3 class="text-info">Pregled korisnika {{userInfo.ime}} {{userInfo.prezime}}</h3>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td><b>Id: </b></td>
+                <td>{{userInfo.id}}</td>
+            </tr>
+            <tr>
+                <td><b>Ime: </b></td>
+                <td>{{userInfo.ime}}</td>
+            </tr>
+            <tr>
+                <td><b>Prezime: </b></td>
+                <td>{{userInfo.prezime}}</td>
+            </tr>
+            <tr>
+                <td><b>Uloga: </b></td>
+                <td>{{userInfo.userRole.naziv}}</td>
+            </tr>
+            <tr>
+                <td><b>Status: </b></td>
+                <td ng-show="userInfo.status === 1">Aktivan</td>
+                <td ng-show="userInfo.status === -1">Blokiran</td>
+                <td ng-show="userInfo.status === 0">Nedovršen</td>
+            </tr>
+            <tr>
+                <td><b>Korisničko ime: </b></td>
+                <td>{{userInfo.username}}</td>
+            </tr>
+            <tr>
+                <td><b>OIB: </b></td>
+                <td>{{userInfo.oib}}</td>
+            </tr>
+            <tr>
+                <td><b>E-mail: </b></td>
+                <td>{{userInfo.email}}</td>
+            </tr>
+            <tr>
+                <td><b>Mobitel: </b></td>
+                <td>{{userInfo. mobitel}}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <h3>Pregledi korisnika: </h3>
+    <div>
+        <div ng-show="userInfo.pacijent.preglediPacijenta.length > 0">
+            <div class="well" ng-repeat="pregledPacijenta in userInfo.pacijent.preglediPacijenta">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4><a ng-href="#/pregledi/{{pregledPacijenta.pregled.id}}">{{pregledPacijenta.pregled.nazivPregleda.naziv}}</a></h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>{{pregledPacijenta.dateString}} u {{pregledPacijenta.timeString}}</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 ng-show="pregledPacijenta.status" class="text-success">Aktivan</h4>
+                        <h4 ng-show="!pregledPacijenta.status" class="text-warning">Istekao</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span>Ustanova: </span> <a ng-href="#/ustanove/{{pregledPacijenta.pregled.idUstanove}}">{{pregledPacijenta.pregled.imeUstanove}}</a>
+                    </div>
+                    <div class="col-md-4">
+                        <span>Odjel: </span> <a ng-href="#/odjeli/{{pregledPacijenta.pregled.idOdjela}}">{{pregledPacijenta.pregled.imeOdjela}}</a>
+                    </div>
+                    <div class="col-md-4">
+                        <span>Adresa: </span> <span class="text-info">{{pregledPacijenta.pregled.adresaUstanove}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="userInfo.pacijent.preglediPacijenta.length === 0">
+            <h4>Korisnik se jos nije prijavio niti na jedan pregled.</h4>
+        </div>
+    </div>
+</div>

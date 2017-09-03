@@ -37,9 +37,9 @@
                 <th>Akcije</th>
             </tr>
             <tr ng-repeat="user in users">
-                <td class="text-primary">{{user.id}}</td>
-                <td class="text-primary">{{user.ime}}</td>
-                <td class="text-info">{{user.username}}</td>
+                <td class="text-primary"><a ng-href="#/user/{{user.id}}">{{user.id}}</a></td>
+                <td class="text-primary"><a ng-href="#/user/{{user.id}}">{{user.ime}}</a></td>
+                <td class="text-info"><a ng-href="#/user/{{user.id}}">{{user.username}}</a></td>
                 <td>{{user.userRole.naziv}}</td>
                 <td ng-show="user.status === 1">Aktiviran</td>
                 <td ng-show="user.status === -1">Blokiran</td>

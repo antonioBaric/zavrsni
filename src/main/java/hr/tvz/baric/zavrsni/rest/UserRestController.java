@@ -76,6 +76,13 @@ public class UserRestController {
 		return userInfo;
 	}
 	
+	@GetMapping("getUserById/{userId}")
+	public UserInfo getUserById(@PathVariable Long userId) {
+		UserInfo user = userInfoRepo.findById(userId);
+		
+		return user;
+	}
+	
 	@PostMapping
 	public UserInfo insertUserInfo(@RequestBody UserInfo userInfo){
 		UserInfo existingUser = userInfoRepo.findByUsername(userInfo.getUsername());		

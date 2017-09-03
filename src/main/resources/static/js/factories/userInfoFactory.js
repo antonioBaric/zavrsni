@@ -1,6 +1,7 @@
 app.factory('userInfoFactory', function ($http, $q) {
 
     var api = '/api/user/';
+    var apiGetUserById = api + 'getUserById/';
     var apiInsertPregled = api + 'addNewPregledToUser/';
 
     return {
@@ -35,6 +36,16 @@ app.factory('userInfoFactory', function ($http, $q) {
             })
             .catch(function (e) {
                 console.log("error in 'getAllUsers'", e);
+            });
+        },
+
+        getUserById: function (userId) {
+            return $http.get(apiGetUserById + userId)
+            .then(function (response) {
+                return $q.resolve(response.data)
+            })
+            .catch(function (e) {
+                console.log("Error in getUserById: ", e);
             });
         },
 
