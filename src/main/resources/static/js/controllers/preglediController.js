@@ -1,12 +1,49 @@
-app.controller('preglediController', function ($scope) {
+app.controller('preglediController', function ($scope, pregledFacotry, mjestoFacotry) {
 
-    if ($rootScope.role === "admin") {
-        //dohvatiti sve preglede
-    } else {
-        //dohvatiti preglede samo ako su aktivni (ako nije admin)
-    }
+    pregledFacotry.getAllActivePregledi()
+    .then(function (pregledi) {
+        $scope.pregledi = pregledi;
+        $scope.pregledi.forEach(function (pregled) {
+            var date = new Date(pregled.nextDate);
+            var time = date.toLocaleTimeString();
+          pregled.dateString = date.toLocaleDateString().replace(/[/]/g, '.');
+          pregled.timeString = time;
+        });
+    })
+    .catch(function (e) {
+        console.log("pregledFacotry.getAllActivePregledi() nije uspjelo", e);
+    });
+
+    pregledFacotry.getAllNaziviPregleda()
+    .then(function (naziviPregleda) {
+        $scope.naziviPregleda = naziviPregleda;
+    })
+    .catch(function (e) {
+        console.log("pregledFacotry.getAllNaziviPregleda() nije uspjelo", e);
+    });
+
+    mjestoFacotry.getAllMjesta()
+    .then(function (mjesta) {
+        $scope.gradovi = mjesta;
+    })
+    .catch(function (e) {
+        console.log("mjestoFacotry.getAllMjesta() nije uspjelo", e);
+    });
+
+    $scope.myfilter = function (pregled) {
+        if (pregled.nazivPregleda.naziv === $scope.nazivPregledaFilter) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.orderByFunction = function(pregled){
+        return parseInt(pregled.nextDate);
+    };
 
 });
+
 
 app.controller('pregledController', function ($scope, $rootScope, $routeParams, $q, pregledFacotry, userInfoFactory) {
 

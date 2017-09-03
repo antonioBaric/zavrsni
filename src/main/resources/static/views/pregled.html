@@ -43,7 +43,7 @@
         <p><span style="font-weight: bold">Opis pregleda:</span> {{pregled.nazivPregleda.opis}}</p>
     </div>
     <br>
-    <div>
+    <div ng-show="role !== 'admin'">
         <h4>Prvi dostupan termin je: {{pregled.lastDateString}} u {{pregled.lastTimeString}}</h4>
         <div ng-show="role === 'pacijent'" style="display: inline-block">
             <span>ili odaberite drugi termin: </span>

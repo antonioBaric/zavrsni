@@ -62,6 +62,9 @@ public class Pregled {
 	
 	@Transient
 	private String adresaUstanove;
+	
+	@Transient
+	private String mjestoUstanove;
 
 	public Long getId() {
 		return id;
@@ -163,6 +166,18 @@ public class Pregled {
 		}
 	}
 
+	public String getMjestoUstanove() {
+		if (this.getOdjel() != null) {
+			if (this.getOdjel().getUstanova() != null) {
+				return this.getOdjel().getUstanova().getMjesto().getNaziv();
+			} else {
+			return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
 //	public Boolean getStatus() {
 //		return status;
 //	}

@@ -1,1 +1,55 @@
-<h1>STRANICA U IZRADI></h1>
+<div ng-controller="preglediController" class="container">
+
+    <div class="row">
+        <h1>Pregledi: </h1>
+        <hr>
+        <h3>Filteri</h3>
+        <form class="form-inline">
+            <div class="col-md-6">
+                <label for="nazivPregleda">Odaberite pregled: </label>
+                <select ng-model="nazivPregledaFilter" id="nazivPregleda" name="nazivPregleda" class="form-control">
+                    <option ng-repeat="nazivPregleda in naziviPregleda" ng-value="nazivPregleda.naziv">{{nazivPregleda.naziv}}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="grad">Grad: </label>
+                <select class="form-control" id="grad" name="grad" ng-model="gradFilter">
+                    <option ng-value="" style="font-style: italic; font-weight: bold">Svi gradovi</option>
+                    <option ng-repeat="grad in gradovi" ng-value="grad.naziv">{{grad.naziv}}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="grad">Sortiraj po: </label>
+                <select class="form-control" id="sort" name="sort" ng-model="sortFilter">
+                    <option ng-value="false">Prvi slobodni</option>
+                    <option ng-value="true">Zadnji slobodni</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <br><br>
+    <div ng-hide="pregledi">
+        <img src="../pictures/loading.gif">
+    </div>
+
+    <div ng-show="pregledi" class="row well" ng-repeat="pregled in pregledi |filter:myfilter
+        | filter:gradFilter:true:pregled.mjestoUstanove | orderBy:orderByFunction:sortFilter">
+        <div class="row">
+            <div class="col-md-8">
+                <a ng-href="#/pregledi/{{pregled.id}}"><h3>{{pregled.nazivPregleda.naziv}}</h3></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <span class="text-info">Grad: </span><span>{{pregled.mjestoUstanove}}</span>
+            </div>
+            <div class="col-md-4">
+                <span class="text-info">Ustanova: </span><span>{{pregled.imeUstanove}}</span>
+            </div>
+            <div class="col-md-4">
+                <span class="text-info">Prvi slobodni termin: </span><span>{{pregled.dateString}}, {{pregled.timeString}}</span>
+            </div>
+        </div>
+    </div>
+
+</div>
