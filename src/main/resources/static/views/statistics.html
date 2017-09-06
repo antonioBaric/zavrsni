@@ -1,0 +1,47 @@
+<div class="container" ng-controller="statisticsController">
+    <h2>Statistika: </h2>
+    <form name="statisticsForm" ng-submit="generateStatistics()" class="form-inline">
+        <table class="table">
+            <tr>
+                <th>Grad</th>
+                <th>Ustanova</th>
+                <th>Odjel</th>
+                <th>Pregled</th>
+                <th>Godina</th>
+                <th>Mjesec</th>
+            </tr>
+            <tr>
+                <td>
+                    <select class="form-control" id="pickedMjesto" name="pickedMjesto">
+                        <option ng-repeat="mjesto in mjesta" ng-value="mjesto">{{mjesto.naziv}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" id="pickedUstanova" name="pickedUstanova">
+                        <option></option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" id="pickedOdjel" name="pickedOdjel">
+                        <option></option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" id="pickedPregled" name="pickedPregled">
+                        <option></option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" id="pickedYear" name="pickedYear">
+                        <option></option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" id="pickedMonth" name="pickedMonth">
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

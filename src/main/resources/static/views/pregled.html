@@ -54,11 +54,11 @@
             </select>
             <!--<md-time-picker style="display: inline-block" ng-disabled="!accessToSign || userInfo.status != 1" ng-model="vrijeme" mandatory="true" no-meridiem no-auto-switch></md-time-picker> -->
         </div>
-        <button ng-show="role === 'pacijent'" ng-disabled="!accessToSign || userInfo.status != 1" style="display: inline-block" class="btn btn-default" ng-click="checkIfAvailable()">
+        <button ng-show="role === 'pacijent'" ng-disabled="!accessToSign || userInfo.status != 1" style="display: inline-block" class="btn btn-default" ng-click="checkIfAvailable($event)">
             Provjeri dostupnost
         </button>
         <br>
-        <button class="btn btn-info" ng-show="role === 'pacijent'" ng-disabled="!accessToSign || userInfo.status != 1" ng-click="prijavaPregleda(userInfo.id, pregled.id)">
+        <button class="btn btn-info" ng-show="role === 'pacijent'" ng-disabled="!accessToSign || userInfo.status != 1" ng-click="prijavaPregleda($event, userInfo.id, pregled.id)">
             Prijavi se
         </button>
         <p class="text-muted" ng-show="!role || role === ''">Uzmite u obzir da se datum pregleda može promijeniti u svakome trenurku.

@@ -45,7 +45,23 @@ app.controller('preglediController', function ($scope, pregledFacotry, mjestoFac
 });
 
 
-app.controller('pregledController', function ($scope, $rootScope, $routeParams, $q, pregledFacotry, userInfoFactory) {
+app.controller('pregledController', function ($scope, $rootScope, $routeParams, $q, pregledFacotry, userInfoFactory, $mdDialog) {
+
+    $scope.showAlert = function(ev, naslov, poruka) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        // Modal dialogs should fully cover application
+        // to prevent interaction outside of dialog
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title(naslov)
+                .textContent(poruka)
+                .ariaLabel('Alert Dialog Demo')
+                .ok('U redu')
+                .targetEvent(ev)
+        );
+    };
 
     var pregledId = $routeParams.pregledId;
 
@@ -78,7 +94,7 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
                     $scope.minDate.getDate()
                 );
                 var today = new Date();
-                today.setHours(0,0,0,0);
+                //today.setHours(0,0,0,0);
                 var preglediPacijenta = $rootScope.userInfo.pacijent.preglediPacijenta;
                 preglediPacijenta.forEach(function (it) {
                     var lastDateOfUserPregled = new Date(it.date);
@@ -109,7 +125,7 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
         });
     };
     
-    $scope.prijavaPregleda = function (userId, pregledId) {
+    $scope.prijavaPregleda = function (event, userId, pregledId) {
         if ($rootScope.role === "pacijent" && $rootScope.userInfo.status === 1) {
 
             if ($scope.check()) {
@@ -120,7 +136,8 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
                         $rootScope.userInfo.pacijent.preglediPacijenta.push(newPregled);
                         return pregledFacotry.getActivePregledById($scope.pregled.id)
                     } else {
-                        alert("Termin za odabrani datum je zauzet, molimo Vas da izaberete neki drugi datum i vrijeme.");
+                        //alert("Termin za odabrani datum je zauzet, molimo Vas da izaberete neki drugi datum i vrijeme.");
+                        $scope.showAlert(event, 'Pozor', 'Termin za odabrani datum je zauzet, molimo Vas da izaberete neki drugi datum i vrijeme.');
                         return $q.reject("Termin pregleda je zauzet");
                     }
                 })
@@ -128,13 +145,15 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
                     $scope.pregled = pregled;
                     setDateString();
                     $scope.accessToSign = false;
-                    alert("Uspjesno ste se prijavili za pregled.");
+                    //alert("Uspjesno ste se prijavili za pregled.");
+                    $scope.showAlert(event, 'Info', 'Uspješno ste se prijavili na pregled.')
                 })
                 .catch(function (e) {
                     console.log("userInfoFactory.insertNewPregled nije uspio: ", e);
                 });
             } else {
-                alert("Potrebno je unijeti datum i vrijeme.");
+                //alert("Potrebno je unijeti datum i vrijeme.");
+                $scope.showAlert(event, 'Pozor', 'Potrebno je unijeti datum i vrijeme!')
             }
 
         }
@@ -192,21 +211,24 @@ app.controller('pregledController', function ($scope, $rootScope, $routeParams, 
         }
     };
 
-    $scope.checkIfAvailable = function () {
+    $scope.checkIfAvailable = function (event) {
         if ($scope.check()) {
             pregledFacotry.checkIfDateIsAvailable($scope.currentDate.getTime(), $scope.pregled.id)
             .then(function (data) {
                 if (data) {
-                    alert("Termin je slobodan!");
+                    //alert("Termin je slobodan!");
+                    $scope.showAlert(event, 'Info', 'Termin je slobodan');
                 } else {
-                    alert("Termin je zauzet!");
+                    //alert("Termin je zauzet!");
+                    $scope.showAlert(event, 'Info', 'Termin je zauzet');
                 }
             })
             .catch(function (e) {
                 console.log("checkIfAvailable failed", e);
             });
         } else {
-            alert("Molimo upišite datum i vrijeme!");
+            //alert("Molimo upišite datum i vrijeme!");
+            $scope.showAlert(event, 'Info', 'Molimo upišite datum i vrijeme!');
         }
 
 

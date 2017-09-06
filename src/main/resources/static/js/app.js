@@ -103,6 +103,14 @@ app.config(function($routeProvider, $locationProvider, USER_ROLES) {
             loginRequired: false
         }
 	})
+	.when('/statistics', {
+		templateUrl: './views/statistics.html',
+		controller: 'statisticsController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.admin]
+		}
+	})
 	.when('/kontakt', {
 		templateUrl: './views/kontakt.html',
         access: {

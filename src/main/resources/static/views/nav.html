@@ -16,7 +16,7 @@
             <ul class="nav navbar-nav">
                 <li><a ng-href="#/ustanove">Ustanove</a></li>
                 <li><a ng-href="#/pregledi">Pregledi</a></li>
-                <li><a ng-href="#/kontakt">Kontakt</a></li>
+                <li ng-show="role === 'admin'"><a ng-href="#/statistics">Statistika</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="authenticated"><a ng-href="#/login" id="prijava" style="display: inline-block"><span class="text-success">Prijava</span>/<span class="text-primary">Registracija</span></a></li>
