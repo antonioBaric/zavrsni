@@ -57,18 +57,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="updatedUstanovaKratkiOpis"></label>Kratki opis: </td>
-                    <td>
-                        <textarea id="updatedUstanovaKratkiOpis" name="updatedUstanovaKratkiOpis" ng-model="updatedUstanova.kratkiOpis" class="form-control"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="updatedUstanovaSiriOpis"></label>Siri opis: </td>
-                    <td>
-                        <textarea id="updatedUstanovaSiriOpis" name="updatedUstanovaSiriOpis" ng-model="updatedUstanova.siriOpis" class="form-control"></textarea>
-                    </td>
-                </tr>
-                <tr>
                     <td><label for="updatedUstanovaTelefon"></label>Telefon: </td>
                     <td ng-class="{'has-error': updatedUstanovaForm.updatedUstanovaTelefon.$invalid && !updatedUstanovaForm.updatedUstanovaTelefon.$pristine}">
                         <input type="text" id="updatedUstanovaTelefon" name="updatedUstanovaTelefon" ng-model="updatedUstanova.telefon" class="form-control" required ng-pattern="/^[a-zA-Z0-9]+$/">
@@ -81,12 +69,6 @@
                     <td><label for="updatedUstanovaEmail"></label>E-mail: </td>
                     <td ng-class="{'has-error': updatedUstanovaForm.updatedUstanovaEmail.$invalid && !updatedUstanovaForm.updatedUstanovaEmail.$pristine}">
                         <input type="text" id="updatedUstanovaEmail" name="updatedUstanovaEmail" ng-model="updatedUstanova.email" class="form-control" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="updatedUstanovaSlika"></label>Slika: </td>
-                    <td>
-                        <input type="text" id="updatedUstanovaSlika" name="updatedUstanovaSlika" ng-model="updatedUstanova.slika" class="form-control">
                     </td>
                 </tr>
             </table>
@@ -155,12 +137,6 @@
                             <select class="form-control" id="newOdjelNazivOdjela" name="newOdjelNazivOdjela" ng-model="newOdjel.nazivOdjela" required>
                                 <option ng-repeat="nazivOdjela in naziviOdjela" ng-value="nazivOdjela">{{nazivOdjela.naziv}}</option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="newOdjelPrivatniOpis">Privatni opis odjela: </label></td>
-                        <td>
-                            <textarea id="newOdjelPrivatniOpis" name="newOdjelPrivatniOpis" ng-model="newOdjel.privatniOpisOdjela" class="form-control"></textarea>
                         </td>
                     </tr>
                     <tr>

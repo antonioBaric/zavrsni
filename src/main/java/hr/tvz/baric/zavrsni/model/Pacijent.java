@@ -32,8 +32,8 @@ public class Pacijent {
 	@JsonManagedReference
 	private List<PregledPacijenta> preglediPacijenta;
 	
-	@Column(name = "NESTO")
-	private String nesto;
+//	@Column(name = "NESTO")
+//	private String nesto;
 
 	public Long getId() {
 		return id;
@@ -51,13 +51,13 @@ public class Pacijent {
 //		this.userInfo = userInfo;
 //	}
 
-	public String getNesto() {
-		return nesto;
-	}
-
-	public void setNesto(String nesto) {
-		this.nesto = nesto;
-	}
+//	public String getNesto() {
+//		return nesto;
+//	}
+//
+//	public void setNesto(String nesto) {
+//		this.nesto = nesto;
+//	}
 
 	public List<PregledPacijenta> getPreglediPacijenta() {
 		return preglediPacijenta;

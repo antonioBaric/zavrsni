@@ -22,8 +22,8 @@ public class NazivOdjela {
 	@Column(name="OPIS", length = 500)
 	private String opis;
 	
-	@Column(name="kratica")
-	private String kratica;
+//	@Column(name="kratica")
+//	private String kratica;
 	
 	public NazivOdjela() {}
 
@@ -42,14 +42,14 @@ public class NazivOdjela {
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
+//
+//	public String getKratica() {
+//		return kratica;
+//	}
 
-	public String getKratica() {
-		return kratica;
-	}
-
-	public void setKratica(String kratica) {
-		this.kratica = kratica;
-	}
+//	public void setKratica(String kratica) {
+//		this.kratica = kratica;
+//	}
 
 	public Long getId() {
 		return id;

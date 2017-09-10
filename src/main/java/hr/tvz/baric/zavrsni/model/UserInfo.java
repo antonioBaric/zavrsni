@@ -24,10 +24,10 @@ public class UserInfo {
 	@JoinColumn(name = "USER_ROLE" , referencedColumnName = "USER_ROLE_ID")
 	private UserRole userRole;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DOKTOR", referencedColumnName = "DOKTOR_ID")
-//	@JsonManagedReference
-	private Doktor doktor;
+//	@OneToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "DOKTOR", referencedColumnName = "DOKTOR_ID")
+////	@JsonManagedReference
+//	private Doktor doktor;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PACIJENT", referencedColumnName = "PACIJENT_ID")
@@ -76,13 +76,13 @@ public class UserInfo {
 		this.userRole = userRole;
 	}
 
-	public Doktor getDoktor() {
-		return doktor;
-	}
-
-	public void setDoktor(Doktor doktor) {
-		this.doktor = doktor;
-	}
+//	public Doktor getDoktor() {
+//		return doktor;
+//	}
+//
+//	public void setDoktor(Doktor doktor) {
+//		this.doktor = doktor;
+//	}
 
 	public Pacijent getPacijent() {
 		return pacijent;

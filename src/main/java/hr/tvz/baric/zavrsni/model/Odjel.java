@@ -43,8 +43,8 @@ public class Odjel {
 	@JsonManagedReference
 	private List<Pregled> pregledi;
 	
-	@Column(name="PRIVATNI_OPIS_ODJELA")
-	private String privatniOpisOdjela;
+//	@Column(name="PRIVATNI_OPIS_ODJELA")
+//	private String privatniOpisOdjela;
 	
 	@Column(name="telefon")
 	private String telefon;
@@ -98,13 +98,13 @@ public class Odjel {
 		this.pregledi = pregledi;
 	}
 
-	public String getPrivatniOpisOdjela() {
-		return privatniOpisOdjela;
-	}
-
-	public void setPrivatniOpisOdjela(String privatniOpisOdjela) {
-		this.privatniOpisOdjela = privatniOpisOdjela;
-	}
+//	public String getPrivatniOpisOdjela() {
+//		return privatniOpisOdjela;
+//	}
+//
+//	public void setPrivatniOpisOdjela(String privatniOpisOdjela) {
+//		this.privatniOpisOdjela = privatniOpisOdjela;
+//	}
 
 	public String getTelefon() {
 		return telefon;

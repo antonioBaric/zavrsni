@@ -336,7 +336,6 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
             .then(function (data) {
                 $scope.naziviOdjela.push(data);
                 newNazivOdjela.naziv = "";
-                newNazivOdjela.kratica = "";
                 newNazivOdjela.opis = "";
             })
             .catch(function (e) {
@@ -362,13 +361,11 @@ app.controller('userController', function ($rootScope, $scope, $location, $q, us
     $scope.updateNazivOdjel = function (nazivOdjela, updatedNazivOdjela) {
         if ($rootScope.role === "admin") {
             nazivOdjela.naziv = updatedNazivOdjela.naziv;
-            nazivOdjela.kratica = updatedNazivOdjela.kratica;
             nazivOdjela.opis = updatedNazivOdjela.opis;
             odjelFactory.updateNazivOdjela(nazivOdjela)
             .then(function (data) {
                 nazivOdjela = data;
                 updatedNazivOdjela.naziv = "";
-                updatedNazivOdjela.kratica = "";
                 updatedNazivOdjela.opis = "";
             })
             .catch(function (e) {

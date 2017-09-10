@@ -136,7 +136,7 @@ public class PregledRestController {
 		
 		odjel.setActive(null);
 		odjel.setPregledi(null);
-		odjel.setPrivatniOpisOdjela(null);
+//		odjel.setPrivatniOpisOdjela(null);
 		odjel.setUstanova(null);
 		
 		return odjel;

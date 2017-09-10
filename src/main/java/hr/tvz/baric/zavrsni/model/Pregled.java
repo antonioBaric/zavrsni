@@ -36,8 +36,8 @@ public class Pregled {
 	@JsonBackReference
 	private Odjel odjel;
 	
-	@Column(name="OPIS")
-	private String opis;
+//	@Column(name="OPIS")
+//	private String opis;
 	
 	@Column(name="NEXT_DATE")
 	//IN TIMESTAMP
@@ -98,13 +98,13 @@ public class Pregled {
 		this.odjel = odjel;
 	}
 
-	public String getOpis() {
-		return opis;
-	}
-
-	public void setOpis(String opis) {
-		this.opis = opis;
-	}
+//	public String getOpis() {
+//		return opis;
+//	}
+//
+//	public void setOpis(String opis) {
+//		this.opis = opis;
+//	}
 
 	public Long getNextDate() {
 		return nextDate;

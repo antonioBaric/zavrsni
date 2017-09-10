@@ -50,14 +50,14 @@ public class Ustanova {
 	@JsonManagedReference
 	private List<Odjel> odjeli;
 	
-	@Column(name="NASLOV")
-	private String naslov;
-	
-	@Column(name="KRATKI_OPIS")
-	private String kratkiOpis;
-	
-	@Column(name="SIRI_OPIS")
-	private String siriOpis;
+//	@Column(name="NASLOV")
+//	private String naslov;
+//	
+//	@Column(name="KRATKI_OPIS")
+//	private String kratkiOpis;
+//	
+//	@Column(name="SIRI_OPIS")
+//	private String siriOpis;
 	
 	@Column(name="TELEFON")
 	private String telefon;
@@ -65,8 +65,8 @@ public class Ustanova {
 	@Column(name="EMAIL")
 	private String email;
 	
-	@Column(name="SLIKA")
-	private String slika;
+//	@Column(name="SLIKA")
+//	private String slika;
 	
 	public Ustanova() {}
 
@@ -126,29 +126,29 @@ public class Ustanova {
 		this.adresa = adresa;
 	}
 
-	public String getNaslov() {
-		return naslov;
-	}
-
-	public void setNaslov(String naslov) {
-		this.naslov = naslov;
-	}
-
-	public String getKratkiOpis() {
-		return kratkiOpis;
-	}
-
-	public void setKratkiOpis(String kratkiOpis) {
-		this.kratkiOpis = kratkiOpis;
-	}
-
-	public String getSiriOpis() {
-		return siriOpis;
-	}
-
-	public void setSiriOpis(String siriOpis) {
-		this.siriOpis = siriOpis;
-	}
+//	public String getNaslov() {
+//		return naslov;
+//	}
+//
+//	public void setNaslov(String naslov) {
+//		this.naslov = naslov;
+//	}
+//
+//	public String getKratkiOpis() {
+//		return kratkiOpis;
+//	}
+//
+//	public void setKratkiOpis(String kratkiOpis) {
+//		this.kratkiOpis = kratkiOpis;
+//	}
+//
+//	public String getSiriOpis() {
+//		return siriOpis;
+//	}
+//
+//	public void setSiriOpis(String siriOpis) {
+//		this.siriOpis = siriOpis;
+//	}
 
 	public String getTelefon() {
 		return telefon;
@@ -166,13 +166,13 @@ public class Ustanova {
 		this.email = email;
 	}
 
-	public String getSlika() {
-		return slika;
-	}
-
-	public void setSlika(String slika) {
-		this.slika = slika;
-	}
+//	public String getSlika() {
+//		return slika;
+//	}
+//
+//	public void setSlika(String slika) {
+//		this.slika = slika;
+//	}
 
 	public List<Odjel> getOdjeli() {
 		return odjeli;

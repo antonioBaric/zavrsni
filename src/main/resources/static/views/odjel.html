@@ -23,12 +23,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="updateOdjelPrivatniOpis">Privatni opis odjela: </label></td>
-                    <td>
-                        <textarea id="updateOdjelPrivatniOpis" name="updateOdjelPrivatniOpis" ng-model="updatedOdjel.privatniOpisOdjela" class="form-control"></textarea>
-                    </td>
-                </tr>
-                <tr>
                     <td><label for="updateOdjelTelefon">Telefon: </label></td>
                     <td>
                         <input type="text" id="updateOdjelTelefon" name="updateOdjelTelefon" ng-model="updatedOdjel.telefon" class="form-control">
@@ -104,12 +98,6 @@
                             <select class="form-control" id="addNewPregledNazivOdjela" name="addNewPregledNazivOdjela" ng-model="newPregled.nazivPregleda" required>
                                 <option ng-repeat="nazivPregleda in naziviPregleda" ng-value="nazivPregleda">{{nazivPregleda.naziv}}</option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="addNewPregledOpis">Privatni opis odjela: </label></td>
-                        <td>
-                            <textarea id="addNewPregledOpis" name="addNewPregledOpis" ng-model="newPregled.opis" class="form-control"></textarea>
                         </td>
                     </tr>
                 </table>

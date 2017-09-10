@@ -10,12 +10,10 @@ app.factory('userInfoFactory', function ($http, $q) {
             newUserInfo.status = 0;
             return $http.post(api, newUserInfo)
                 .then(function (response) {
-                    //console.log("success: ", response);
                     return $q.resolve(response.data);
                 })
                 .catch(function (e) {
-                    console.log("error", e);
-                    //return $q.reject(e);
+                    console.log("Error in inserting new userInfo", e);
                 });
         },
 
@@ -25,7 +23,7 @@ app.factory('userInfoFactory', function ($http, $q) {
                 return $q.resolve(response.data);
             })
             .catch(function (e) {
-                console.log("error in updating user (userInfoFactory)", e);
+                console.log("Error in updating user: ", e);
             });
         },
 
@@ -35,7 +33,7 @@ app.factory('userInfoFactory', function ($http, $q) {
                 return $q.resolve(response.data);
             })
             .catch(function (e) {
-                console.log("error in 'getAllUsers'", e);
+                console.log("Error in getting all users: ", e);
             });
         },
 
@@ -55,7 +53,7 @@ app.factory('userInfoFactory', function ($http, $q) {
                 return $q.resolve(response.status);
             })
             .catch(function (e) {
-                console.log(e);
+                console.log("Error in deleting user: ", e);
             });
         },
         
@@ -65,11 +63,8 @@ app.factory('userInfoFactory', function ($http, $q) {
                 return $q.resolve(response.data);
             })
             .catch(function (e) {
-                console.log("error", e);
-                //return $q.reject(e);
+                console.log("Error in adding 'pregled' to userInfo: ", e);
             });
         }
-        
     };
-
 });

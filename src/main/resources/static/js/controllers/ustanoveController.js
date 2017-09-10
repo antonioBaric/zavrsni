@@ -1,6 +1,7 @@
 app.controller('ustanoveController', function ($scope, ustanovaFactory, mjestoFacotry) {
-    //get all active ustanove! & odjele & preglede
-    ustanovaFactory.getAllActiveUstanove().then(function (data) {
+
+    ustanovaFactory.getAllActiveUstanove()
+    .then(function (data) {
         $scope.ustanove = data;
     })
     .catch(function (e) {
@@ -30,9 +31,6 @@ app.controller('ustanoveController', function ($scope, ustanovaFactory, mjestoFa
     .catch(function (e) {
         console.log("ustanovaFactory.getAllSpecijalizacijeUstanova() nije uspjelo", e);
     });
-
-
-
 });
 
 app.controller('ustanovaController', function ($scope, $rootScope, $routeParams, ustanovaFactory, mjestoFacotry, odjelFactory) {

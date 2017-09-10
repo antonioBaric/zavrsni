@@ -113,8 +113,8 @@ public class UserRestController {
 				return null;
 			}
 		} else if (userInfo.getUserRole().getNaziv().equals(UserRoles.doktor.name())) {
-			Doktor doktor = userInfo.getDoktor();
-			doktorRepo.save(doktor);
+//			Doktor doktor = userInfo.getDoktor();
+//			doktorRepo.save(doktor);
 		}
 		
 		return userInfoRepo.saveAndFlush(userInfo);
@@ -133,8 +133,8 @@ public class UserRestController {
 			Pacijent pacijent = userInfo.getPacijent();
 			pacijentRepo.delete(pacijent.getId());
 		} else if (userInfo.getUserRole().getNaziv().equals(UserRoles.doktor.name())) {
-			Doktor doktor = userInfo.getDoktor();
-			doktorRepo.delete(doktor.getId());
+//			Doktor doktor = userInfo.getDoktor();
+//			doktorRepo.delete(doktor.getId());
 		}	
 	}
 	

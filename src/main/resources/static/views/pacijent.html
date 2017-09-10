@@ -64,10 +64,6 @@
                     <td class="text-primary">Mobitel: </td>
                     <td>{{userInfo.mobitel}}</td>
                 </tr>
-                <tr>
-                    <td class="text-primary">Nesto: </td>
-                    <td>{{userInfo.pacijent.nesto}}</td>
-                </tr>
             </table>
             <!-- Izmjena svih postojecih podataka -->
             <form novalidate name="updateUserForm" ng-show="updatingInProgress === true" ng-submit="updateUser()" class="form-inline">
@@ -116,15 +112,6 @@
                         </td>
                         <td>
                             <span class="text-danger" ng-show="updateUserForm.mobitel2.$error.pattern">Mobitel može sadržavati samo brojeve!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-primary"><label for="nesto2">Nesto: </label></td>
-                        <td ng-class="{'has-error': updateUserForm.nesto2.$invalid && !updateUserForm.nesto2.$pristine}">
-                            <input type="text" name="nesto2" id="nesto2" class="form-control" ng-model="updatedUser.pacijent.nesto" required>
-                        </td>
-                        <td>
-                            <span class="text-danger"></span>
                         </td>
                     </tr>
                     <tr>
@@ -188,15 +175,6 @@
                         </td>
                         <td>
                             <span class="text-danger" ng-show="completeUserForm.mobitel.$error.pattern">Broj mobitela moze sadrzavati samo brojeve!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-danger"><label for="nesto">Nesto: </label></td>
-                        <td>
-                            <input type="text" name="nesto" id="nesto" ng-model="userInfo.pacijent.nesto" class="form-control" required>
-                        </td>
-                        <td>
-                            <span class="text-danger"></span>
                         </td>
                     </tr>
                 </table>
